@@ -17,3 +17,28 @@
 *.zip
 *.tar.gz
 *.rar
+/target/
+*.class
+*.classpath
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+.project
+.jd*
+.js*
+org.*
