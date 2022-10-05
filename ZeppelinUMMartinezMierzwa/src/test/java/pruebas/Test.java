@@ -17,14 +17,14 @@ class Test {
 		assertTrue(usuario != null);
 	}
 
+	
 	@org.junit.jupiter.api.Test
 	void validarUsuario() {
 		ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
 		boolean exito = servicio.validarUsuario(1);
 		assertTrue(exito);
 	}
-	
-	//hola
+
 	@org.junit.jupiter.api.Test
 	void crearRestaurantePlato() {
 		ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();

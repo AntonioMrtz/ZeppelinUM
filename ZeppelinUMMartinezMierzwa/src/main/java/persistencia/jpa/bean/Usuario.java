@@ -2,6 +2,7 @@ package persistencia.jpa.bean;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -32,6 +33,9 @@ public class Usuario implements Serializable {
     private TipoUsuario tipo;
     @Column(name="validado")
     private boolean validado;
+    
+    @OneToMany(mappedBy = "restaurante",cascade = CascadeType.ALL)
+    private List<Incidencia> incidencias; 
 
     public Usuario() {
         super();
@@ -100,5 +104,15 @@ public class Usuario implements Serializable {
 	public void setValidado(boolean validado) {
 		this.validado = validado;
 	}
+
+	public List<Incidencia> getIncidencias() {
+		return incidencias;
+	}
+
+	public void setIncidencias(List<Incidencia> incidencias) {
+		this.incidencias = incidencias;
+	}
         
+	
+	
 }

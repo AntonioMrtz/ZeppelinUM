@@ -2,6 +2,7 @@ package persistencia.jpa.bean;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -26,6 +27,13 @@ public class Restaurante implements Serializable {
     @JoinColumn(name = "responsable")
     @ManyToOne
     private Usuario responsable;
+    
+    @Column(name="categoria")
+    @Enumerated(EnumType.STRING)
+    private CategoriaRestaurante categoria;
+    
+    @OneToMany(mappedBy = "restaurante",cascade = CascadeType.ALL)
+    private List<Incidencia> incidencias;
 
     private static final long serialVersionUID = 1L;
 
@@ -88,6 +96,26 @@ public class Restaurante implements Serializable {
 	public void setResponsable(Usuario u) {
 		responsable=u;
 		
+	}
+
+	public Usuario getResponsable() {
+		return responsable;
+	}
+
+	public CategoriaRestaurante getCategoria() {
+		return categoria;
+	}
+
+	public List<Incidencia> getIncidencias() {
+		return incidencias;
+	}
+
+	public void setIncidencias(List<Incidencia> incidencias) {
+		this.incidencias = incidencias;
+	}
+
+	public void setCategoria(CategoriaRestaurante categoria) {
+		this.categoria = categoria;
 	}
   
     
