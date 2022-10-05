@@ -42,3 +42,4 @@
 .jd*
 .js*
 org.*
+.DS_Store
