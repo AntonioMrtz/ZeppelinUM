@@ -41,7 +41,7 @@ public class Incidencia implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="usuario")
-	private Usuario usuario;//TODO getter and setter
+	private Usuario usuario;
 
 	
 	public Incidencia() {

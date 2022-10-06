@@ -1,9 +1,11 @@
 package zeppelinum;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import persistencia.jpa.bean.CategoriaRestaurante;
 import persistencia.jpa.bean.Plato;
 import persistencia.jpa.bean.Restaurante;
 import persistencia.jpa.bean.TipoUsuario;
@@ -55,6 +57,7 @@ public class ServicioGestionPlataforma {
     }
     
     public boolean validarUsuario(Integer usuario) {
+    	
         EntityManager em = EntityManagerHelper.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -75,7 +78,7 @@ public class ServicioGestionPlataforma {
         }
     }
 
-    public Integer registrarRestaurante(String nombre, Integer responsable) {
+    public Integer registrarRestaurante(String nombre, Integer responsable,List<CategoriaRestaurante> categorias) {
 
         EntityManager em = EntityManagerHelper.getEntityManager();
         try {
@@ -88,6 +91,7 @@ public class ServicioGestionPlataforma {
             r.setValoracionGlobal(0d);
             r.setNumPenalizaciones(0);
             r.setNumValoraciones(0);
+            r.setCategorias(categorias);
 
             RestauranteDAO.getRestauranteDAO().save(r, em);
             
@@ -104,6 +108,35 @@ public class ServicioGestionPlataforma {
         }
     }
 
+    
+    //CREAR CATEGORIA
+    
+    public boolean addCategoria(Integer restaurante,List<CategoriaRestaurante> categorias) {
+    	
+    	  EntityManager em = EntityManagerHelper.getEntityManager();
+          try {
+              em.getTransaction().begin();
+              
+              Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante);
+              r.addCategorias(categorias);
+              
+              
+              em.getTransaction().commit();           
+              return true;
+          } catch (Exception e) {
+              e.printStackTrace();
+              return false;
+          } finally {
+              if (em.getTransaction().isActive()) {
+                  em.getTransaction().rollback();
+              }
+              em.close();
+          }
+    }
+    
+    
+    
+    
     public boolean nuevoPlato(String titulo, String descripcion, double precio, Integer restaurante) {
         EntityManager em = EntityManagerHelper.getEntityManager();
         try {
@@ -132,4 +165,31 @@ public class ServicioGestionPlataforma {
             em.close();
         }
     }
+    
+    
+    public boolean cambiarDisponibilidadPlato(Integer plato,boolean disponibilidad) {
+    	
+    	EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            
+            Plato p= PlatoDAO.getPlatoDAO().findById(plato);
+            p.setDisponibilidad(disponibilidad);
+            
+            em.getTransaction().commit();           
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
+        }
+    	
+    }
+    
+    
+    
 }

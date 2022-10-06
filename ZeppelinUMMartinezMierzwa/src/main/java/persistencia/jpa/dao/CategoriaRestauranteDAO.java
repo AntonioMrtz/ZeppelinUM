@@ -10,7 +10,7 @@ public class CategoriaRestauranteDAO extends ExtensionDAO<CategoriaRestaurante>{
 
     private static CategoriaRestauranteDAO categoriaRestauranteDAO;
 
-    public static CategoriaRestauranteDAO getIncidenciaDAO() {
+    public static CategoriaRestauranteDAO getCategoriaRestauranteDAO() {
         if (categoriaRestauranteDAO == null)
         	categoriaRestauranteDAO = new CategoriaRestauranteDAO(CategoriaRestaurante.class);
         return categoriaRestauranteDAO;
