@@ -1,6 +1,7 @@
 package zeppelinum;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import persistencia.jpa.bean.Plato;
 import persistencia.jpa.bean.Restaurante;
 import persistencia.jpa.bean.TipoUsuario;
 import persistencia.jpa.bean.Usuario;
+import persistencia.jpa.dao.CategoriaRestauranteDAO;
 import persistencia.jpa.dao.EntityManagerHelper;
 import persistencia.jpa.dao.PlatoDAO;
 import persistencia.jpa.dao.RestauranteDAO;
@@ -109,20 +111,16 @@ public class ServicioGestionPlataforma {
     }
 
     
-    //CREAR CATEGORIA
     
-    public boolean addCategoria(Integer restaurante,List<CategoriaRestaurante> categorias) {
+    public boolean crearCategoria(Integer categoria,String nombre) {
     	
     	  EntityManager em = EntityManagerHelper.getEntityManager();
           try {
               em.getTransaction().begin();
               
-              Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante);
-              r.addCategorias(categorias);
-              
-              
-              //TODO if CATEGORIA IS A CLASS WE HAVE TO GET IT 
-              
+              CategoriaRestaurante r = CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findById(categoria);
+              r.setCategoria(nombre);
+             
               em.getTransaction().commit();           
               return true;
           } catch (Exception e) {
@@ -136,7 +134,36 @@ public class ServicioGestionPlataforma {
           }
     }
     
-    
+    public boolean addCategoria(Integer restaurante,Integer categoria) {
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante);
+            CategoriaRestaurante cat = CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findById(categoria);
+            
+            LinkedList<CategoriaRestaurante>lista=new LinkedList<>();
+            lista.add(cat);
+            
+            r.addCategorias(lista);
+            
+
+            CategoriaRestauranteDAO.getCategoriaRestauranteDAO().save(cat, em);
+            RestauranteDAO.getRestauranteDAO().save(r, em);
+
+            em.getTransaction().commit();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
+        }
+    }   
     
     
     public boolean nuevoPlato(String titulo, String descripcion, double precio, Integer restaurante) {
