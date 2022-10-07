@@ -25,16 +25,17 @@ public class Restaurante implements Serializable {
     private Integer numValoraciones;
     @Column(name ="num_penalizaciones")
     private Integer numPenalizaciones;
+    
+    
     @JoinColumn(name = "responsable")
     @ManyToOne
     private Usuario responsable;
     
-    @Column(name="categorias")
-    @Enumerated(EnumType.STRING)
+    @ManyToMany(mappedBy = "restaurantes")
     private List<CategoriaRestaurante> categorias;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="incidencia")
+    @OneToMany(mappedBy="restaurante",cascade = CascadeType.ALL)
+    @JoinColumn(name="restaurante")
     private List<Incidencia> incidencias;
 
     private static final long serialVersionUID = 1L;

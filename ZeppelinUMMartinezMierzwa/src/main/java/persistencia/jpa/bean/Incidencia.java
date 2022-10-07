@@ -49,6 +49,8 @@ public class Incidencia implements Serializable{
 		super();
 		
 	}
+	
+	//TODO constructor with parameters
 
 	public LocalDate getFechaCreacion() {
 		return fechaCreacion;

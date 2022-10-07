@@ -35,8 +35,7 @@ public class Usuario implements Serializable {
     private boolean validado;
     
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="incidencia")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Incidencia> incidencias; 
 
     public Usuario() {

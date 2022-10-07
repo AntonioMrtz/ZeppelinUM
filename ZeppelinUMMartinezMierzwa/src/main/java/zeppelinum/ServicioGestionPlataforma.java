@@ -121,6 +121,8 @@ public class ServicioGestionPlataforma {
               r.addCategorias(categorias);
               
               
+              //TODO if CATEGORIA IS A CLASS WE HAVE TO GET IT 
+              
               em.getTransaction().commit();           
               return true;
           } catch (Exception e) {
