@@ -3,6 +3,7 @@ package pruebas;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 import persistencia.jpa.bean.TipoUsuario;
 import zeppelinum.ServicioGestionPlataforma;
@@ -29,7 +30,7 @@ class Test {
 	void crearRestaurantePlato() {
 		ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
 
-		Integer rest = servicio.registrarRestaurante("La periquita", 1);
+		Integer rest = servicio.registrarRestaurante("La periquita", 1, new LinkedList<>());
 		assertTrue(rest != null);
 		boolean exito = servicio.nuevoPlato("Marmitako de bonito", "plato de bonito, patatas y cebolla con verduras",
 				20d, rest);
