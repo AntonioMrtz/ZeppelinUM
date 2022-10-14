@@ -94,10 +94,20 @@ public class ServicioGestionPlataforma {
             r.setNumPenalizaciones(0);
             r.setNumValoraciones(0);
             
-            r.setCategorias(CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findByIds(categorias));
+            List <CategoriaRestaurante> categorias_obj =  CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findByIds(categorias);
+
+            r.setCategorias(categorias_obj);
+          
             
-            RestauranteDAO.getRestauranteDAO().save(r, em);
+            // add restaurant to the categories
             
+
+            for(CategoriaRestaurante c : categorias_obj) {
+            	
+            	c.addRestaurant(r);
+            }
+            
+            RestauranteDAO.getRestauranteDAO().save(r, em); 
             em.getTransaction().commit();
             return r.getId();
         } catch (Exception e) {
@@ -168,7 +178,7 @@ public class ServicioGestionPlataforma {
         }
     }   
     
-    
+    /*
     public boolean nuevoPlato(String titulo, String descripcion, double precio, Integer restaurante) {
         EntityManager em = EntityManagerHelper.getEntityManager();
         try {
@@ -190,6 +200,35 @@ public class ServicioGestionPlataforma {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        } finally {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
+        }
+    }*/
+    
+    public Integer nuevoPlato(String titulo, String descripcion, double precio, Integer restaurante) {
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante);
+            Plato p = new Plato();
+            p.setDescripcion(descripcion);
+            p.setTitulo(titulo);
+            p.setPrecio(precio);
+            p.setRestaurante(r);
+            p.setDisponibilidad(true);
+
+            PlatoDAO.getPlatoDAO().save(p, em);
+
+            em.getTransaction().commit();
+            return p.getId();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         } finally {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();

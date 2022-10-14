@@ -31,13 +31,13 @@ public abstract class ExtensionDAO<T> implements DAO<T> {
     	List<T> categorias = new ArrayList<T>();
 
     	for(Integer id: ids) {
-    		
     		try {
     			T instance = EntityManagerHelper.getEntityManager().find(persistedClass, id);
+    			
     			if (instance != null) {
     				EntityManagerHelper.getEntityManager().refresh(instance);
+    				categorias.add(instance);
     			}
-    			categorias.add(instance);
     		} catch (RuntimeException re) {
     			throw re;
     		}

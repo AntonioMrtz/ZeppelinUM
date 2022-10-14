@@ -39,9 +39,10 @@ public class CategoriaRestaurante implements Serializable {
 	}
 	
     @ManyToMany
-    @JoinTable(name="categoria_id",
+    @JoinTable(name="restaurante_categoria",
     
-    			joinColumns= {@JoinColumn(name="categoria_id")}
+    			joinColumns= {@JoinColumn(name="categoria_restaurante_id")},
+    			inverseJoinColumns= {@JoinColumn(name="restaurante_id")}
     		)
     private List<Restaurante> restaurantes;
 
@@ -60,15 +61,24 @@ public class CategoriaRestaurante implements Serializable {
 	public void setRestaurantes(List<Restaurante> restaurantes) {
 		this.restaurantes = restaurantes;
 	}
+	
+	
 
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-    
 	
+	public boolean addRestaurants(List<Restaurante> restaurantes) {
+		
+		return this.restaurantes.addAll(restaurantes);
+		
+	}
+	
+	public boolean addRestaurant(Restaurante r) {
+		
+		return this.restaurantes.add(r);
+		
+	}
     
 }

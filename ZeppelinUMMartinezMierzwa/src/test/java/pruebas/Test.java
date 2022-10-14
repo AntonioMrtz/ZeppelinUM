@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
-
 import persistencia.jpa.bean.Restaurante;
 import persistencia.jpa.bean.TipoUsuario;
 import persistencia.jpa.dao.RestauranteDAO;
@@ -20,6 +19,8 @@ class Test {
 		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
 		Integer usuario = servicio.registrarUsuario("Periquita", "Palotes", fechaNacimiento, "periquita@palotes.es",
 				"12345", TipoUsuario.RESTAURANTE);
+		
+		//servicio.
 		assertTrue(usuario != null);
 	}
 
@@ -28,7 +29,12 @@ class Test {
 	@org.junit.jupiter.api.Test
 	void validarUsuario() {
 		
-		boolean exito = servicio.validarUsuario(1);
+		
+		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
+		Integer usuario = servicio.registrarUsuario("Periquita", "Palotes", fechaNacimiento, "periquita@palotes.es",
+				"12345", TipoUsuario.RESTAURANTE);
+		
+		boolean exito = servicio.validarUsuario(usuario);
 		assertTrue(exito);
 	}
 
@@ -37,9 +43,9 @@ class Test {
 
 		Integer rest = servicio.registrarRestaurante("La periquita", 1, new LinkedList<>());
 		assertTrue(rest != null);
-		boolean exito = servicio.nuevoPlato("Marmitako de bonito", "plato de bonito, patatas y cebolla con verduras",
+		Integer exito = servicio.nuevoPlato("Marmitako de bonito", "plato de bonito, patatas y cebolla con verduras",
 				20d, rest);
-		assertTrue(exito);
+		assertNotNull(exito);
 
 	}
 	
@@ -67,17 +73,39 @@ class Test {
 	void checkRegisterRestaurant() {
 		
 		LinkedList<Integer> categorias= new LinkedList<>();
-		categorias.add(1);
-		categorias.add(2);
+
+		
+		/* persist categories*/
+		
+		categorias.add( servicio.crearCategoria("cat1"));
+		categorias.add( servicio.crearCategoria("cat2"));		
+
+
 		Integer restaurante_id=servicio.registrarRestaurante("La Periquita",1,categorias);
 		
 		Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
-		assertNotEquals(0, r.getCategorias().size());
+				
+		assertEquals(2, r.getCategorias().size());
 	
 		
 	}
 	
-	
+	@org.junit.jupiter.api.Test
+	void checkChangePlateAvailableness(){
+		
+		Integer categoria_id=servicio.crearCategoria("cat1");
+		LinkedList<Integer> cats=new LinkedList<>();
+		cats.add(categoria_id);
+		Integer restaurante_id=servicio.registrarRestaurante("La Periquita",1,cats);
+		Integer plato=servicio.nuevoPlato("plato1","", 10, restaurante_id);
+		
+		
+		
+		
+		
+		assertTrue(servicio.cambiarDisponibilidadPlato(plato, false));
+		
+	}
 	
 	
 	
