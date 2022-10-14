@@ -8,6 +8,8 @@
     	<class>persistencia.jpa.bean.Restaurante</class>
         <class>persistencia.jpa.bean.Usuario</class>
         <class>persistencia.jpa.bean.Plato</class>
+        <class>persistencia.jpa.bean.Incidencia</class>
+        <class>persistencia.jpa.bean.CategoriaRestaurante</class>
         <properties>
             <property name="javax.persistence.jdbc.driver"
                 value="com.mysql.cj.jdbc.Driver" />

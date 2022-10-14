@@ -19,6 +19,7 @@ class Test {
 	}
 
 	
+	
 	@org.junit.jupiter.api.Test
 	void validarUsuario() {
 		ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
