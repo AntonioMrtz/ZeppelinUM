@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -37,8 +38,11 @@ public class CategoriaRestaurante implements Serializable {
 		this.categoria=categoria;
 	}
 	
-    @ManyToMany()
-    @JoinColumn(name="restaurante")
+    @ManyToMany
+    @JoinTable(name="categoria_id",
+    
+    			joinColumns= {@JoinColumn(name="categoria_id")}
+    		)
     private List<Restaurante> restaurantes;
 
 	public String getCategoria() {
@@ -56,6 +60,15 @@ public class CategoriaRestaurante implements Serializable {
 	public void setRestaurantes(List<Restaurante> restaurantes) {
 		this.restaurantes = restaurantes;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
     
+	
     
 }

@@ -1,5 +1,6 @@
 package persistencia.jpa.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -25,10 +26,28 @@ public abstract class ExtensionDAO<T> implements DAO<T> {
         }
     }   
     @Override
-    public List<T> findByIds(List<Integer> id) {
-        return null;
-        // TODO Auto-generated method stub
+    public List<T> findByIds(List<Integer> ids) {
+
+    	List<T> categorias = new ArrayList<T>();
+
+    	for(Integer id: ids) {
+    		
+    		try {
+    			T instance = EntityManagerHelper.getEntityManager().find(persistedClass, id);
+    			if (instance != null) {
+    				EntityManagerHelper.getEntityManager().refresh(instance);
+    			}
+    			categorias.add(instance);
+    		} catch (RuntimeException re) {
+    			throw re;
+    		}
+    		
+    	}
+    	
+    	return categorias;
     }
+    
+    
     @Override
     public void save(T t, EntityManager em) {
         em.persist(t);

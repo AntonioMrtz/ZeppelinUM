@@ -80,7 +80,7 @@ public class ServicioGestionPlataforma {
         }
     }
 
-    public Integer registrarRestaurante(String nombre, Integer responsable,List<CategoriaRestaurante> categorias) {
+    public Integer registrarRestaurante(String nombre, Integer responsable,List<Integer> categorias) {
 
         EntityManager em = EntityManagerHelper.getEntityManager();
         try {
@@ -93,8 +93,9 @@ public class ServicioGestionPlataforma {
             r.setValoracionGlobal(0d);
             r.setNumPenalizaciones(0);
             r.setNumValoraciones(0);
-            r.setCategorias(categorias);
-
+            
+            r.setCategorias(CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findByIds(categorias));
+            
             RestauranteDAO.getRestauranteDAO().save(r, em);
             
             em.getTransaction().commit();
@@ -112,20 +113,22 @@ public class ServicioGestionPlataforma {
 
     
     
-    public boolean crearCategoria(Integer categoria,String nombre) {
+    public Integer crearCategoria(String nombre) {
     	
     	  EntityManager em = EntityManagerHelper.getEntityManager();
           try {
               em.getTransaction().begin();
               
-              CategoriaRestaurante r = CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findById(categoria);
-              r.setCategoria(nombre);
+              CategoriaRestaurante c = new CategoriaRestaurante(nombre);
+              c.setCategoria(nombre);
+              
+              CategoriaRestauranteDAO.getCategoriaRestauranteDAO().save(c, em);
              
-              em.getTransaction().commit();           
-              return true;
+              em.getTransaction().commit(); 
+              return c.getId();
           } catch (Exception e) {
               e.printStackTrace();
-              return false;
+              return null;
           } finally {
               if (em.getTransaction().isActive()) {
                   em.getTransaction().rollback();

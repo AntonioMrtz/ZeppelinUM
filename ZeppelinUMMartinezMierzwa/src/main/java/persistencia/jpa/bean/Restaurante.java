@@ -34,8 +34,8 @@ public class Restaurante implements Serializable {
     @ManyToMany(mappedBy = "restaurantes")
     private List<CategoriaRestaurante> categorias;
     
+    @JoinColumn(name="incidencia")
     @OneToMany(mappedBy="restaurante",cascade = CascadeType.ALL)
-    @JoinColumn(name="restaurante")
     private List<Incidencia> incidencias;
 
     private static final long serialVersionUID = 1L;
@@ -105,7 +105,7 @@ public class Restaurante implements Serializable {
 		return responsable;
 	}
 
-	public List<CategoriaRestaurante> getCategoria() {
+	public List<CategoriaRestaurante> getCategorias() {
 		return new LinkedList<>(categorias);
 	}
 
