@@ -49,8 +49,17 @@ public class Incidencia implements Serializable{
 		super();
 		
 	}
-	
-	//TODO constructor with parameters
+
+
+	public Incidencia(LocalDate fechaCreacion,String descripcion,LocalDate fechaCierre,String comentarioCierre,Usuario usuario , Restaurante restaurante) {
+		
+		this.fechaCierre=fechaCierre;
+		this.descripcion=descripcion;
+		this.fechaCreacion=fechaCreacion;
+		this.comentarioCierre=comentarioCierre;
+		this.usuario=usuario;
+		this.restaurante=restaurante;
+	}
 
 	public LocalDate getFechaCreacion() {
 		return fechaCreacion;
