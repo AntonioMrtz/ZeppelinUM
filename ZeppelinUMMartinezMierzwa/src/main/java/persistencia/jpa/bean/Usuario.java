@@ -114,6 +114,8 @@ public class Usuario implements Serializable {
 		this.incidencias = incidencias;
 	}
         
-	
+	public void addIncidencias(List<Incidencia> incidencias) {
+		this.incidencias.addAll(incidencias);
+	}
 	
 }

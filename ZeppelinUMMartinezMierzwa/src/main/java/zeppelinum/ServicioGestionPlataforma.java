@@ -7,12 +7,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import persistencia.jpa.bean.CategoriaRestaurante;
+import persistencia.jpa.bean.Incidencia;
 import persistencia.jpa.bean.Plato;
 import persistencia.jpa.bean.Restaurante;
 import persistencia.jpa.bean.TipoUsuario;
 import persistencia.jpa.bean.Usuario;
 import persistencia.jpa.dao.CategoriaRestauranteDAO;
 import persistencia.jpa.dao.EntityManagerHelper;
+import persistencia.jpa.dao.IncidenciaDAO;
 import persistencia.jpa.dao.PlatoDAO;
 import persistencia.jpa.dao.RestauranteDAO;
 import persistencia.jpa.dao.UsuarioDAO;
@@ -259,6 +261,45 @@ public class ServicioGestionPlataforma {
             em.close();
         }
     	
+    }
+    
+    
+    public Integer crearIncidencia (LocalDate fechaCreacion,String descripcion,LocalDate fechaCierre,String comentarioCierre,Integer user_id,Integer restaurant_id) {
+    	
+    	EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            
+            Restaurante r=RestauranteDAO.getRestauranteDAO().findById(restaurant_id);
+            Usuario u=UsuarioDAO.getUsuarioDAO().findById(user_id);            
+            
+            Incidencia i = new Incidencia(fechaCreacion,descripcion,fechaCierre,comentarioCierre,u,r);
+            
+            LinkedList<Incidencia> l = new LinkedList<>();
+            l.add(i);
+            
+            r.addIncidencias(l);
+            u.addIncidencias(l);
+            
+            IncidenciaDAO.getIncidenciaDAO().save(i, em);
+            RestauranteDAO.getRestauranteDAO().save(r, em);
+            UsuarioDAO.getUsuarioDAO().save(u, em);
+            
+            
+            em.getTransaction().commit();     
+            
+            return i.getId();
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
+        }
     }
     
     
