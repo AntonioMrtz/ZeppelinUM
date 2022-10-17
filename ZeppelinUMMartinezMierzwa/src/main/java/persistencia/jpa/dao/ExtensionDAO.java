@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.eclipse.persistence.config.HintValues;
+import org.eclipse.persistence.config.QueryHints;
 
 public abstract class ExtensionDAO<T> implements DAO<T> {
     protected Class<T> persistedClass;
@@ -52,10 +56,22 @@ public abstract class ExtensionDAO<T> implements DAO<T> {
     public void save(T t, EntityManager em) {
         em.persist(t);
     }
-
+    
     @Override
     public List<T> getAll() {
-        return null;
-        // TODO Auto-generated method stub
+        try {
+            final String queryString = " SELECT model from " + name + " model ";
+            Query query =
+    EntityManagerHelper.getEntityManager().createQuery(queryString);
+            query.setHint(QueryHints.REFRESH, HintValues.TRUE);
+            return query.getResultList();
+        } catch (RuntimeException re) {
+    throw re; }
+    }
+
+    @Override
+    public Integer findByName(String nombre) {
+        String queryString = "SELECT * FROM " + name + "WHERE Name = " + nombre;
+        
     }
 }
