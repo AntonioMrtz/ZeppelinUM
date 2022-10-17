@@ -1,4 +1,8 @@
 *.class
+pom.*
+persistence.xml
+main.java
+
 
 # Log file
 *.log

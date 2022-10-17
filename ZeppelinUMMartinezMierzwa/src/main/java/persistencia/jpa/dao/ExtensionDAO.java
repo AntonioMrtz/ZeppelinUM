@@ -8,10 +8,12 @@ import javax.persistence.EntityManager;
 public abstract class ExtensionDAO<T> implements DAO<T> {
     protected Class<T> persistedClass;
     private String name;
+   
 
     public ExtensionDAO(Class<T> persistedClass) {
         this.persistedClass = persistedClass;
         name = persistedClass.getName().substring(persistedClass.getName().lastIndexOf(".") + 1);
+        
     }   
     @Override
     public T findById(Integer id) {
