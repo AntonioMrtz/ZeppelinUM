@@ -38,7 +38,13 @@ public class ServicioGestionPlataforma {
         EntityManager em = EntityManagerHelper.getEntityManager();
         try {
             em.getTransaction().begin();
+            
 
+            //TODO check if user already in database
+            if(UsuarioDAO.getUsuarioDAO().findByName(nombre, apellidos).size()>=1)  return null;
+            	
+           
+            
             Usuario usu = new Usuario();
             usu.setNombre(nombre);
             usu.setApellidos(apellidos);
@@ -225,8 +231,16 @@ public class ServicioGestionPlataforma {
             p.setPrecio(precio);
             p.setRestaurante(r);
             p.setDisponibilidad(true);
+            
+            
+            LinkedList<Plato> l = new LinkedList<>();
+            l.add(p);
 
+            r.addPlato(l);
+
+            
             PlatoDAO.getPlatoDAO().save(p, em);
+            RestauranteDAO.getRestauranteDAO().save(r, em);
 
             em.getTransaction().commit();
             return p.getId();
@@ -251,6 +265,8 @@ public class ServicioGestionPlataforma {
             
             Plato p= PlatoDAO.getPlatoDAO().findById(plato);
             p.setDisponibilidad(disponibilidad);
+            
+            PlatoDAO.getPlatoDAO().save(p, em);
             
             em.getTransaction().commit();           
             return true;

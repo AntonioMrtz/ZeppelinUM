@@ -37,6 +37,11 @@ public class Restaurante implements Serializable {
     @JoinColumn(name="incidencia")
     @OneToMany(mappedBy="restaurante",cascade = CascadeType.ALL)
     private List<Incidencia> incidencias;
+    
+    
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
+    private List<Plato> platos;
+    
 
     private static final long serialVersionUID = 1L;
 
@@ -128,7 +133,17 @@ public class Restaurante implements Serializable {
 	public void addCategorias(List<CategoriaRestaurante> categorias) {
 		this.categorias.addAll(categorias);
 	}
+
+	public List<Plato> getPlatos() {
+		return platos;
+	}
+
+	public void setPlatos(List<Plato> platos) {
+		this.platos = platos;
+	}
     
-    
+	public void addPlato(List<Plato> platos) {
+		this.platos.addAll(platos);
+	}
     
 }

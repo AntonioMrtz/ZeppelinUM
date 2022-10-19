@@ -45,6 +45,17 @@ public class UsuarioDAO extends ExtensionDAO<Usuario> {
 		}
 	}
 	
+	public List<UsuarioDTO> findByName(String nombre, String apellidos) {
+		try {
+			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Usuario.findByName");
+			query.setParameter("nombre", nombre);
+			query.setParameter("apellidos", apellidos);
+			return transformarToDTO(query.getResultList());
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+	
 	
 	public List<UsuarioDTO> transformarToDTO(List<Usuario> usuarios) {
 		List<UsuarioDTO> users = new ArrayList<UsuarioDTO>();
