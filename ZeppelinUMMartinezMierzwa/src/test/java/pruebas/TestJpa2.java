@@ -8,7 +8,7 @@ import persistencia.jpa.bean.TipoUsuario;
 import persistencia.jpa.dao.PlatoDAO;
 import zeppelinum.ServicioGestionPlataforma;
 
-class Test {
+class TestJpa2 {
 	
 	private ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
 	
@@ -37,11 +37,13 @@ class Test {
 		assertNotNull(exito);
 	}
 	
+	//FIXME doesnt work with multiples executions ( made by teacher )
 	@org.junit.jupiter.api.Test
 	public void platosByRestaurante() {
 		ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
-		//servicio.cambiarDisponibilidadPlato(1, true);
-		assertTrue(servicio.getMenuByRestaurante(1).size() == 1);
+		int last_size=servicio.getMenuByRestaurante(1).size();
+		servicio.cambiarDisponibilidadPlato(1, false);
+		assertTrue(servicio.getMenuByRestaurante(1).size() == last_size-1);
 	}
 	
 	@org.junit.jupiter.api.Test
