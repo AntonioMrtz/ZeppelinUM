@@ -3,6 +3,10 @@ package persistencia.jpa.bean;
 import java.io.Serializable;
 import javax.persistence.*;
 
+@NamedQueries({
+@NamedQuery(name = "Plato.findPlatosDisponiblesByRestaurante", query = "SELECT p FROM Plato p WHERE p.disponibilidad = true and p.restaurante.id =:restaurante ")
+})
+
 @Entity
 @Table(name="plato")
 public class Plato implements Serializable {

@@ -6,6 +6,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Usuario.findByEmailClave", query = " SELECT u FROM Usuario u WHERE u.email = :email and u.clave = :clave "),
+	@NamedQuery(name = "Usuario.findByEmail", query = " SELECT u FROM Usuario u WHERE u.email = :email ")
+})
 
 @Entity
 @Table(name="usuario")
@@ -38,6 +42,8 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Incidencia> incidencias; 
 
+    
+    
     public Usuario() {
         super();
     }

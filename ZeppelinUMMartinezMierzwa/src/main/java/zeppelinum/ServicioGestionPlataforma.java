@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import persistencia.dto.PlatoDTO;
+import persistencia.dto.RestauranteDTO;
+import persistencia.dto.UsuarioDTO;
 import persistencia.jpa.bean.CategoriaRestaurante;
 import persistencia.jpa.bean.Incidencia;
 import persistencia.jpa.bean.Plato;
@@ -302,6 +305,43 @@ public class ServicioGestionPlataforma {
         }
     }
     
-    
+	public List<PlatoDTO> getMenuByRestaurante(Integer restaurante) {
+		return PlatoDAO.getPlatoDAO().findPlatosDisponiblesByRestaurante(restaurante);
+	}
+
+	public List<RestauranteDTO> getRestaurantesByFiltros(String keyword, boolean verNovedades,
+			boolean ordernarByValoracion, boolean ceroIncidencias) {
+		if (keyword != null && keyword.isBlank()) {
+			keyword = null;
+		}
+		LocalDate fecha = null;
+		if (verNovedades) { // filtramos por aquellos dados de alta la última semana
+			fecha = LocalDate.now();
+			fecha = fecha.minusWeeks(1);
+		}
+		return RestauranteDAO.getRestauranteDAO().findRestauranteByFiltros(keyword, fecha, ordernarByValoracion,
+				ceroIncidencias);
+	}
+	
+	
+	public boolean isUsuarioRegistrado(String email) {
+		List<UsuarioDTO> u = UsuarioDAO.getUsuarioDAO().findByEmail(email);
+		if(u != null && !u.isEmpty()) {
+		return true;
+		}
+		return false;
+		}
+	
+	
+		public UsuarioDTO login(String email, String clave) {
+			List<UsuarioDTO> usuarios = UsuarioDAO.getUsuarioDAO().findByEmailClave(email, clave);
+			if (usuarios.isEmpty()) {
+				System.out.println("Usuario no encontrado, email o clave incorrectos");
+				return null;
+			} else {
+				System.out.println("Usuario logueado " + usuarios.get(0).getNombre());
+				return usuarios.get(0);
+			}
+		}
     
 }
