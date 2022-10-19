@@ -1,4 +1,4 @@
 #TODO
 
-* Check Incidencia with Tests
-* Do Boletin3 
+* Boletin test 3 fix buscarRestaurantes
+* Do exercices boletin3
