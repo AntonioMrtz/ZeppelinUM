@@ -23,7 +23,7 @@ public abstract class ExtensionMongoDAO <T> {
     public ExtensionMongoDAO() {
         
         mongoClient = MongoClients.create("mongodb://localhost:27017");     
-        db = mongoClient.getDatabase("zeppelinumlegazgarcia");
+        db = mongoClient.getDatabase("Zeppelinummartinezmierzwa");
         
         defaultCodecRegistry =CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
                 CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
