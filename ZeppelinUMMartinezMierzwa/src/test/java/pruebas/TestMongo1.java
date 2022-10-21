@@ -55,17 +55,17 @@ class TestMongo1 {
 	@org.junit.jupiter.api.Test
 	void crearOpinion() {
 	    ServicioGestionPedido servicio = ServicioGestionPedido.getServicioGestionPedido();      
-	    servicio.opinar(2, 2, "Todo estupendo y muy rico", 10d);
-	    servicio.opinar(2, 1, "La comida llegó un poco fría", 7.5d);
-	    servicio.opinar(2, 3, "El menú es un poco escaso, pero todo muy bueno", 8d);
-	    servicio.opinar(2, 3, "Nos trajeron un plato cambiado", 5d);
-	    servicio.opinar(2, 4, "Siempre repetimos", 10d);        
+	    servicio.opinar(1, 2, "Todo estupendo y muy rico", 10d);
+	    servicio.opinar(1, 1, "La comida llegó un poco fría", 7.5d);
+	    servicio.opinar(1, 3, "El menú es un poco escaso, pero todo muy bueno", 8d);
+	    servicio.opinar(1, 3, "Nos trajeron un plato cambiado", 5d);
+	    //servicio.opinar(1, 4, "Siempre repetimos", 10d);        no hay id==4
 	}
 	    
 	@org.junit.jupiter.api.Test
 	    void buscarOpiniones() {
 	    ServicioGestionPedido servicio = ServicioGestionPedido.getServicioGestionPedido();      
-	    assertTrue(servicio.findByUsuario(2).size() == 5);
+	    assertTrue(servicio.findByUsuario(1).size() == 4);
 	    assertTrue(servicio.findByRestaurante(3).size() == 2);
 	}
 	
