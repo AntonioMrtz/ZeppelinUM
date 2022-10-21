@@ -1,8 +1,6 @@
-*.class
-pom.xml
+pom.*
 persistence.xml
 main.java
-
 
 # Log file
 *.log
@@ -46,3 +44,4 @@ main.java
 .jd*
 .js*
 org.*
+.DS_Store
