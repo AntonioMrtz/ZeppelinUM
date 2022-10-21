@@ -26,7 +26,8 @@ class OwnTest {
 	@org.junit.jupiter.api.Test
 	void checkAddCategory() {
 
-		assertTrue(servicio.addCategoria(1, 1));
+		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+		assertTrue(servicio.addCategoria(restaurante_id, 1));
 
 	}
 
@@ -40,7 +41,7 @@ class OwnTest {
 		categorias.add(servicio.crearCategoria("cat1"));
 		categorias.add(servicio.crearCategoria("cat2"));
 
-		Integer restaurante_id = servicio.registrarRestaurante("La Periquita", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, categorias);
+		Integer restaurante_id = servicio.registrarRestaurante("REst1", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, categorias);
 
 		Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
 
@@ -51,9 +52,8 @@ class OwnTest {
 	@org.junit.jupiter.api.Test
 	void checkChangePlateAvailableness() {
 
-		Integer categoria_id = servicio.crearCategoria("cat1");
 		LinkedList<Integer> cats = new LinkedList<>();
-		cats.add(categoria_id);
+		cats.add(1);
 		Integer restaurante_id = servicio.registrarRestaurante("Restaurante", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
 		Integer plato = servicio.nuevoPlato("plato1", "", 10, restaurante_id);
 		
@@ -66,9 +66,9 @@ class OwnTest {
 	@org.junit.jupiter.api.Test
 	void checkCreateIncidencia() {
 
-		Integer categoria_id = servicio.crearCategoria("cat1");
+		
 		LinkedList<Integer> cats = new LinkedList<>();
-		cats.add(categoria_id);
+		cats.add(1);
 		Integer restaurante_id = servicio.registrarRestaurante("1 something else", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
 		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
 		Integer usuario_id = servicio.registrarUsuario("1 someone else", "Palotes", fechaNacimiento,
@@ -83,12 +83,12 @@ class OwnTest {
 	@org.junit.jupiter.api.Test
 	void checkIncidenciaLinked() {
 
-		Integer categoria_id = servicio.crearCategoria("cat1");
+		
 		LinkedList<Integer> cats = new LinkedList<>();
-		cats.add(categoria_id);
-		Integer restaurante_id = servicio.registrarRestaurante("something else", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
+		cats.add(1);
+		Integer restaurante_id = servicio.registrarRestaurante("something else nuevo", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
 		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
-		Integer usuario_id = servicio.registrarUsuario("someone else", "Palotes", fechaNacimiento,
+		Integer usuario_id = servicio.registrarUsuario("someone else", "Palotes2", fechaNacimiento,
 				"periquita@palotes.es", "12345", TipoUsuario.RESTAURANTE);
 		Integer incidencia_id = servicio.crearIncidencia(fechaNacimiento, "description", fechaNacimiento, "",
 				usuario_id, restaurante_id);

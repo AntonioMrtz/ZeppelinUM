@@ -50,8 +50,7 @@ public class ServicioGestionPlataforma {
 		try {
 			em.getTransaction().begin();
 
-			// TODO check if user already in database
-			if (UsuarioDAO.getUsuarioDAO().findByName(nombre, apellidos).size() >= 1)
+			if (UsuarioDAO.getUsuarioDAO().findByName(nombre, apellidos).size() > 0)
 				return null;
 
 			Usuario usu = new Usuario();
@@ -106,6 +105,13 @@ public class ServicioGestionPlataforma {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		try {
 			em.getTransaction().begin();
+			
+			if(RestauranteDAO.getRestauranteDAO().findByName(nombre).size() > 0) {
+				
+				System.out.println("fwaaaaaaaaaaaaaaaaaa");
+				
+				return null;
+			}
 
 			Restaurante r = new Restaurante();
 			r.setResponsable(UsuarioDAO.getUsuarioDAO().findById(responsable));
@@ -136,7 +142,7 @@ public class ServicioGestionPlataforma {
 			}
 
 			DireccionDAO.getDireccionDAO().save(d);
-			///
+			
 			em.getTransaction().commit();
 			return r.getId();
 		} catch (Exception e) {
@@ -155,6 +161,11 @@ public class ServicioGestionPlataforma {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		try {
 			em.getTransaction().begin();
+			
+			if(CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findByName(nombre).size() >0) {
+				
+				return null;
+			}
 
 			CategoriaRestaurante c = new CategoriaRestaurante(nombre);
 			c.setCategoria(nombre);
