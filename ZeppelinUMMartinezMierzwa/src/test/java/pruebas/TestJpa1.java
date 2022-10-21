@@ -41,7 +41,7 @@ private ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServic
 	@org.junit.jupiter.api.Test
 	void crearRestaurantePlato() {
 
-		Integer rest = servicio.registrarRestaurante("La periquita", 1, new LinkedList<>());
+		Integer rest = servicio.registrarRestaurante("La periquita", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
 		assertTrue(rest != null);
 		Integer exito = servicio.nuevoPlato("Marmitako de bonito", "plato de bonito, patatas y cebolla con verduras",
 				20d, rest);

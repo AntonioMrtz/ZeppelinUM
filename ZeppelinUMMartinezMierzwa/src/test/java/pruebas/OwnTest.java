@@ -40,7 +40,7 @@ class OwnTest {
 		categorias.add(servicio.crearCategoria("cat1"));
 		categorias.add(servicio.crearCategoria("cat2"));
 
-		Integer restaurante_id = servicio.registrarRestaurante("La Periquita", 1, categorias);
+		Integer restaurante_id = servicio.registrarRestaurante("La Periquita", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, categorias);
 
 		Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
 
@@ -54,7 +54,7 @@ class OwnTest {
 		Integer categoria_id = servicio.crearCategoria("cat1");
 		LinkedList<Integer> cats = new LinkedList<>();
 		cats.add(categoria_id);
-		Integer restaurante_id = servicio.registrarRestaurante("Restaurante", 1, cats);
+		Integer restaurante_id = servicio.registrarRestaurante("Restaurante", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
 		Integer plato = servicio.nuevoPlato("plato1", "", 10, restaurante_id);
 		
 		//FIXME plato is null
@@ -69,7 +69,7 @@ class OwnTest {
 		Integer categoria_id = servicio.crearCategoria("cat1");
 		LinkedList<Integer> cats = new LinkedList<>();
 		cats.add(categoria_id);
-		Integer restaurante_id = servicio.registrarRestaurante("1 something else", 1, cats);
+		Integer restaurante_id = servicio.registrarRestaurante("1 something else", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
 		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
 		Integer usuario_id = servicio.registrarUsuario("1 someone else", "Palotes", fechaNacimiento,
 				"periquita@palotes.es", "12345", TipoUsuario.RESTAURANTE);
@@ -86,7 +86,7 @@ class OwnTest {
 		Integer categoria_id = servicio.crearCategoria("cat1");
 		LinkedList<Integer> cats = new LinkedList<>();
 		cats.add(categoria_id);
-		Integer restaurante_id = servicio.registrarRestaurante("something else", 1, cats);
+		Integer restaurante_id = servicio.registrarRestaurante("something else", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
 		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
 		Integer usuario_id = servicio.registrarUsuario("someone else", "Palotes", fechaNacimiento,
 				"periquita@palotes.es", "12345", TipoUsuario.RESTAURANTE);
