@@ -10,7 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+@NamedQueries({
+	@NamedQuery(name = "Incidencia.findIncidenciaByUser", query = " SELECT i FROM Incidencia i WHERE i.usuario= :usuario"),
+	@NamedQuery(name = "Incidencia.findIncidenciaNotClosed", query = " SELECT i FROM Incidencia i WHERE i.fechaCierre=null")
+
+})
+
 
 @Entity
 @Table(name = "incidencia")

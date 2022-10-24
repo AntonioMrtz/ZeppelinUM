@@ -80,4 +80,14 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
 		}
 	}
 
+	public List<RestauranteDTO> findByResponsable(String responsable) {
+		try {
+			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Restaurante.findByResponsable");
+			query.setParameter("responsable", responsable);
+			return transformarToDTO(query.getResultList());
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+
 }

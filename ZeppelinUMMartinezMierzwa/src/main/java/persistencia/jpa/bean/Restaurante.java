@@ -8,7 +8,9 @@ import java.util.List;
 import javax.persistence.*;
 
 @NamedQueries({
-	@NamedQuery(name = "Restaurante.findByName", query = " SELECT r FROM Restaurante r WHERE r.nombre= :nombre")
+	@NamedQuery(name = "Restaurante.findByName", query = " SELECT r FROM Restaurante r WHERE r.nombre= :nombre"),
+	@NamedQuery(name = "Restaurante.findByResponsable", query = " SELECT r FROM Restaurante r WHERE r.responsable= :responsable")
+	
 })
 
 @Entity
