@@ -1,7 +1,7 @@
 # TODO
 
 
-* Do exercices boletin3
+* Test for Boletin3 optional exercises
 
 
 # EXTRA
