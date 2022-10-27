@@ -13,5 +13,4 @@ public interface DAO<T> {
 
     public void save(T t, EntityManager em);
 
-	List<T> findByName(String nombre);
 }

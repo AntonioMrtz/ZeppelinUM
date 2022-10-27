@@ -57,15 +57,20 @@ public abstract class ExtensionDAO<T> implements DAO<T> {
         em.persist(t);
     }
     
-    @Override
-    public List<T> getAll() {
-    	return null;
-    	// TODO Auto-Generated method stub
-    }
+	public List<T> getAll() {
+		try {
+			final String queryString = " SELECT model from " + name + " model ";
+			Query query = EntityManagerHelper.getEntityManager().createQuery(queryString);
+			query.setHint(QueryHints.REFRESH, HintValues.TRUE);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+	//sejeeejej
+	public void a() {
+		
+		
+	}
 
-    @Override
-    public Integer findByName(String nombre) {
-        String queryString = "SELECT * FROM " + name + "WHERE Name = " + nombre;
-        
-    }
 }
