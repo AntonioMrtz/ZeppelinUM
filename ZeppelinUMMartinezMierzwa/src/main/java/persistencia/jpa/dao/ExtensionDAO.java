@@ -67,10 +67,5 @@ public abstract class ExtensionDAO<T> implements DAO<T> {
 			throw re;
 		}
 	}
-	//sejeeejej
-	public void a() {
-		
-		
-	}
 
 }
