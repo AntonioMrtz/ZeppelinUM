@@ -90,4 +90,5 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
 		}
 	}
 
+
 }

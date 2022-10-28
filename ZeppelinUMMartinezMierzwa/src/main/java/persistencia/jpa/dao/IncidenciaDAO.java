@@ -72,6 +72,8 @@ public class IncidenciaDAO extends ExtensionDAO<Incidencia>{
 			throw re;
 		}
 	}
+
+
 	
 	
 

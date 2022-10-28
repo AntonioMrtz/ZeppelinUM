@@ -76,6 +76,9 @@ public class UsuarioDAO extends ExtensionDAO<Usuario> {
 			throw re;
 		}
 	}
+
+
+
 	
 	
 	

@@ -40,5 +40,7 @@ public class CategoriaRestauranteDAO extends ExtensionDAO<CategoriaRestaurante>{
 			throw re;
 		}
 	}
+
+
 }
 

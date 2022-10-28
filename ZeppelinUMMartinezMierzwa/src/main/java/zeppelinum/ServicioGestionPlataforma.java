@@ -105,10 +105,10 @@ public class ServicioGestionPlataforma {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		try {
 			em.getTransaction().begin();
-			
+			System.out.println("beginning to add a restaurant with name: " + nombre);
 			if(RestauranteDAO.getRestauranteDAO().findByName(nombre).size() > 0) {
 				
-				System.out.println("fwaaaaaaaaaaaaaaaaaa");
+				System.out.println("There is arleady this restaurant in the DB");
 				
 				return null;
 			}
@@ -192,7 +192,8 @@ public class ServicioGestionPlataforma {
 
 			Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante);
 			CategoriaRestaurante cat = CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findById(categoria);
-
+			System.out.println(r.getNombre());
+			System.out.println(cat);
 			LinkedList<CategoriaRestaurante> lista = new LinkedList<>();
 			lista.add(cat);
 
@@ -221,6 +222,7 @@ public class ServicioGestionPlataforma {
 			em.getTransaction().begin();
 
 			Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante);
+			if(r != null ) {
 			Plato p = new Plato();
 			p.setDescripcion(descripcion);
 			p.setTitulo(titulo);
@@ -234,10 +236,13 @@ public class ServicioGestionPlataforma {
 			r.addPlato(l);
 
 			PlatoDAO.getPlatoDAO().save(p, em);
-			RestauranteDAO.getRestauranteDAO().save(r, em);
+		 	RestauranteDAO.getRestauranteDAO().save(r, em);
 
 			em.getTransaction().commit();
 			return p.getId();
+			}else {
+				return null;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

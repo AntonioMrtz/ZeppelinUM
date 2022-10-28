@@ -41,4 +41,10 @@ public class PlatoDAO extends ExtensionDAO<Plato> {
 		return menu;
 	}
 
+	@Override
+	public boolean deleteById(Plato p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

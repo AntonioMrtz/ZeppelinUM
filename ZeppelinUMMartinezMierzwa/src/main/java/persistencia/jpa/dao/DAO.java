@@ -13,4 +13,6 @@ public interface DAO<T> {
 
     public void save(T t, EntityManager em);
 
+	public boolean delete(T object);
+
 }
