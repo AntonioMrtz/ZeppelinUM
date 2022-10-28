@@ -80,7 +80,7 @@ public abstract class ExtensionDAO<T> implements DAO<T> {
 	public List<T> getAll() {
 		try {
 			final String queryString = " SELECT model from " + name + " model ";
-			Query query = EntityManagerHelper.getEntityManager().createQuery(queryString);
+			Query query = EntityManagerHelper.getEntityManager ().createQuery(queryString);
 			query.setHint(QueryHints.REFRESH, HintValues.TRUE);
 			return query.getResultList();
 		} catch (RuntimeException re) {

@@ -56,7 +56,7 @@ public class IncidenciaDAO extends ExtensionDAO<Incidencia>{
 	
 	public List<UsuarioDTO> findIncidenciaByUser(Integer usuario) {
 		try {
-			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Incidenccia.findIncidenceByUser");
+			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Incidencia.findIncidenciaByUser");
 			query.setParameter("usuario",usuario);
 			return transformarToDTO(query.getResultList());
 		} catch (RuntimeException re) {
@@ -64,9 +64,9 @@ public class IncidenciaDAO extends ExtensionDAO<Incidencia>{
 		}
 	}
 	
-	public List<UsuarioDTO> findIncidenciaNotClosed(Integer usuario) {
+	public List<UsuarioDTO> findIncidenciaNotClosed() {
 		try {
-			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Incidenccia.findIncidenciaNotClosed");
+			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Incidencia.findIncidenciaNotClosed");
 			return transformarToDTO(query.getResultList());
 		} catch (RuntimeException re) {
 			throw re;

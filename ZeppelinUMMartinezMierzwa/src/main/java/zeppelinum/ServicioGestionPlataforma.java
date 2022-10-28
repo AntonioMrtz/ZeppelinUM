@@ -388,66 +388,33 @@ public class ServicioGestionPlataforma {
 	
 	
 	
+	// THIS METHODS MAY NOT BE USEFUL , theyre made in order to test theyre working
+	
+	public List<RestauranteDTO> searchRestaurantByResponsable(Integer responsable) {
+
+		return RestauranteDAO.getRestauranteDAO().findByResponsable(responsable);
+
+	}
+
+	public List<UsuarioDTO> findNonValidatedRestauranteUsers() {
+
+		return UsuarioDAO.getUsuarioDAO().findNonValidatedRestauranteUsers();
+
+	}
+
+	public List<UsuarioDTO> findIncidenciaByUser(Integer usuario) {
+
+		return IncidenciaDAO.getIncidenciaDAO().findIncidenciaByUser(usuario);
+
+	}
+	
+	public List<UsuarioDTO> findIncidenciaNotClosed() {
+
+		return IncidenciaDAO.getIncidenciaDAO().findIncidenciaNotClosed();
+
+	}
+
 
 
 }
 
-/*
- * public boolean nuevoPlato(String titulo, String descripcion, double precio,
- * Integer restaurante) { EntityManager em =
- * EntityManagerHelper.getEntityManager(); try { em.getTransaction().begin();
- * 
- * Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante);
- * Plato p = new Plato(); p.setDescripcion(descripcion); p.setTitulo(titulo);
- * p.setPrecio(precio); p.setRestaurante(r); p.setDisponibilidad(true);
- * 
- * PlatoDAO.getPlatoDAO().save(p, em);
- * 
- * em.getTransaction().commit(); return true;
- * 
- * } catch (Exception e) { e.printStackTrace(); return false; } finally { if
- * (em.getTransaction().isActive()) { em.getTransaction().rollback(); }
- * em.close(); } }
- */
-
-//    
-//    public Integer registrarRestaurante(String nombre, Integer responsable,List<Integer> categorias) {
-//
-//        EntityManager em = EntityManagerHelper.getEntityManager();
-//        try {
-//            em.getTransaction().begin();
-//
-//            Restaurante r = new Restaurante();          
-//            r.setResponsable(UsuarioDAO.getUsuarioDAO().findById(responsable));
-//            r.setNombre(nombre);
-//            r.setFechaAlta(LocalDate.now());
-//            r.setValoracionGlobal(0d);
-//            r.setNumPenalizaciones(0);
-//            r.setNumValoraciones(0);
-//            
-//            List <CategoriaRestaurante> categorias_obj =  CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findByIds(categorias);
-//
-//            r.setCategorias(categorias_obj);
-//          
-//            
-//            // add restaurant to the categories
-//            
-//
-//            for(CategoriaRestaurante c : categorias_obj) {
-//            	
-//            	c.addRestaurant(r);
-//            }
-//            
-//            RestauranteDAO.getRestauranteDAO().save(r, em); 
-//            em.getTransaction().commit();
-//            return r.getId();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        } finally {
-//            if (em.getTransaction().isActive()) {
-//                em.getTransaction().rollback();
-//            }
-//            em.close();
-//        }
-//    }

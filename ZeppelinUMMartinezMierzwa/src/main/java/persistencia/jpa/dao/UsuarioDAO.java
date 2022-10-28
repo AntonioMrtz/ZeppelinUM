@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import persistencia.dto.UsuarioDTO;
+import persistencia.jpa.bean.TipoUsuario;
 import persistencia.jpa.bean.Usuario;
 
 public class UsuarioDAO extends ExtensionDAO<Usuario> {
@@ -68,9 +69,8 @@ public class UsuarioDAO extends ExtensionDAO<Usuario> {
 
 	public List<UsuarioDTO> findNonValidatedRestauranteUsers() {
 		try {
-			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Usuario.findByName");
-			query.setParameter("restaurante", "RESTAURANTE");
-			query.setParameter("validado", true);
+			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Usuario.findNonValidatedRestauranteUsers");
+			query.setParameter("restaurante", TipoUsuario.RESTAURANTE);
 			return transformarToDTO(query.getResultList());
 		} catch (RuntimeException re) {
 			throw re;

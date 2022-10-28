@@ -9,7 +9,8 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name = "Restaurante.findByName", query = " SELECT r FROM Restaurante r WHERE r.nombre= :nombre"),
-	@NamedQuery(name = "Restaurante.findByResponsable", query = " SELECT r FROM Restaurante r WHERE r.responsable= :responsable")
+	//@NamedQuery(name = "Restaurante.findByResponsable", query = " SELECT r FROM Restaurante r WHERE r.responsable= :responsable")
+	@NamedQuery(name = "Restaurante.findByResponsable", query =" SELECT r FROM Restaurante r INNER JOIN r.responsable re WHERE re.id = :responsable")
 	
 })
 

@@ -15,9 +15,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @NamedQueries({
-	@NamedQuery(name = "Incidencia.findIncidenciaByUser", query = " SELECT i FROM Incidencia i WHERE i.usuario= :usuario"),
+	@NamedQuery(name = "Incidencia.findIncidenciaByUser", query = " SELECT i FROM Incidencia i INNER JOIN i.usuario u WHERE u.id = :usuario"),
 	@NamedQuery(name = "Incidencia.findIncidenciaNotClosed", query = " SELECT i FROM Incidencia i WHERE i.fechaCierre=null")
-
+	
 })
 
 
