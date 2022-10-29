@@ -102,7 +102,7 @@ class OwnTest {
 
 		PlatoDAO.getPlatoDAO().delete(p);
 		RestauranteDAO.getRestauranteDAO().delete(r);
-		CategoriaRestauranteDAO.getCategoriaRestauranteDAO().delete(cr); /////////////!!!!!!!!!!!!!!!
+		CategoriaRestauranteDAO.getCategoriaRestauranteDAO().delete(cr);
 	}
 
 	@org.junit.jupiter.api.Test
@@ -178,7 +178,7 @@ class OwnTest {
 		
 		RestauranteDAO.getRestauranteDAO().delete(r);
 		RestauranteDAO.getRestauranteDAO().delete(r2);
-		CategoriaRestauranteDAO.getCategoriaRestauranteDAO().delete(c);                //MOVIDO !!!!!!!!!!!!!!!!!!!!!!
+		CategoriaRestauranteDAO.getCategoriaRestauranteDAO().delete(c);               
 		UsuarioDAO.getUsuarioDAO().delete(u);
 		
 		

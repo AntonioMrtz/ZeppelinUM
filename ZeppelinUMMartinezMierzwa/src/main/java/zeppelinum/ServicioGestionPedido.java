@@ -8,14 +8,17 @@ import javax.persistence.EntityManager;
 import org.bson.types.ObjectId;
 
 import persistencia.dto.OpinionDTO;
+import persistencia.dto.PedidoDTO;
 import persistencia.jpa.bean.Restaurante;
 import persistencia.jpa.bean.Usuario;
 import persistencia.jpa.dao.EntityManagerHelper;
 import persistencia.jpa.dao.RestauranteDAO;
 import persistencia.jpa.dao.UsuarioDAO;
 import persistencia.mongo.bean.Opinion;
+import persistencia.mongo.bean.Pedido;
 import persistencia.mongo.dao.DireccionDAO;
 import persistencia.mongo.dao.OpinionDAO;
+import persistencia.mongo.dao.PedidoDAO;
 
 public class ServicioGestionPedido {
     
@@ -106,17 +109,74 @@ public class ServicioGestionPedido {
 	}
 	
 	
+	
+	
+	public  List<PedidoDTO> findPedidoByRestaurante(Integer restaurante) {
+		
+		List<Pedido> pedidos = PedidoDAO.getPedidoDAO().findPedidoByRestaurant(restaurante);
+
+		List<PedidoDTO> pedidosDTO = new ArrayList<>();
+
+		for (Pedido p : pedidos) {
+			Usuario u = UsuarioDAO.getUsuarioDAO().findById(p.getCliente());
+			Usuario rep = UsuarioDAO.getUsuarioDAO().findById(p.getRepartidor());
+			Restaurante r = RestauranteDAO.getRestauranteDAO().findById(p.getRestaurante());
+
+			PedidoDTO pedidoDTO = new PedidoDTO();
+			pedidoDTO.setCliente(u.getNombre());
+			pedidoDTO.setImporte(p.getImporte());
+			pedidoDTO.setRestaurante(r.getNombre());
+			pedidoDTO.setRepartidor(rep.getNombre());
+			pedidoDTO.setComentarios(p.getComentarios());
+			pedidoDTO.setDireccion(p.getDireccion());
+
+			pedidosDTO.add(pedidoDTO);
+		}
+		return pedidosDTO;
+		
+	}
+	
+	public List<PedidoDTO> findPedidoByUser(Integer usuario) {	
+		
+		
+		List<Pedido> pedidos = PedidoDAO.getPedidoDAO().findPedidoByUser(usuario);
+		List<PedidoDTO> pedidosDTO = new ArrayList<>();
+
+		for (Pedido p : pedidos) {
+			Usuario u = UsuarioDAO.getUsuarioDAO().findById(p.getCliente());
+			Usuario rep = UsuarioDAO.getUsuarioDAO().findById(p.getRepartidor());
+			Restaurante r = RestauranteDAO.getRestauranteDAO().findById(p.getRestaurante());
+
+			PedidoDTO pedidoDTO = new PedidoDTO();
+			pedidoDTO.setCliente(u.getNombre());
+			pedidoDTO.setImporte(p.getImporte());
+			pedidoDTO.setRestaurante(r.getNombre());
+			pedidoDTO.setRepartidor(rep.getNombre());
+			pedidoDTO.setComentarios(p.getComentarios());
+			pedidoDTO.setDireccion(p.getDireccion());
+
+			pedidosDTO.add(pedidoDTO);
+		}
+		return pedidosDTO;
+
+	}
+	
+//	public void addRepartidorPedido() {
+//		
+//		PedidoDAO.getPedidoDAO().addRepartidor();
+//	}
+	
+	
+
 	public void deleteAllOpiniones() {
 		
 		OpinionDAO.getOpinionDAO().deleteAllOpiniones();
 		
 	}
-		
+	
 	
 	public void deleteAllDirecciones() {
 		
 		DireccionDAO.getDireccionDAO().deleteAllDirecciones();
 	}
-	
-
 }

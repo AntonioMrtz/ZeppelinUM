@@ -9,13 +9,46 @@ public class OpinionDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private Integer id;
 	private String nombreUsuario;
     private String nombreRestaurante;
     private String comentario;
     private Double valoracion;
     
     
+    public OpinionDTO(String comentario,Double valoracion,String nombreUsuario) {
+    	
+    	this.comentario=comentario;
+    	this.valoracion=valoracion;
+    	this.nombreUsuario=nombreUsuario;
+    	
+    }
     
+   public OpinionDTO(String comentario,Double valoracion) {
+    	
+    	this.comentario=comentario;
+    	this.valoracion=valoracion;
+    	
+    }
+   
+    
+    public OpinionDTO() {
+    	
+    }
+    
+    
+    
+    
+    
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}

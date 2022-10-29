@@ -2,6 +2,12 @@ package pruebas;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+
+
+
+
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +19,11 @@ import persistencia.jpa.bean.Usuario;
 import persistencia.jpa.dao.CategoriaRestauranteDAO;
 import persistencia.jpa.dao.RestauranteDAO;
 import persistencia.jpa.dao.UsuarioDAO;
-import persistencia.mongo.dao.OpinionDAO;
 import zeppelinum.ServicioGestionPedido;
 import zeppelinum.ServicioGestionPlataforma;
 
+
+//IMPORTANT WERE DROPING THE WHOLE DATABSE TO RUN THIS TESTS -> IMPLEMENT ONLY DEL ITEMS
 class TestMongo1 {
 
 	private ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
