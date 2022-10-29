@@ -105,10 +105,10 @@ public class ServicioGestionPlataforma {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		try {
 			em.getTransaction().begin();
-			System.out.println("beginning to add a restaurant with name: " + nombre);
+//			System.out.println("beginning to add a restaurant with name: " + nombre);
 			if(RestauranteDAO.getRestauranteDAO().findByName(nombre).size() > 0) {
 				
-				System.out.println("There is arleady this restaurant in the DB");
+//				System.out.println("There is arleady this restaurant in the DB");
 				
 				return null;
 			}
@@ -192,8 +192,8 @@ public class ServicioGestionPlataforma {
 
 			Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante);
 			CategoriaRestaurante cat = CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findById(categoria);
-			System.out.println(r.getNombre());
-			System.out.println(cat);
+//			System.out.println(r.getNombre());
+//			System.out.println(cat);
 			LinkedList<CategoriaRestaurante> lista = new LinkedList<>();
 			lista.add(cat);
 
@@ -346,10 +346,10 @@ public class ServicioGestionPlataforma {
 	public UsuarioDTO login(String email, String clave) {
 		List<UsuarioDTO> usuarios = UsuarioDAO.getUsuarioDAO().findByEmailClave(email, clave);
 		if (usuarios.isEmpty()) {
-			System.out.println("Usuario no encontrado, email o clave incorrectos");
+//			System.out.println("Usuario no encontrado, email o clave incorrectos");
 			return null;
 		} else {
-			System.out.println("Usuario logueado " + usuarios.get(0).getNombre());
+//			System.out.println("Usuario logueado " + usuarios.get(0).getNombre());
 			return usuarios.get(0);
 		}
 	}

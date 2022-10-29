@@ -50,4 +50,11 @@ public class OpinionDAO extends ExtensionMongoDAO<Opinion> {
         }
         return opiniones;
     }
+    
+    public void deleteAllOpiniones() {
+    	
+    	collection.drop();
+    	
+    }
+    
 }

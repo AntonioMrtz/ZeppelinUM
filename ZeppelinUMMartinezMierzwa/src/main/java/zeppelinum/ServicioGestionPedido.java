@@ -14,6 +14,7 @@ import persistencia.jpa.dao.EntityManagerHelper;
 import persistencia.jpa.dao.RestauranteDAO;
 import persistencia.jpa.dao.UsuarioDAO;
 import persistencia.mongo.bean.Opinion;
+import persistencia.mongo.dao.DireccionDAO;
 import persistencia.mongo.dao.OpinionDAO;
 
 public class ServicioGestionPedido {
@@ -105,9 +106,17 @@ public class ServicioGestionPedido {
 	}
 	
 	
+	public void deleteAllOpiniones() {
+		
+		OpinionDAO.getOpinionDAO().deleteAllOpiniones();
+		
+	}
 		
 	
-	
+	public void deleteAllDirecciones() {
+		
+		DireccionDAO.getDireccionDAO().deleteAllDirecciones();
+	}
 	
 
 }

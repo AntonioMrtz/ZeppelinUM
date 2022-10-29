@@ -43,8 +43,8 @@ class OwnTest {
 		Integer cr_id = servicio.crearCategoria("categoriaPrueba");
 		CategoriaRestaurante cr = CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findById(cr_id);
 		
-		System.out.println(cr_id);
-		System.out.println(restaurante_id);
+//		System.out.println(cr_id);
+//		System.out.println(restaurante_id);
 		
 		boolean added = servicio.addCategoria(restaurante_id, cr_id);
 		
@@ -69,7 +69,7 @@ class OwnTest {
 
 		Integer restaurante_id = servicio.registrarRestaurante("REst1", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, categorias);
 
-		System.out.println("this is the id: " + restaurante_id);
+//		System.out.println("this is the id: " + restaurante_id);
 		
 		CategoriaRestaurante c1 = CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findById(cat1_id);
 		

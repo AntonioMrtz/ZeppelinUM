@@ -50,4 +50,10 @@ public class DireccionDAO extends ExtensionMongoDAO<Direccion> {
 		MongoCursor<Direccion> it = resultados.iterator();
 		return it.tryNext();
 	}
+	
+    public void deleteAllDirecciones() {
+    	
+    	collection.drop();
+    	
+    }
 }

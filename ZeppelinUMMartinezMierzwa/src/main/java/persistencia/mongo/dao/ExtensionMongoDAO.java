@@ -38,5 +38,12 @@ public abstract class ExtensionMongoDAO <T> {
         if (result.getInsertedId() != null)
             return result.getInsertedId().asObjectId().getValue();
         return null;
-    }   
+    }
+    
+//    public boolean delete(T entidad) {
+//    	
+//    	collection.deleteOne(null);
+//    	
+//    }
+    
 }
