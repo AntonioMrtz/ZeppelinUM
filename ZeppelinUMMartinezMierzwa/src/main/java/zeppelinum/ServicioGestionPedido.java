@@ -161,10 +161,10 @@ public class ServicioGestionPedido {
 
 	}
 	
-//	public void addRepartidorPedido() {
-//		
-//		PedidoDAO.getPedidoDAO().addRepartidor();
-//	}
+	public void addRepartidorPedido(Integer repartidor,ObjectId pedido) {
+		
+		PedidoDAO.getPedidoDAO().addRepartidor(repartidor,pedido);
+	}
 	
 	
 

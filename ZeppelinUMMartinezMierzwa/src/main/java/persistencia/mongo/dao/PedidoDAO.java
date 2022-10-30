@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
+
 import persistencia.mongo.bean.Pedido;
 
 public class PedidoDAO extends ExtensionMongoDAO<Pedido> {
@@ -57,9 +61,15 @@ public class PedidoDAO extends ExtensionMongoDAO<Pedido> {
 		
 	}
 	
-	public void addRepartidor(Integer repartidor,Integer pedido) {
+	public void addRepartidor(Integer repartidor,ObjectId pedido) {
 		
 		
+		Bson query_pedido=Filters.eq("_id",pedido);
+		Bson query_repartido=Updates.set("repartidor",repartidor);
+		
+		
+		collection.updateOne(query_pedido, query_repartido);
+
 		
 	}
 	
