@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 
 import org.bson.types.ObjectId;
 
+import persistencia.dto.EstadoPedidoDTO;
 import persistencia.dto.OpinionDTO;
 import persistencia.dto.PedidoDTO;
 import persistencia.jpa.bean.Restaurante;
@@ -15,6 +16,8 @@ import persistencia.jpa.bean.Usuario;
 import persistencia.jpa.dao.EntityManagerHelper;
 import persistencia.jpa.dao.RestauranteDAO;
 import persistencia.jpa.dao.UsuarioDAO;
+import persistencia.mongo.bean.EstadoPedido;
+import persistencia.mongo.bean.ItemPedido;
 import persistencia.mongo.bean.Opinion;
 import persistencia.mongo.bean.Pedido;
 import persistencia.mongo.dao.DireccionDAO;
@@ -79,13 +82,16 @@ public class ServicioGestionPedido {
 	
 	
 	
-
-	public ObjectId crearPedido(LocalDateTime fechaHora,String comentarios , double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente) {
+	//FIXME meter item pedidos cuando sepamos como funciona
+	public ObjectId crearPedido(LocalDateTime fechaHora,String comentarios , double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente,List<EstadoPedido> est,List<ItemPedido> items) {
 
 		PedidoDAO pedidoDAO = PedidoDAO.getPedidoDAO();
 		
-		Pedido p = new Pedido(fechaHora,comentarios,importe,direccion,restaurante,repartidor,cliente);
+		//Pedido p = new Pedido(fechaHora,comentarios,importe,direccion,restaurante,repartidor,cliente,est);
+		Pedido p = new Pedido(fechaHora,comentarios,importe,direccion,restaurante,repartidor,cliente,est);
 
+		
+		
 	    ObjectId id = pedidoDAO.save(p);
 	    
 	    if (id != null) {
@@ -163,6 +169,21 @@ public class ServicioGestionPedido {
 			pedidoDTO.setRepartidor(rep.getNombre());
 			pedidoDTO.setComentarios(p.getComentarios());
 			pedidoDTO.setDireccion(p.getDireccion());
+			
+			ArrayList<EstadoPedidoDTO> l = new ArrayList<>();
+			
+			if(p.getEstados()!=null) {
+				
+				for(EstadoPedido e : p.getEstados()) {
+					System.out.println(e);
+					l.add(new EstadoPedidoDTO(e.getFechaEstado(),e.getEstado()));
+					
+				}
+				pedidoDTO.setEstados(l);
+			}
+			
+			
+			
 
 			pedidosDTO.add(pedidoDTO);
 		}
@@ -188,6 +209,20 @@ public class ServicioGestionPedido {
 			pedidoDTO.setRepartidor(rep.getNombre());
 			pedidoDTO.setComentarios(p.getComentarios());
 			pedidoDTO.setDireccion(p.getDireccion());
+			
+			ArrayList<EstadoPedidoDTO> l = new ArrayList<>();
+			
+			if(p.getEstados()!=null) {
+				
+				for(EstadoPedido e : p.getEstados()) {
+					System.out.println(e);
+					l.add(new EstadoPedidoDTO(e.getFechaEstado(),e.getEstado()));
+					
+				}
+				pedidoDTO.setEstados(l);
+			}
+			
+			
 
 			pedidosDTO.add(pedidoDTO);
 		}
@@ -199,6 +234,14 @@ public class ServicioGestionPedido {
 		
 		PedidoDAO.getPedidoDAO().addRepartidor(repartidor,pedido);
 	}
+	
+	
+	public void updateEstadosPedido(Object id, EstadoPedido e) {
+		
+		PedidoDAO.getPedidoDAO().updatePedido(id,e);
+		
+	}
+	
 	
 	
 	public void deleteAllPedidos() {

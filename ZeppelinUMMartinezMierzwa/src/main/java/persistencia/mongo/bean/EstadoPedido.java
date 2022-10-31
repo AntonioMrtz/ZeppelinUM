@@ -14,6 +14,27 @@ public class EstadoPedido implements Serializable{
 	private LocalDateTime fechaEstado;
 	private TipoEstado estado;
 	
+	public EstadoPedido() {
+	
+	}
+//
+//	public EstadoPedido(LocalDateTime fechaEstado,String estado) {
+//		
+//		this.estado=TipoEstado.valueOf(estado);
+//		this.fechaEstado=fechaEstado;
+//		
+//	}
+//	
+	
+	public EstadoPedido(LocalDateTime fechaEstado,TipoEstado estado) {
+		
+		this.estado=estado;
+		this.fechaEstado=fechaEstado;
+		
+	}
+	
+	
+	
 	
 	public LocalDateTime getFechaEstado() {
 		return fechaEstado;

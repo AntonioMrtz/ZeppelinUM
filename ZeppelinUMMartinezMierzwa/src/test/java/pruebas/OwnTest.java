@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.junit.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +25,8 @@ import persistencia.jpa.dao.IncidenciaDAO;
 import persistencia.jpa.dao.PlatoDAO;
 import persistencia.jpa.dao.RestauranteDAO;
 import persistencia.jpa.dao.UsuarioDAO;
-import persistencia.mongo.bean.Pedido;
-import persistencia.mongo.dao.PedidoDAO;
+import persistencia.mongo.bean.EstadoPedido;
+import persistencia.mongo.bean.TipoEstado;
 import zeppelinum.ServicioGestionPedido;
 import zeppelinum.ServicioGestionPlataforma;
 
@@ -321,7 +320,7 @@ class OwnTest {
 		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
 
 		
-		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,null,cliente_id);
+		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,null,cliente_id,null,null);
 
 		
 		servicio_pedido.addRepartidorPedido(repartidor_id, id);
@@ -366,8 +365,8 @@ class OwnTest {
 		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
 
 		
-		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id);
-		ObjectId id2= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id);
+		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,null,null);
+		ObjectId id2= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,null,null);
 
 				
 		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByUser(cliente_id);
@@ -410,17 +409,15 @@ class OwnTest {
 		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
 
 		
-		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id);
-		ObjectId id2= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id);
+		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,null,null);
+		ObjectId id2= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,null,null);
 
 				
 		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByRestaurante(restaurante_id);
 		
 		
 		assertEquals(2,pedidos.size());
-		
-		
-		
+
 		
 		
 		Usuario cliente = UsuarioDAO.getUsuarioDAO().findById(cliente_id);
@@ -433,6 +430,49 @@ class OwnTest {
 		UsuarioDAO.getUsuarioDAO().delete(cliente);
 		
 		
+		servicio_pedido.deleteAllPedidos();
+		
+		
+	}
+	
+	//TODO
+	@Test
+	public void checkUpdatePedido() {
+		
+		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
+		
+		
+		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+		
+		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+		
+		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+
+		ArrayList<EstadoPedido> l = new ArrayList<>();
+		l.add(new EstadoPedido(LocalDateTime.now(),TipoEstado.INCIADO));
+		
+		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,null);
+		
+		servicio_pedido.updateEstadosPedido(id,new EstadoPedido(LocalDateTime.now(),TipoEstado.ACEPTADO));
+				
+		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByRestaurante(restaurante_id);
+		
+
+		
+		
+		Usuario cliente = UsuarioDAO.getUsuarioDAO().findById(cliente_id);
+		Usuario repartidor = UsuarioDAO.getUsuarioDAO().findById(repartidor_id);
+		Restaurante r= RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
+		
+		
+		RestauranteDAO.getRestauranteDAO().delete(r);
+		UsuarioDAO.getUsuarioDAO().delete(repartidor);
+		UsuarioDAO.getUsuarioDAO().delete(cliente);
+		
+		
+		assertEquals(2,pedidos.get(0).getEstados().size());
 		servicio_pedido.deleteAllPedidos();
 		
 		

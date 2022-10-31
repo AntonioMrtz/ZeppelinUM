@@ -3,6 +3,8 @@ package persistencia.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import persistencia.mongo.bean.TipoEstado;
+
 
 public class EstadoPedidoDTO implements Serializable{
 
@@ -12,8 +14,15 @@ public class EstadoPedidoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private LocalDateTime fechaEstado;
-	private String estado;
+	private TipoEstado estado;
 	
+	
+	public EstadoPedidoDTO(LocalDateTime fechaEstado,TipoEstado estado) {
+		
+		this.estado=estado;
+		this.fechaEstado=fechaEstado;
+		
+	}
 	
 	
 	public LocalDateTime getFechaEstado() {
@@ -22,10 +31,10 @@ public class EstadoPedidoDTO implements Serializable{
 	public void setFechaEstado(LocalDateTime fechaEstado) {
 		this.fechaEstado = fechaEstado;
 	}
-	public String getEstado() {
+	public TipoEstado getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(TipoEstado estado) {
 		this.estado = estado;
 	}
 	

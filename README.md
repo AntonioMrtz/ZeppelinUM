@@ -1,7 +1,12 @@
 # TODO
 
 * Boletin 4
-    * Test optional exercises
-    * Crea un método para editar el estado de un pedido
+    * Meter Items en pedido
+
 * Boletin 5 setup
 * Boletin 5 optional exercises
+
+
+# IMPORTANTE
+
+* Meter items en findbyrestaurante y nombre PEDIDO

@@ -13,6 +13,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 
+import persistencia.mongo.bean.EstadoPedido;
 import persistencia.mongo.bean.Pedido;
 
 public class PedidoDAO extends ExtensionMongoDAO<Pedido> {
@@ -72,6 +73,16 @@ public class PedidoDAO extends ExtensionMongoDAO<Pedido> {
 
 		
 	}
+	
+	public void updatePedido(Object id,EstadoPedido e) {
+		
+		Bson query=Filters.eq("_id",id);
+		Bson query_estado=Updates.push("estados",e);
+		
+		collection.updateOne(query, query_estado);
+		
+	}
+	
 	
 	public void deleteAllPedidos() {
 		
