@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import org.bson.types.ObjectId;
 
 import persistencia.dto.EstadoPedidoDTO;
+import persistencia.dto.ItemPedidoDTO;
 import persistencia.dto.OpinionDTO;
 import persistencia.dto.PedidoDTO;
 import persistencia.jpa.bean.Restaurante;
@@ -82,15 +83,12 @@ public class ServicioGestionPedido {
 	
 	
 	
-	//FIXME meter item pedidos cuando sepamos como funciona
 	public ObjectId crearPedido(LocalDateTime fechaHora,String comentarios , double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente,List<EstadoPedido> est,List<ItemPedido> items) {
 
 		PedidoDAO pedidoDAO = PedidoDAO.getPedidoDAO();
 		
-		//Pedido p = new Pedido(fechaHora,comentarios,importe,direccion,restaurante,repartidor,cliente,est);
-		Pedido p = new Pedido(fechaHora,comentarios,importe,direccion,restaurante,repartidor,cliente,est);
+		Pedido p = new Pedido(fechaHora,comentarios,importe,direccion,restaurante,repartidor,cliente,est,items);
 
-		
 		
 	    ObjectId id = pedidoDAO.save(p);
 	    
@@ -171,15 +169,24 @@ public class ServicioGestionPedido {
 			pedidoDTO.setDireccion(p.getDireccion());
 			
 			ArrayList<EstadoPedidoDTO> l = new ArrayList<>();
+			ArrayList<ItemPedidoDTO> l2 = new ArrayList<>();
 			
 			if(p.getEstados()!=null) {
 				
 				for(EstadoPedido e : p.getEstados()) {
-					System.out.println(e);
 					l.add(new EstadoPedidoDTO(e.getFechaEstado(),e.getEstado()));
 					
 				}
 				pedidoDTO.setEstados(l);
+			}
+			
+			if(p.getItems()!=null) {
+				
+				for(ItemPedido e : p.getItems()) {
+					l2.add(new ItemPedidoDTO(p.getRestaurante(),e.getPrecio()));
+					
+				}
+				pedidoDTO.setItems(l2);
 			}
 			
 			
@@ -211,16 +218,28 @@ public class ServicioGestionPedido {
 			pedidoDTO.setDireccion(p.getDireccion());
 			
 			ArrayList<EstadoPedidoDTO> l = new ArrayList<>();
+			ArrayList<ItemPedidoDTO> l2 = new ArrayList<>();
+
 			
 			if(p.getEstados()!=null) {
 				
 				for(EstadoPedido e : p.getEstados()) {
-					System.out.println(e);
 					l.add(new EstadoPedidoDTO(e.getFechaEstado(),e.getEstado()));
 					
 				}
 				pedidoDTO.setEstados(l);
 			}
+			
+
+			if (p.getItems() != null) {
+
+				for (ItemPedido e : p.getItems()) {
+					l2.add(new ItemPedidoDTO(p.getRestaurante(), e.getPrecio()));
+
+				}
+				pedidoDTO.setItems(l2);
+			}
+			
 			
 			
 

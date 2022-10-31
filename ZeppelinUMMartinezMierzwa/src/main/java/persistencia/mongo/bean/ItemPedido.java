@@ -13,19 +13,33 @@ public class ItemPedido implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@BsonId
-	private ObjectId id;
+//	@BsonId
+//	private ObjectId id;
 	private Integer cantidad;
 	private Double precio;
 	private Integer plato;
 	
 	
-	public ObjectId getId() {
-		return id;
+	public ItemPedido() {
+		
+		
 	}
-	public void setId(ObjectId id) {
-		this.id = id;
+	
+	public ItemPedido(Integer cantidad,Double precio,Integer plato) {
+		
+		this.cantidad=cantidad;
+		this.precio=precio;
+		this.plato=plato;
 	}
+	
+	
+//	public ObjectId getId() {
+//		return id;
+//	}
+//	public void setId(ObjectId id) {
+//		this.id = id;
+//	}
+	
 	public Integer getCantidad() {
 		return cantidad;
 	}

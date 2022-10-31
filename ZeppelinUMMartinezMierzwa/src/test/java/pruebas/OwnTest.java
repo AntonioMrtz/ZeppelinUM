@@ -26,6 +26,7 @@ import persistencia.jpa.dao.PlatoDAO;
 import persistencia.jpa.dao.RestauranteDAO;
 import persistencia.jpa.dao.UsuarioDAO;
 import persistencia.mongo.bean.EstadoPedido;
+import persistencia.mongo.bean.ItemPedido;
 import persistencia.mongo.bean.TipoEstado;
 import zeppelinum.ServicioGestionPedido;
 import zeppelinum.ServicioGestionPlataforma;
@@ -435,7 +436,6 @@ class OwnTest {
 		
 	}
 	
-	//TODO
 	@Test
 	public void checkUpdatePedido() {
 		
@@ -472,13 +472,59 @@ class OwnTest {
 		UsuarioDAO.getUsuarioDAO().delete(cliente);
 		
 		
-		assertEquals(2,pedidos.get(0).getEstados().size());
 		servicio_pedido.deleteAllPedidos();
+		assertEquals(2,pedidos.get(0).getEstados().size());
 		
 		
 	}
 	
-	
+	@Test
+	public void checkItemPedido() {
+		
+		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
+		
+		
+		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+		
+		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+		
+		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+
+		Integer plato_id = servicio.nuevoPlato("a", "a", 1.0, restaurante_id);
+		
+		ArrayList<EstadoPedido> l = new ArrayList<>();
+		l.add(new EstadoPedido(LocalDateTime.now(),TipoEstado.INCIADO));
+		
+		ArrayList<ItemPedido> l2 = new ArrayList<>();
+		l2.add(new ItemPedido(2, 2.0, plato_id));
+		l2.add(new ItemPedido(1, 2.0, plato_id));
+		
+		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,l2);
+		
+				
+		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByRestaurante(restaurante_id);
+		
+		
+		Plato plato = PlatoDAO.getPlatoDAO().findById(plato_id);
+		Usuario cliente = UsuarioDAO.getUsuarioDAO().findById(cliente_id);
+		Usuario repartidor = UsuarioDAO.getUsuarioDAO().findById(repartidor_id);
+		Restaurante r= RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
+		
+		
+		assertEquals(2, pedidos.get(0).getItems().size());
+
+				
+		
+		PlatoDAO.getPlatoDAO().delete(plato);
+		RestauranteDAO.getRestauranteDAO().delete(r);
+		UsuarioDAO.getUsuarioDAO().delete(repartidor);
+		UsuarioDAO.getUsuarioDAO().delete(cliente);
+		servicio_pedido.deleteAllPedidos();
+		
+		
+	}	
 	
 	@AfterEach
 	public void deleteDireccionesDB(){

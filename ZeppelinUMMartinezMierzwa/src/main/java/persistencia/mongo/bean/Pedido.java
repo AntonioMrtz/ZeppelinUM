@@ -24,7 +24,7 @@ public class Pedido implements Serializable{
 	private Integer repartidor;
 	private Integer cliente;
 	private List<EstadoPedido> estado;
-	//private List<ItemPedido> items;
+	private List<ItemPedido> items;
 	
 	public Pedido() {
 		
@@ -57,19 +57,19 @@ public class Pedido implements Serializable{
 	}
 	
 	
-//	public Pedido(LocalDateTime fechaHora,String comentarios , double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente,List<EstadoPedido> estado,List<ItemPedido> items) {
-//		
-//		
-//		this.fechaHora=fechaHora;
-//		this.comentarios=comentarios;
-//		this.importe=importe;
-//		this.direccion=direccion;
-//		this.restaurante=restaurante;
-//		this.repartidor=repartidor;
-//		this.cliente=cliente;
-//		this.estado=estado;
-//		this.items=items;
-//	}
+	public Pedido(LocalDateTime fechaHora,String comentarios , double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente,List<EstadoPedido> estado,List<ItemPedido> items) {
+		
+		
+		this.fechaHora=fechaHora;
+		this.comentarios=comentarios;
+		this.importe=importe;
+		this.direccion=direccion;
+		this.restaurante=restaurante;
+		this.repartidor=repartidor;
+		this.cliente=cliente;
+		this.estado=estado;
+		this.items=items;
+	}
 	
 
 
@@ -128,13 +128,13 @@ public class Pedido implements Serializable{
 	public void setEstados(List<EstadoPedido> estado) {
 		this.estado = estado;
 	}
-//	public List<ItemPedido> getItems() {
-//		return items;
-//	}
-//	public void setItems(List<ItemPedido> items) {
-//		this.items = items;
-//	}
-//	
+	public List<ItemPedido> getItems() {
+		return items;
+	}
+	public void setItems(List<ItemPedido> items) {
+		this.items = items;
+	}
+	
 
 	
 
