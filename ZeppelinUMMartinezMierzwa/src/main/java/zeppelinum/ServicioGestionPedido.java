@@ -1,5 +1,6 @@
 package zeppelinum;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +76,39 @@ public class ServicioGestionPedido {
 	    } else
 	        return false;
 	}
+	
+	
+	
+
+	public ObjectId crearPedido(LocalDateTime fechaHora,String comentarios , double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente) {
+
+		PedidoDAO pedidoDAO = PedidoDAO.getPedidoDAO();
+		
+		Pedido p = new Pedido(fechaHora,comentarios,importe,direccion,restaurante,repartidor,cliente);
+
+	    ObjectId id = pedidoDAO.save(p);
+	    
+	    if (id != null) {
+	        EntityManager em = EntityManagerHelper.getEntityManager();
+	        try {
+	            em.getTransaction().begin();
+
+	            
+	            em.getTransaction().commit();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return null;
+	        } finally {
+	            if (em.getTransaction().isActive()) {
+	                em.getTransaction().rollback();
+	            }
+	            em.close();
+	        }
+	        return id;
+	    } else
+	        return null;
+	}
+	
 
 	public List<OpinionDTO> findByUsuario(Integer usuario) {
 	    OpinionDAO opinionDAO = OpinionDAO.getOpinionDAO();
@@ -166,6 +200,11 @@ public class ServicioGestionPedido {
 		PedidoDAO.getPedidoDAO().addRepartidor(repartidor,pedido);
 	}
 	
+	
+	public void deleteAllPedidos() {
+		
+		PedidoDAO.getPedidoDAO().deleteAllPedidos();
+	}
 	
 
 	public void deleteAllOpiniones() {

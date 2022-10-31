@@ -40,9 +40,13 @@ public abstract class ExtensionMongoDAO <T> {
         return null;
     }
     
+    
 //    public boolean delete(T entidad) {
 //    	
-//    	collection.deleteOne(null);
+//    	collection.remove
+//    	
+//    	return null;
+//    	
 //    	
 //    }
     

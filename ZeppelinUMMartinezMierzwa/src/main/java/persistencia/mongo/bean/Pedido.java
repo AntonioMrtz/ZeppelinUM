@@ -26,6 +26,24 @@ public class Pedido implements Serializable{
 	private List<EstadoPedido> estado;
 	private List<ItemPedido> items;
 	
+	
+	public Pedido() {
+		
+		
+	}
+	
+	
+	public Pedido(LocalDateTime fechaHora,String comentarios , double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente) {
+		
+		
+		this.fechaHora=fechaHora;
+		this.comentarios=comentarios;
+		this.importe=importe;
+		this.direccion=direccion;
+		this.restaurante=restaurante;
+		this.repartidor=repartidor;
+		this.cliente=cliente;
+	}
 
 	
 	public ObjectId getId() {

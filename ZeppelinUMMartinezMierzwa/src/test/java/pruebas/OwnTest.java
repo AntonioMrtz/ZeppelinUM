@@ -3,11 +3,18 @@ package pruebas;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
+import org.bson.types.ObjectId;
+import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import persistencia.dto.PedidoDTO;
+import persistencia.dto.UsuarioDTO;
 import persistencia.jpa.bean.CategoriaRestaurante;
 import persistencia.jpa.bean.Incidencia;
 import persistencia.jpa.bean.Plato;
@@ -19,11 +26,16 @@ import persistencia.jpa.dao.IncidenciaDAO;
 import persistencia.jpa.dao.PlatoDAO;
 import persistencia.jpa.dao.RestauranteDAO;
 import persistencia.jpa.dao.UsuarioDAO;
+import persistencia.mongo.bean.Pedido;
+import persistencia.mongo.dao.PedidoDAO;
+import zeppelinum.ServicioGestionPedido;
 import zeppelinum.ServicioGestionPlataforma;
+
 
 class OwnTest {
 
 	private ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
+	private ServicioGestionPedido servicio_pedido= ServicioGestionPedido.getServicioGestionPedido();
 
 	@org.junit.jupiter.api.Test
 	void checkCreateCategory() {
@@ -154,7 +166,7 @@ class OwnTest {
 
 	}
 	
-	@Test
+	@org.junit.jupiter.api.Test
 	void checkSearchUserByResponsable() {
 		
 		
@@ -185,7 +197,7 @@ class OwnTest {
 		
 	}
 	
-	@Test
+	@org.junit.jupiter.api.Test
 	void checkNonValidatedRestaurantUsers() {
 		
 		Integer usuario = servicio.registrarUsuario("us1", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
@@ -205,7 +217,7 @@ class OwnTest {
 		
 	}
 	
-	@Test
+	@org.junit.jupiter.api.Test
 	void checkFindIncidenciaByUser() {
 		
 		Integer usuario = servicio.registrarUsuario("us1", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
@@ -250,7 +262,7 @@ class OwnTest {
 	}
 	
 	
-	@Test
+	@org.junit.jupiter.api.Test
 	void checkFindIncidenciaNotClosed() {
 		
 		Integer usuario = servicio.registrarUsuario("us1", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
@@ -293,5 +305,150 @@ class OwnTest {
 
 		
 	}
+	
+	@Test
+	public void checkAddRepartidor() {
+		
+		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
+		
+		
+		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+		
+		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+		
+		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+
+		
+		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,null,cliente_id);
+
+		
+		servicio_pedido.addRepartidorPedido(repartidor_id, id);
+		
+		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByUser(cliente_id);
+		
+		UsuarioDTO repartidor_dto = UsuarioDAO.getUsuarioDAO().findByName("repartidor","repartidor").get(0);
+		
+		assertEquals(repartidor_dto.getNombre(),"repartidor");
+		assertEquals(repartidor_dto.getApellidos(),"repartidor");
+		
+		
+		
+		
+		Usuario cliente = UsuarioDAO.getUsuarioDAO().findById(cliente_id);
+		Usuario repartidor = UsuarioDAO.getUsuarioDAO().findById(repartidor_id);
+		Restaurante r= RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
+		
+		
+		RestauranteDAO.getRestauranteDAO().delete(r);
+		UsuarioDAO.getUsuarioDAO().delete(repartidor);
+		UsuarioDAO.getUsuarioDAO().delete(cliente);
+		
+		
+		servicio_pedido.deleteAllPedidos();
+		
+	}
+	
+	@Test
+	public void checkFindPedidoByUser() {
+		
+
+		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
+		
+		
+		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+		
+		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+		
+		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+
+		
+		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id);
+		ObjectId id2= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id);
+
+				
+		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByUser(cliente_id);
+		
+		
+		assertEquals(2,pedidos.size());
+		
+		
+		
+		
+		
+		Usuario cliente = UsuarioDAO.getUsuarioDAO().findById(cliente_id);
+		Usuario repartidor = UsuarioDAO.getUsuarioDAO().findById(repartidor_id);
+		Restaurante r= RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
+		
+		
+		RestauranteDAO.getRestauranteDAO().delete(r);
+		UsuarioDAO.getUsuarioDAO().delete(repartidor);
+		UsuarioDAO.getUsuarioDAO().delete(cliente);
+		
+		
+		servicio_pedido.deleteAllPedidos();
+		
+		
+	}
+	
+	@Test
+	public void checkFindPedidoByRestaurant() {
+		
+
+		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
+		
+		
+		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+		
+		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+		
+		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+
+		
+		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id);
+		ObjectId id2= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id);
+
+				
+		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByRestaurante(restaurante_id);
+		
+		
+		assertEquals(2,pedidos.size());
+		
+		
+		
+		
+		
+		Usuario cliente = UsuarioDAO.getUsuarioDAO().findById(cliente_id);
+		Usuario repartidor = UsuarioDAO.getUsuarioDAO().findById(repartidor_id);
+		Restaurante r= RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
+		
+		
+		RestauranteDAO.getRestauranteDAO().delete(r);
+		UsuarioDAO.getUsuarioDAO().delete(repartidor);
+		UsuarioDAO.getUsuarioDAO().delete(cliente);
+		
+		
+		servicio_pedido.deleteAllPedidos();
+		
+		
+	}
+	
+	
+	
+	@AfterEach
+	public void deleteDireccionesDB(){
+		
+		servicio_pedido.deleteAllDirecciones();
+		
+	}
+	
+	
+	
+	
 
 }

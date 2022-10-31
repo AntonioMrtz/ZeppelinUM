@@ -73,4 +73,9 @@ public class PedidoDAO extends ExtensionMongoDAO<Pedido> {
 		
 	}
 	
+	public void deleteAllPedidos() {
+		
+		collection.drop();
+	}
+	
 }
