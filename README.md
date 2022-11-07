@@ -6,7 +6,3 @@
 * Boletin 5 optional exercises
 
 * Test jpa1 meter
-
-# IMPORTANTE
-
-* Meter items en findbyrestaurante y nombre PEDIDO
