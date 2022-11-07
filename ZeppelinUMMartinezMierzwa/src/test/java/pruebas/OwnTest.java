@@ -1,6 +1,9 @@
 package pruebas;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,7 +40,7 @@ class OwnTest {
 	private ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
 	private ServicioGestionPedido servicio_pedido= ServicioGestionPedido.getServicioGestionPedido();
 
-	@org.junit.jupiter.api.Test
+	@Test
 	void checkCreateCategory() {
 		Integer id = servicio.crearCategoria("categoriaPrueba");
 		CategoriaRestaurante cr = CategoriaRestauranteDAO.getCategoriaRestauranteDAO().findById(id);

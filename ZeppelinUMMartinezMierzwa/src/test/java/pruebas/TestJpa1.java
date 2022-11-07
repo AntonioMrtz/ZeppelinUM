@@ -5,9 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
+import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import persistencia.jpa.bean.TipoUsuario;
+import persistencia.mongo.dao.DireccionDAO;
 import zeppelinum.ServicioGestionPlataforma;
 
 class TestJpa1 {
@@ -48,4 +51,12 @@ private ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServic
 		assertNotNull(exito);
 
 	}
+	
+//	@AfterEach
+//	void dropMongo() {
+//		
+//		DireccionDAO.getDireccionDAO().deleteAllDirecciones();
+//		
+//	}
+	
 }

@@ -73,6 +73,12 @@
 			<artifactId>weld-servlet-shaded</artifactId>
 			<version>3.1.8.Final</version>
 		</dependency>
+		
+		<dependency>
+    <groupId>org.primefaces</groupId>
+    <artifactId>primefaces</artifactId>
+    <version>12.0.0</version>
+</dependency>
 
 	</dependencies>
 </project>
