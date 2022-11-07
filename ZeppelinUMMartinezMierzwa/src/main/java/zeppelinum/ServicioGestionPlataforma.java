@@ -61,6 +61,11 @@ public class ServicioGestionPlataforma {
 			usu.setClave(clave);
 			usu.setTipo(tipo);
 			usu.setValidado(false);
+			
+			if(tipo.name().equals("RESTAURANTE"))
+			    usu.setValidado(false);
+			else
+			    usu.setValidado(true);
 
 			UsuarioDAO.getUsuarioDAO().save(usu, em);
 
