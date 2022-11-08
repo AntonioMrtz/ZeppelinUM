@@ -1,49 +1,52 @@
 <ui:composition template="/WEB-INF/template/template_publica.xhtml"
-xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
-    <ui:define name="title">
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<ui:param name="menuseleccionado" value="estilo3" />
+
+	<ui:define name="title">
         Registro de Usuarios
     </ui:define>
-    <ui:define name="content">
-        <div class="row">
-        <div class="col-12">
-        <div class="content">
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputText value="Nombre"></h:outputText>
-                <h:inputText id="nombre" value="#{registroWeb.nombre}" />
-                <h:outputText value="Apellidos"></h:outputText>
-                <h:inputText value="#{registroWeb.apellidos}"></h:inputText>
+	<ui:define name="content">
+		<div class="row">
+			<div class="col-12">
+				<div class="content">
+					<h:form>
+						<h:panelGrid columns="2">
+							<h:outputText value="Nombre"></h:outputText>
+							<h:inputText id="nombre" value="#{registroWeb.nombre}" />
+							<h:outputText value="Apellidos"></h:outputText>
+							<h:inputText value="#{registroWeb.apellidos}"></h:inputText>
 
-                <h:outputText value="Correo"></h:outputText>
-                <h:inputText value="#{registroWeb.correo}"></h:inputText>
+							<h:outputText value="Correo"></h:outputText>
+							<h:inputText value="#{registroWeb.correo}"></h:inputText>
 
-                <h:outputText value="Clave"></h:outputText>
-                <h:inputSecret value="#{registroWeb.clave}">
-                    <f:validateLength minimum="4" />
-                </h:inputSecret>
-                <h:outputText value="Repetir Clave"></h:outputText>
-                <h:inputSecret value="#{registroWeb.clave2}"></h:inputSecret>
-                <h:outputText value="Fecha Nacimiento"></h:outputText>
-                <h:inputText value="#{registroWeb.fechaNacimiento}">
-                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
-                </h:inputText>
-                <h:outputText value="Tipo de cliente"></h:outputText>
-                <h:selectOneMenu value="#{registroWeb.tipo}">
-                    <f:selectItem itemValue="CLIENTE" itemLabel="Cliente" />
-                    <f:selectItem itemValue="RESTAURANTE" itemLabel="Gestor de restaurante" />
-                </h:selectOneMenu>
-            </h:panelGrid>
-            <h:messages id="errors" infoStyle="color:blue"
-                warnStyle="color:orange" errorStyle="color:red" showDetail="true" />
-            <h:commandButton value="Registrar"
-                actionListener="#{registroWeb.registro}">
-            </h:commandButton>
-        </h:form>
-        </div>
-        </div>
-        </div>
-    </ui:define>
+							<h:outputText value="Clave"></h:outputText>
+							<h:inputSecret value="#{registroWeb.clave}">
+								<f:validateLength minimum="4" />
+							</h:inputSecret>
+							<h:outputText value="Repetir Clave"></h:outputText>
+							<h:inputSecret value="#{registroWeb.clave2}"></h:inputSecret>
+							<h:outputText value="Fecha Nacimiento"></h:outputText>
+							<h:inputText value="#{registroWeb.fechaNacimiento}">
+								<f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+							</h:inputText>
+							<h:outputText value="Tipo de cliente"></h:outputText>
+							<h:selectOneMenu value="#{registroWeb.tipo}">
+								<f:selectItem itemValue="CLIENTE" itemLabel="Cliente" />
+								<f:selectItem itemValue="RESTAURANTE"
+									itemLabel="Gestor de restaurante" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						<h:messages id="errors" infoStyle="color:blue"
+							warnStyle="color:orange" errorStyle="color:red" showDetail="true" />
+						<h:commandButton value="Registrar"
+							actionListener="#{registroWeb.registro}">
+						</h:commandButton>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
 </ui:composition>

@@ -1,66 +1,69 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title><ui:insert name="title" /></title>
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title><ui:insert name="title" /></title>
 
-    <h:outputStylesheet name="assets/css/main.css" />
-    <h:outputStylesheet library="webjars"
-        name="font-awesome/5.12.0/css/all.min-jsf.css" />
-    <h:outputStylesheet library="webjars"
-        name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+	<h:outputStylesheet name="assets/css/main.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/6.2.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/6.2.0/css/v4-shims.min-jsf.css" />
 </h:head>
 <h:body class="homepage is-preload">
-    <div id="page-wrapper">
-        <ui:include src="/WEB-INF/template/header.xhtml"/>          
-        <ui:insert name="metadata" />
-        <c:if test="#{not userSessionWeb.login}">
-            <h:form id="login">             
-            <p:panel header="Inicio de sesión"
-                style="max-width: 400px; min-width: 300px; margin-left: auto; margin-right: auto;
+	<div id="page-wrapper">
+		<ui:include src="/WEB-INF/template/header.xhtml">
+			<ui:param name="#{menuseleccionado}" value="current" />
+		</ui:include>
+		<ui:insert name="metadata" />
+		<c:if test="#{not userSessionWeb.login}">
+			<h:form id="login">
+				<p:panel header="Inicio de sesión"
+					style="max-width: 400px; min-width: 300px; margin-left: auto; margin-right: auto;
                          margin-top: 200px; margin-bottom: 200px;">
-                    <div class="ui-g ui-fluid">
-                        <div class="ui-g-12">
-                            Usuario:
-                            <p:inputText value="#{loginWeb.email}" />
-                        </div>
-                        <div class="ui-g-12">
-                            Clave:
-                            <p:password value="#{loginWeb.password}" />
-                        </div>
-                        <div class="ui-g-12" style="text-align: center;">
-                        <p:commandButton value="Iniciar sesión" 
-                            actionListener="#{loginWeb.login()}" style="width: auto;"
-                                update="error" />
-                            <p:messages showDetail="true" showSummary="true" id="error" />  
-                        </div>
-                    </div>
-                </p:panel>
-            </h:form>
-        </c:if>
-        <c:if test="#{userSessionWeb.login}">
-            <section id="main">
-            <div class="container">
-                <ui:insert name="content" />
-            </div>
-            </section>
-        </c:if>
-        <ui:include src="/WEB-INF/template/footer.xhtml" />
-    </div>
-    <h:outputScript library="primefaces" name="jquery/jquery.js" />
-    <h:outputScript name="assets/js/jquery.dropotron.min.js" />
-    <h:outputScript name="assets/js/jquery.scrolly.min.js" />
-    <h:outputScript name="assets/js/browser.min.js" />
-    <h:outputScript name="assets/js/breakpoints.min.js" />
-    <h:outputScript name="assets/js/util.js" />
-    <h:outputScript name="assets/js/main.js" />
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12">
+							Usuario:
+							<p:inputText value="#{loginWeb.email}" />
+						</div>
+						<div class="ui-g-12">
+							Clave:
+							<p:password value="#{loginWeb.password}" />
+						</div>
+						<div class="ui-g-12" style="text-align: center;">
+							<p:commandButton value="Iniciar sesión"
+								actionListener="#{loginWeb.login()}" style="width: auto;"
+								update="error" />
+							<p:messages showDetail="true" showSummary="true" id="error" />
+						</div>
+					</div>
+				</p:panel>
+			</h:form>
+		</c:if>
+		<c:if test="#{userSessionWeb.login}">
+			<section id="main">
+			<div class="container">
+				<ui:insert name="content" />
+			</div>
+			</section>
+		</c:if>
+		<ui:include src="/WEB-INF/template/footer.xhtml" />
+	</div>
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript name="assets/js/jquery.dropotron.min.js" />
+	<h:outputScript name="assets/js/jquery.scrolly.min.js" />
+	<h:outputScript name="assets/js/browser.min.js" />
+	<h:outputScript name="assets/js/breakpoints.min.js" />
+	<h:outputScript name="assets/js/util.js" />
+	<h:outputScript name="assets/js/main.js" />
 </h:body>
 </html>

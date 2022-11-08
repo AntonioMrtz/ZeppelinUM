@@ -3,23 +3,24 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
-    <section id="header">
-    <h1>
-        <a href="#{request.contextPath}/index.xhtml">ZEPPELINUM</a>
-    </h1>
-    <!-- Nav --> 
-    <nav id="nav">
-    <ul>
-        <li class="current"><a href="#{request.contextPath}/index.xhtml">Inicio</a></li>
-        <li><a href="#">Gestión de restaurantes</a>
-            <ul>
-                <li><a href="#{request.contextPath}/restaurante/form.xhtml">Crear restaurante</a></li>
-            </ul></li>
-            
-        <li><a
-            href="#{request.contextPath}/usuario/registro.xhtml">Registro</a></li>
-    </ul>
-    </nav> <!-- Banner --> </section>
-    <!-- Nav -->
+	<section id="header">
+	<h1>
+		<a href="#{request.contextPath}/index.xhtml">ZEPPELINUM</a>
+	</h1>
+	<!-- Nav --> <nav id="nav">
+	<ul>
+		<li class="#{estilo1}"><a
+			href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+		<li class="#{estilo2}"><a href="#">Gestión de restaurantes</a>
+			<ul>
+				<li><a href="#{request.contextPath}/restaurante/form.xhtml">Crear
+						restaurante</a></li>
+			</ul></li>
+		<li class="#{estilo3}"><a
+			href="#{request.contextPath}/usuario/registro.xhtml">Registro</a></li>
+		<li><a href="#{request.contextPath}/logout">Cerrar sesión</a></li>
+	</ul>
+	</nav> <!-- Banner --> </section>
+	<!-- Nav -->
 </body>
 </html>

@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template_privada.xhtml">
+	<ui:param name="menuseleccionado" value="estilo2" />
+	<ui:define name="title">Menú de un restaurante</ui:define>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="id" value="#{restauranteMenuList.idRestaurante}" />
+			<f:viewAction action="#{restauranteMenuList.loadMenu()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="menu">
+			<h3>#{restauranteMenuList.restauranteSeleccionado.nombre}</h3>
+			<br />
+			<p:button value="Volver" href="form.xhtml" style="margin-right:5px"
+				icon="fa fa-arrow-left"></p:button>
+			<p:commandButton value="Dar plato de alta" icon="fa fa-utensils"
+				oncomplete="PF('nuevoPlato').show();" update="nuevo"></p:commandButton>
+			<br />
+			<p:messages showDetail="true" id="info" />
+			<p:dataTable var="plato" style="prueba"
+				value="#{restauranteMenuList.menu}" rows="50" id="tabla_header"
+				paginator="true" rowsPerPageTemplate="5,10,{ShowAll|'All'}"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<p:column headerText="Título">
+					<h:outputText value="#{plato.titulo}" />
+				</p:column>
+				<p:column headerText="Precio">
+					<h:outputText value="#{plato.precio}" />
+				</p:column>
+				<p:column style="width: 200px;" headerText="Opciones">
+				</p:column>
+			</p:dataTable>
+			<p:growl showDetail="true" id="info2" />
+			<p:dialog header="Dar de alta plato" modal="true"
+				widgetVar="nuevoPlato" width="650">
+				<p:outputPanel id="nuevo" style="margin: 10px;">
+					<h:panelGrid columns="2">
+						<h:outputText value="Título" />
+						<h:inputText value="#{restauranteMenuList.titulo}" />
+						<h:outputText value="Descripción" />
+						<h:inputTextarea value="#{restauranteMenuList.descripcion}"
+							rows="5" />
+						<h:outputText value="Precio" />
+						<p:inputNumber value="#{restauranteMenuList.precio}"
+							decimalPlaces="2" />
+						<p:commandButton value="Cerrar" onclick="PF('nuevoPlato').hide();" />
+						<p:commandButton value="Crear plato" icon="fa fa-bowl-food"
+							actionListener="#{restauranteMenuList.crearPlato()}"
+							oncomplete="PF('nuevoPlato').hide();" update="tabla_header info2" />
+					</h:panelGrid>
+					<p:ajaxStatus>
+						<f:facet name="start">
+							<i class="pi pi-spin pi-spinner loading-icon" aria-hidden="true"></i>
+						</f:facet>
+					</p:ajaxStatus>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

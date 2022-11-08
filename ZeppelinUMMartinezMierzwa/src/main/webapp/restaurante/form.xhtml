@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template_privada.xhtml">
+	<ui:param name="menuseleccionado" value="estilo2" />
+	<ui:define name="title">
+Crear restaurante
+</ui:define>
+	<ui:define name="content">
+		<script type="text/javascript"
+			src="https://maps.google.com/maps/api/js?sensor=false"></script>
+		<h:form id="restaurantes">
+			<p:messages id="mensajes1" />
+			<p:gmap id="gmap" center="37.99221541559062 , -1.13045540609916"
+				zoom="15" type="ROADMAP" style="width:100%;height:400px"
+				model="#{restauranteWeb.simpleModel}">
+				<p:ajax event="pointSelect"
+					listener="#{restauranteWeb.onPointSelect}"
+					update="nuevoRestaurante"
+					oncomplete="PF('crearRestaurante').show();" />
+				<p:ajax event="overlaySelect"
+					listener="#{restauranteWeb.onMarkerRestauranteSelect}" />
+			</p:gmap>
+			<p:messages id="mensajes2" />
+			<p:dialog header="Crear restaurante" modal="true"
+				widgetVar="crearRestaurante" width="650">
+				<p:outputPanel id="nuevoRestaurante" style="margin: 10px;">
+					<h:panelGrid columns="2">
+						<h:outputText value="Nombre restaurante" />
+						<p:inputText value="#{restauranteWeb.nombreRestaurante}" />
+						<h:outputText value="Latitud" />#{restauranteWeb.latitudSelected}
+                    <h:outputText value="Longitud" />#{restauranteWeb.longitudSelected}
+                        <h:outputText value="Calle" />
+						<p:inputText value="#{restauranteWeb.calle}" />
+						<h:outputText value="Número" />
+						<p:inputNumber value="#{restauranteWeb.numero}" decimalPlaces="0" />
+						<h:outputText value="Código postal" />
+						<p:inputText value="#{restauranteWeb.codigoPostal}" />
+						<h:outputText value="Ciudad" />
+						<p:inputText value="#{restauranteWeb.ciudad}"></p:inputText>
+					</h:panelGrid>
+					<p:commandButton value="Cerrar" style="margin-right:5px"
+						onclick="PF('crearRestaurante').hide();" />
+					<p:commandButton value="Crear restaurante"
+						actionListener="#{restauranteWeb.crearRestaurante()}"
+						oncomplete="PF('crearRestaurante').hide();" icon="fa fa-utensils"
+						update="mensajes1 mensajes2 gmap" />
+					<p:ajaxStatus>
+						<f:facet name="start">
+							<i class="pi pi-spin pi-spinner loading-icon" aria-hidden="true"></i>
+						</f:facet>
+					</p:ajaxStatus>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

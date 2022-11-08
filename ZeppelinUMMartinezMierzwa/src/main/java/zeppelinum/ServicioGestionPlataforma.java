@@ -392,6 +392,12 @@ public class ServicioGestionPlataforma {
 	}
 	
 	
+	public RestauranteDTO getRestaurante(Integer idRestaurante) {
+        Restaurante restaurante = RestauranteDAO.getRestauranteDAO().findById(idRestaurante);
+        return new RestauranteDTO(idRestaurante, restaurante.getNombre(), restaurante.getValoracionGlobal());
+}
+	
+	
 	
 	// THIS METHODS MAY NOT BE USEFUL , theyre made in order to test theyre working
 	
