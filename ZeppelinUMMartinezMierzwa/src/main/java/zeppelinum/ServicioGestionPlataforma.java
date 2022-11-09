@@ -62,7 +62,7 @@ public class ServicioGestionPlataforma {
 			usu.setTipo(tipo);
 			usu.setValidado(false);
 			
-			if(tipo.name().equals("RESTAURANTE"))
+			if(tipo.name().equals("RESTAURANTE") || tipo.name().equals("RIDER"))
 			    usu.setValidado(false);
 			else
 			    usu.setValidado(true);
@@ -71,6 +71,26 @@ public class ServicioGestionPlataforma {
 
 			em.getTransaction().commit();
 			return usu.getId();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			em.close();
+		}
+	}
+	
+	public List<UsuarioDTO> getAllUsers(){
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		try {
+			em.getTransaction().begin();
+
+			List<UsuarioDTO> usu = UsuarioDAO.getUsuarioDAO().getAllUsers();
+
+			em.getTransaction().commit();
+			return usu;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

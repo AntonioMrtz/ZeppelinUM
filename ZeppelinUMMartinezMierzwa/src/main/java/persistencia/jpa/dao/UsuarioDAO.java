@@ -34,6 +34,15 @@ public class UsuarioDAO extends ExtensionDAO<Usuario> {
 			throw re;
 		}
 	}
+	
+	public List<UsuarioDTO> getAllUsers() {
+		try {
+			List<Usuario> usuList = getAll();
+			return transformarToDTO(usuList);
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
 
 	public List<UsuarioDTO> findByEmailClave(String email, String clave) {
 		try {
@@ -61,7 +70,7 @@ public class UsuarioDAO extends ExtensionDAO<Usuario> {
 	public List<UsuarioDTO> transformarToDTO(List<Usuario> usuarios) {
 		List<UsuarioDTO> users = new ArrayList<UsuarioDTO>();
 		for (Usuario u : usuarios) {
-			users.add(new UsuarioDTO(u.getId(), u.getNombre(), u.getApellidos(), u.getFechaNacimiento(), u.getTipo()));
+			users.add(new UsuarioDTO(u.getId(), u.getNombre(), u.getApellidos(), u.getFechaNacimiento(), u.getTipo(), u.isValidado()));
 		}
 		return users;
 	}

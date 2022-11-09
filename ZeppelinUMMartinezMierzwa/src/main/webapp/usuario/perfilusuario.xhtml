@@ -7,6 +7,10 @@ xmlns="http://www.w3.org/1999/xhtml"
 Perfil de usuario
 </ui:define>
     <ui:define name="content">
-        <h1>Hola #{userSessionWeb.usuario.nombre}</h1>
+        <h1>Username: #{userSessionWeb.usuario.nombre}</h1><br></br>
+        <p>ID: #{userSessionWeb.usuario.id}</p>
+        <p>Apellidos: #{userSessionWeb.usuario.apellidos}</p>
+        <p>Your User Type: #{userSessionWeb.usuario.tipo}</p>
+        <p>Date of Birth: #{userSessionWeb.usuario.fechaNacimiento}</p>
     </ui:define>
 </ui:composition>

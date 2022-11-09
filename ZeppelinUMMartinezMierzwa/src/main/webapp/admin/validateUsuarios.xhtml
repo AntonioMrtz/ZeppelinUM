@@ -1,0 +1,32 @@
+<ui:composition template="/WEB-INF/template/template_privada.xhtml"
+xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="title">
+Validate Usuarios
+</ui:define>
+    <ui:define name="content">
+         <h:form>
+        <ui:repeat value="#{validateUser.usuarios}" var="item"><br></br>
+        <p>#{item.getNombre()}</p>
+        <div>
+      <input type="checkbox" id="horns" name="horns" style="display: inline-block" />
+      <label for="horns">Horns</label>
+    </div>
+        <input type="checkbox" checked="true" name="jajaja" />
+        <c:if test="#{item.isValidated()}">
+        	<input type="checkbox" checked="true" name="jajaja" />
+        </c:if>
+        <c:otherwise>
+        	<input type="checkbox" />
+        </c:otherwise>
+          
+        
+        </ui:repeat>   
+    </h:form>
+    </ui:define>
+
+    
+</ui:composition>
