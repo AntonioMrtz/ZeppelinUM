@@ -73,7 +73,7 @@ class OwnTest {
 
 	}
 
-	@org.junit.jupiter.api.Test
+	@Test
 	void checkRegisterRestaurant() {
 
 		LinkedList<Integer> categorias = new LinkedList<>();
