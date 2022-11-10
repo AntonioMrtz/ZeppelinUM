@@ -16,7 +16,7 @@
 
 	<servlet>
 		<servlet-name>Logout</servlet-name>
-		<servlet-class>aadd.servlet.Logout</servlet-class>
+		<servlet-class>servlet.Logout</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>

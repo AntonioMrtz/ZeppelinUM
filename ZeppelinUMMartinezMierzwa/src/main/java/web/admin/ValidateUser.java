@@ -82,7 +82,10 @@ public class ValidateUser implements Serializable{
 		this.isValidated = isValidated;
 	}
 	
-
+	public void validar(int id) {
+		
+		System.out.println(id);
+	}
 
 
 

@@ -18,6 +18,8 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
+import persistencia.jpa.bean.CategoriaRestaurante;
+import persistencia.jpa.dao.CategoriaRestauranteDAO;
 import web.usuario.UserSessionWeb;
 import zeppelinum.ServicioGestionPlataforma;
 
@@ -123,9 +125,17 @@ public class RestauranteWeb implements Serializable{
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	public List<Integer> getCategorias() {
-		return categorias;
+	public List<CategoriaRestaurante> getAllCategorias() {
+		
+		return CategoriaRestauranteDAO.getCategoriaRestauranteDAO().getAll();
+		//return categorias;
 	}
+	
+	public List<Integer> getCategorias(){
+		
+		return this.categorias;
+	}
+	
 	public void setCategorias(List<Integer> categorias) {
 		this.categorias = categorias;
 	}

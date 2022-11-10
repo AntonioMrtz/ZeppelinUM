@@ -31,7 +31,7 @@ Crear restaurante
 						<h:outputText value="Nombre restaurante" />
 						<p:inputText value="#{restauranteWeb.nombreRestaurante}" />
 						<h:outputText value="Latitud" />#{restauranteWeb.latitudSelected}
-                    <h:outputText value="Longitud" />#{restauranteWeb.longitudSelected}
+                    	<h:outputText value="Longitud" />#{restauranteWeb.longitudSelected}
                         <h:outputText value="Calle" />
 						<p:inputText value="#{restauranteWeb.calle}" />
 						<h:outputText value="Número" />
@@ -40,6 +40,21 @@ Crear restaurante
 						<p:inputText value="#{restauranteWeb.codigoPostal}" />
 						<h:outputText value="Ciudad" />
 						<p:inputText value="#{restauranteWeb.ciudad}"></p:inputText>
+						
+						<!-- TODO multiple categorias -->
+
+
+
+
+						<p:selectCheckboxMenu id="menu"
+							value="#{restauranteWeb.categorias}" label="Categorias"
+							style="width: 15rem" filter="true" filterMatchMode="startsWith"
+							panelStyle="width: 15rem" scrollHeight="250" dynamic="true">
+							<f:selectItems value="#{restauranteWeb.getAllCategorias()}" var="c"
+								itemLabel="#{c.categoria}" itemValue="#{c.id}" />
+						</p:selectCheckboxMenu>
+
+
 					</h:panelGrid>
 					<p:commandButton value="Cerrar" style="margin-right:5px"
 						onclick="PF('crearRestaurante').hide();" />

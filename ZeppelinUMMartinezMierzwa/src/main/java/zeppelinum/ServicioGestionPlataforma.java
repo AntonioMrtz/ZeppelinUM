@@ -156,14 +156,22 @@ public class ServicioGestionPlataforma {
 			d.setCoordenadas(new Point(new Position(longitud, latitud)));
 			d.setNumero(numero);
 			d.setRestaurante(r.getId());
+			
+			if(categorias!=null) {
 
 			List<CategoriaRestaurante> categorias_obj = CategoriaRestauranteDAO.getCategoriaRestauranteDAO()
 					.findByIds(categorias);
-			r.setCategorias(categorias_obj);
-
-			for (CategoriaRestaurante c : categorias_obj) {
-
-				c.addRestaurant(r);
+			
+			
+				
+				r.setCategorias(categorias_obj);
+				
+				for (CategoriaRestaurante c : categorias_obj) {
+					
+					c.addRestaurant(r);
+				}
+				
+				
 			}
 
 			DireccionDAO.getDireccionDAO().save(d);
