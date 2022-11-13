@@ -1,10 +1,7 @@
 # TODO
 
 
-
-* Boletin 5 optional exercises
-
-* Boletin 6 optional exercises
+* Boletin 6 optional exercises 2,3
 
 * Test jpa1 meter
 
