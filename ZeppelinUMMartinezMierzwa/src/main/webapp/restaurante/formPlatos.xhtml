@@ -3,6 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	template="/WEB-INF/template/template_privada.xhtml">
 	<ui:param name="menuseleccionado" value="estilo2" />
 	<ui:define name="title">Menú de un restaurante</ui:define>
@@ -18,8 +19,11 @@
 			<br />
 			<p:button value="Volver" href="form.xhtml" style="margin-right:5px"
 				icon="fa fa-arrow-left"></p:button>
+			
+			<c:if test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE')}">
 			<p:commandButton value="Dar plato de alta" icon="fa fa-utensils"
 				oncomplete="PF('nuevoPlato').show();" update="nuevo"></p:commandButton>
+			</c:if>
 			<br />
 			<p:messages showDetail="true" id="info" />
 			<p:dataTable var="plato" style="prueba"
@@ -36,7 +40,8 @@
 				</p:column>
 			</p:dataTable>
 			<p:growl showDetail="true" id="info2" />
-			<p:dialog header="Dar de alta plato" modal="true"
+			
+				<p:dialog header="Dar de alta plato" modal="true"
 				widgetVar="nuevoPlato" width="650">
 				<p:outputPanel id="nuevo" style="margin: 10px;">
 					<h:panelGrid columns="2">
@@ -60,6 +65,8 @@
 					</p:ajaxStatus>
 				</p:outputPanel>
 			</p:dialog>
+			
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -12,6 +12,8 @@ import org.eclipse.persistence.config.QueryHints;
 import persistencia.dto.RestauranteDTO;
 import persistencia.dto.UsuarioDTO;
 import persistencia.jpa.bean.Restaurante;
+import persistencia.mongo.bean.Direccion;
+import persistencia.mongo.dao.DireccionDAO;
 
 public class RestauranteDAO extends ExtensionDAO<Restaurante> {
 
@@ -30,8 +32,14 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
 	public List<RestauranteDTO> transformarToDTO(List<Restaurante> restaurantes) {
 		List<RestauranteDTO> rs = new ArrayList<RestauranteDTO>();
 		for (Restaurante r : restaurantes) {
-			rs.add(new RestauranteDTO(r.getId(), r.getNombre(), r.getValoracionGlobal()));
+			Direccion direccion = DireccionDAO.getDireccionDAO().findByRestaurante(r.getId());
+			RestauranteDTO restaurant = new RestauranteDTO(r.getId(), r.getNombre(), r.getValoracionGlobal());
+			restaurant.setLongitud(direccion.getCoordenadas().getPosition().getValues().get(0));
+			restaurant.setLatitud(direccion.getCoordenadas().getPosition().getValues().get(1));
+			rs.add(restaurant);
+
 		}
+		System.out.println("done");
 		return rs;
 	}
 

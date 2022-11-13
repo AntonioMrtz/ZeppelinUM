@@ -9,7 +9,11 @@ import org.junit.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import persistencia.jpa.bean.Restaurante;
 import persistencia.jpa.bean.TipoUsuario;
+import persistencia.jpa.bean.Usuario;
+import persistencia.jpa.dao.RestauranteDAO;
+import persistencia.jpa.dao.UsuarioDAO;
 import persistencia.mongo.dao.DireccionDAO;
 import zeppelinum.ServicioGestionPlataforma;
 
@@ -21,10 +25,12 @@ private ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServic
 	void crearUsuario() {
 
 		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
-		Integer usuario = servicio.registrarUsuario("Periquita", "Palotes", fechaNacimiento, "periquita@palotes.es",
+		Integer usuario_id = servicio.registrarUsuario("zirewie39485738", "Palotes", fechaNacimiento, "periquita@palotes.es",
 				"12345", TipoUsuario.RESTAURANTE);
 		
-		assertTrue(usuario != null);
+		assertTrue(usuario_id != null);
+		Usuario u = UsuarioDAO.getUsuarioDAO().findById(usuario_id);
+		UsuarioDAO.getUsuarioDAO().delete(u);
 	}
 
 	
@@ -32,23 +38,27 @@ private ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServic
 	@org.junit.jupiter.api.Test
 	void validarUsuario() {
 		
-		
 		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
-		Integer usuario = servicio.registrarUsuario("Periquitas", "Palotes", fechaNacimiento, "periquita@palotes.es",
+		Integer usuario_id = servicio.registrarUsuario("923752983456", "Palotes", fechaNacimiento, "periquita@palotes.es",
 				"12345", TipoUsuario.RESTAURANTE);
 		
-		boolean exito = servicio.validarUsuario(usuario);
+		boolean exito = servicio.validarUsuario(usuario_id);
 		assertTrue(exito);
+		Usuario u = UsuarioDAO.getUsuarioDAO().findById(usuario_id);
+		UsuarioDAO.getUsuarioDAO().delete(u);
 	}
 
 	@org.junit.jupiter.api.Test
 	void crearRestaurantePlato() {
 
-		Integer rest = servicio.registrarRestaurante("La periquita", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
-		assertTrue(rest != null);
-		Integer exito = servicio.nuevoPlato("Marmitako de bonito", "plato de bonito, patatas y cebolla con verduras",
-				20d, rest);
-		assertNotNull(exito);
+		Integer restaurante_id = servicio.registrarRestaurante("11241235235", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+		assertTrue(restaurante_id != null);
+		Integer plato_id = servicio.nuevoPlato("Marmitako de bonito", "plato de bonito, patatas y cebolla con verduras",
+				20d, restaurante_id);
+		assertNotNull(plato_id);
+		Restaurante u = RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
+		RestauranteDAO.getRestauranteDAO().delete(u);
+
 
 	}
 	

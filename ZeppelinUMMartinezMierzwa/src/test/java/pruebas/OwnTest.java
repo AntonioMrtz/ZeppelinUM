@@ -79,12 +79,12 @@ class OwnTest {
 		LinkedList<Integer> categorias = new LinkedList<>();
 
 		/* persist categories */
-		Integer cat1_id = servicio.crearCategoria("cat1");
-		Integer cat2_id = servicio.crearCategoria("cat2");
+		Integer cat1_id = servicio.crearCategoria("fg7834fgw3794fg6");
+		Integer cat2_id = servicio.crearCategoria("fbuq38g4bf34");
 		categorias.add(cat1_id);
 		categorias.add(cat2_id);
 
-		Integer restaurante_id = servicio.registrarRestaurante("REst1", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, categorias);
+		Integer restaurante_id = servicio.registrarRestaurante("f7834gb76f3498f723g4", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, categorias);
 
 //		System.out.println("this is the id: " + restaurante_id);
 		
@@ -108,7 +108,7 @@ class OwnTest {
 		Integer cat1_id = servicio.crearCategoria("cat2");
 		LinkedList<Integer> cats = new LinkedList<>();
 		cats.add(cat1_id);
-		Integer restaurante_id = servicio.registrarRestaurante("RestauranteR2", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
+		Integer restaurante_id = servicio.registrarRestaurante("89236578239t5978321648", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
 		Integer plato = servicio.nuevoPlato("plato1", "", 10, restaurante_id);
 		
 		Restaurante r = RestauranteDAO.getRestauranteDAO().findById(restaurante_id);
@@ -150,9 +150,9 @@ class OwnTest {
 
 		LinkedList<Integer> cats = new LinkedList<>();
 		cats.add(1);
-		Integer restaurante_id = servicio.registrarRestaurante("mano a mano", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
+		Integer restaurante_id = servicio.registrarRestaurante("b83q4bf7349zfb394u", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, cats);
 		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
-		Integer usuario_id = servicio.registrarUsuario("someone else", "Palotes2", fechaNacimiento,
+		Integer usuario_id = servicio.registrarUsuario("fb83274gbf9347fv634e", "Palotes2", fechaNacimiento,
 				"periquita@palotes.es", "12345", TipoUsuario.RESTAURANTE);
 		Integer incidencia_id = servicio.crearIncidencia(fechaNacimiento, "description", fechaNacimiento, "",
 				usuario_id, restaurante_id);
@@ -175,12 +175,12 @@ class OwnTest {
 	void checkSearchUserByResponsable() {
 		
 		
-		Integer usuario = servicio.registrarUsuario("us1", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.ADMIN);
-		Integer categoria = servicio.crearCategoria("cat1");
+		Integer usuario = servicio.registrarUsuario("84395689123746923817648", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.ADMIN);
+		Integer categoria = servicio.crearCategoria("21367345123786edt237tz");
 		ArrayList<Integer> l= new ArrayList<>();
 		l.add(categoria);
-		Integer restaurante = servicio.registrarRestaurante("rest1", usuario, " ", " ", 82, "Murcia",38.009109654488476, -1.1339542029796663, l);
-		Integer restaurante2 = servicio.registrarRestaurante("rest2", usuario, " ", " ", 82, "Murcia",38.009109654488476, -1.1339542029796663, l);
+		Integer restaurante = servicio.registrarRestaurante("fb3qz489f76zg3eu4f", usuario, " ", " ", 82, "Murcia",38.009109654488476, -1.1339542029796663, l);
+		Integer restaurante2 = servicio.registrarRestaurante("fhb78q034gfb793qz4gd", usuario, " ", " ", 82, "Murcia",38.009109654488476, -1.1339542029796663, l);
 		
 
 		Usuario u = UsuarioDAO.getUsuarioDAO().findById(usuario);
@@ -205,8 +205,8 @@ class OwnTest {
 	@org.junit.jupiter.api.Test
 	void checkNonValidatedRestaurantUsers() {
 		
-		Integer usuario = servicio.registrarUsuario("us1", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
-		Integer usuario_validated = servicio.registrarUsuario("us_validated", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
+		Integer usuario = servicio.registrarUsuario("245745262431", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
+		Integer usuario_validated = servicio.registrarUsuario("819236482017364", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
 		
 		servicio.validarUsuario(usuario_validated);
 		
@@ -270,12 +270,12 @@ class OwnTest {
 	@org.junit.jupiter.api.Test
 	void checkFindIncidenciaNotClosed() {
 		
-		Integer usuario = servicio.registrarUsuario("us1", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
-		Integer usuario2 = servicio.registrarUsuario("us_validated", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
+		Integer usuario = servicio.registrarUsuario("3278563487156", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
+		Integer usuario2 = servicio.registrarUsuario("18273578634985793", "apell1", LocalDate.now(), "a@", "clave", TipoUsuario.RESTAURANTE);
 		Integer categoria = servicio.crearCategoria("cat1");
 		ArrayList<Integer> l= new ArrayList<>();
 		l.add(categoria);
-		Integer restaurante = servicio.registrarRestaurante("rest1", usuario, " ", " ", 82, "Murcia",38.009109654488476, -1.1339542029796663, l);
+		Integer restaurante = servicio.registrarRestaurante("49380652901384", usuario, " ", " ", 82, "Murcia",38.009109654488476, -1.1339542029796663, l);
 		
 		Integer incidencia = servicio.crearIncidencia(LocalDate.now(), "i1", null, "a", usuario, restaurante);
 		Integer incidencia2 = servicio.crearIncidencia(LocalDate.now(), "i2", null, "a", usuario, restaurante);

@@ -2,6 +2,7 @@ package web.restaurante;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +19,7 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
+import persistencia.dto.RestauranteDTO;
 import persistencia.jpa.bean.CategoriaRestaurante;
 import persistencia.jpa.dao.CategoriaRestauranteDAO;
 import web.usuario.UserSessionWeb;
@@ -47,12 +49,33 @@ public class RestauranteWeb implements Serializable{
     private ServicioGestionPlataforma servicio;
 
     public RestauranteWeb() {
-        simpleModel = new DefaultMapModel<Integer>();
-        servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
+    	
     }
-    @PostConstruct
+
+    public void initializeMapModel() {
+    	servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
+    	System.out.println("executing");
+    	simpleModel = new DefaultMapModel<Integer>();
+    	System.out.println("loaded mapModel");
+    	List<RestauranteDTO> restaurantList = servicio.searchRestaurantByResponsable(responsableId);
+    	if(restaurantList == null) {
+    		restaurantList = new ArrayList<RestauranteDTO>();
+    	}
+    	System.out.println("loaded restaurantList from responsable, size: " + restaurantList.size());
+    	for(RestauranteDTO r: restaurantList) {
+    		try {
+    		LatLng coord = new LatLng(r.getLatitud(), r.getLongitud());
+            simpleModel.addOverlay(new Marker<Integer>(coord, r.getNombre(), r.getId()));
+    	}catch(Exception e) {
+    		System.out.println("oops");
+    	}	
+    	}
+    	
+	}
+	@PostConstruct
     public void obtenerUsuarioSesion() {
         responsableId = usuarioSesion.getUsuario().getId();
+        initializeMapModel();
     }
 
     public void onPointSelect(PointSelectEvent event) {

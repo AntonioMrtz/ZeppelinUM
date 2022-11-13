@@ -428,7 +428,7 @@ public class ServicioGestionPlataforma {
 	
 	
 	// THIS METHODS MAY NOT BE USEFUL , theyre made in order to test theyre working
-	
+	// This one was useful ;)
 	public List<RestauranteDTO> searchRestaurantByResponsable(Integer responsable) {
 
 		return RestauranteDAO.getRestauranteDAO().findByResponsable(responsable);
