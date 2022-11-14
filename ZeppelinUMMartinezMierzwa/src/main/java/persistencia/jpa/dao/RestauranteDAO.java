@@ -12,6 +12,7 @@ import org.eclipse.persistence.config.QueryHints;
 import persistencia.dto.RestauranteDTO;
 import persistencia.dto.UsuarioDTO;
 import persistencia.jpa.bean.Restaurante;
+import persistencia.jpa.bean.Usuario;
 import persistencia.mongo.bean.Direccion;
 import persistencia.mongo.dao.DireccionDAO;
 
@@ -98,5 +99,13 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
 		}
 	}
 
+	public List<RestauranteDTO> getAllRestaurantes() {
+		try {
+			List<Restaurante> resList = getAll();
+			return transformarToDTO(resList);
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
 
 }

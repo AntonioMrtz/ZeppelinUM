@@ -23,6 +23,11 @@
 			</ul></li>
 	
 	</c:if>
+	<c:if test="#{userSessionWeb.usuario.tipo.toString().equals('CLIENTE')}">
+	
+			<li class="#{estilo7}"><a href="#{request.contextPath}/usuario/viewRestaurantes.xhtml">Restaurantes</a></li>
+	
+	</c:if>
 	
 		
 		<li class="#{estilo2}"><a href="#">Gestión de restaurantes</a>
