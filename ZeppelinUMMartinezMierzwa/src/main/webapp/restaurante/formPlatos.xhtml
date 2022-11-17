@@ -17,7 +17,7 @@
 		<h:form id="menu">
 			<h3>#{restauranteMenuList.restauranteSeleccionado.nombre}</h3>
 			<br />
-			<p:button value="Volver" href="form.xhtml" style="margin-right:5px"
+			<p:button value="Volver" onclick="history.go(-1); return false" style="margin-right:5px"
 				icon="fa fa-arrow-left"></p:button>
 			
 			<c:if test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE')}">

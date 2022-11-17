@@ -5,6 +5,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui" 
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:head>
 	<meta charset="utf-8" />
@@ -50,14 +51,22 @@
 			</h:form>
 		</c:if>
 		<c:if test="#{userSessionWeb.login}">
+			<o:socket channel="canalNoticias" onmessage="noticia"
+				user="#{userSessionWeb.usuario.id}" />
 			<section id="main">
 			<div class="container">
 				<ui:insert name="content" />
 			</div>
 			</section>
 		</c:if>
+		
 		<ui:include src="/WEB-INF/template/footer.xhtml" />
 	</div>
+	<script>
+		function noticia(message, channel, event) {
+			alert(message);
+		}
+	</script>
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript name="assets/js/jquery.dropotron.min.js" />
 	<h:outputScript name="assets/js/jquery.scrolly.min.js" />
@@ -65,5 +74,6 @@
 	<h:outputScript name="assets/js/breakpoints.min.js" />
 	<h:outputScript name="assets/js/util.js" />
 	<h:outputScript name="assets/js/main.js" />
+	
 </h:body>
 </html>

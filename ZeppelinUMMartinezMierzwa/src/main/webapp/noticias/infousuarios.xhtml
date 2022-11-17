@@ -1,0 +1,40 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template_privada.xhtml">
+	<ui:param name="menuseleccionado" value="estilo4" />
+	<ui:define name="title">
+    Comunicar novedades
+</ui:define>
+	<ui:define name="content">
+		<div class="row">
+			<div class="col-12">
+				<div class="content">
+					<h:form>
+						<p:panelGrid columns="2" layout="grid"
+							columnClasses="ui-g-12 ui-md-6 ui-lg-3, ui-g-12 ui-md-6ui-lg-9">
+        
+        Escriba su comentario:
+            <p:inputTextarea value="#{infoUsuariosWeb.message}" />
+            Seleccione tipo de usuario:
+    <p:selectCheckboxMenu id="tipo" value="#{infoUsuariosWeb.tipos}"
+								multiple="true" filter="true" filterMatchMode="contains"
+								emptyLabel="Seleccione un tipo de usuario" updateLabel="true">
+								<f:selectItem itemLabel="Cliente" itemValue="CLIENTE" />
+								<f:selectItem itemLabel="Restaurante" itemValue="RESTAURANTE" />
+								<f:selectItem itemLabel="Rider" itemValue="RIDER" />
+							</p:selectCheckboxMenu>
+						</p:panelGrid>
+						<p:commandButton value="Enviar"
+							actionListener="#{infoUsuariosWeb.submit()}" update="messages">
+						</p:commandButton>
+						<p:growl id="messages" showDetail="true" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

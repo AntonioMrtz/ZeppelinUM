@@ -5,6 +5,10 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -29,6 +33,9 @@ public abstract class ExtensionMongoDAO <T> {
                 CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         
         createCollection();
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        Logger rootLogger = loggerContext.getLogger("org.mongodb.driver");
+        rootLogger.setLevel(Level.OFF);
     }
 
     public abstract void createCollection();

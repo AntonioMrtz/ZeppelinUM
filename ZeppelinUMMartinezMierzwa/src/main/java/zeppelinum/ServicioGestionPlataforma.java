@@ -189,6 +189,10 @@ public class ServicioGestionPlataforma {
 		}
 	}
 
+	public List<Integer> getIdUsuariosByTipo(List<TipoUsuario> tipos){
+	    return UsuarioDAO.getUsuarioDAO().findIdsByTipo(tipos);
+	}
+	
 	public Integer crearCategoria(String nombre) {
 
 		EntityManager em = EntityManagerHelper.getEntityManager();

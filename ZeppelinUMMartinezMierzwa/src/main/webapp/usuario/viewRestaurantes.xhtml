@@ -4,43 +4,38 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-	<ui:param name="menuseleccionado" value="estilo7" />
+<ui:param name="menuseleccionado" value="estilo7" />
 
-	<ui:define name="title">
+    <ui:define name="title">
 Restaurants
 </ui:define>
-	<ui:define name="content">
-		<h:form id="form">
+ <ui:define name="content">
+<h:form id="form">
 
-			<div class="product card">
-				<h5>Basic</h5>
-				<p:dataList value="#{restaurantListView.restaurants}"
-					var="restaurant" type="ordered">
-					<div class="product-list-item">
-						<p:graphicImage name="demo/images/product/#{product.image}" />
-						<div class="product-list-detail">
-							<div class="product-name">#{restaurant.nombre}</div>
-							<div
-								class="product-description flex align-items-end justify-content-center bg-blue-500 font-bold text-white border-round m-2">CIUDAD
-								PLACEHOLDER</div>
-							<p />
-							<i class="pi pi-tag product-category-icon" /><span
-								class="product-category">CATEGORIA PLACEHOLDER</span>
-						</div>
-						<div class="product-list-action">
-
-							<a href="#{request.contextPath}/usuario/perfilUsuario.xhtml">
-								<p:commandButton icon="pi pi-shopping-cart">
-								</p:commandButton>
-							</a>
-
-						</div>
-					</div>
-				</p:dataList>
-			</div>
+    <div class="product card">
+        <h5>Basic</h5>
+        <p:dataList value="#{restaurantListView.restaurants}" var="restaurant" type="ordered">
+            <div class="product-list-item">
+                <p:graphicImage name="demo/images/product/#{product.image}"/>
+                <div class="product-list-detail">
+                    <div class="product-name">#{restaurant.nombre}</div>
+                    <div class="product-description flex align-items-end justify-content-center bg-blue-500 font-bold text-white border-round m-2">CIUDAD PLACEHOLDER</div>
+                    <p/>
+                    <i class="pi pi-tag product-category-icon"/><span
+                        class="product-category">CATEGORIA PLACEHOLDER</span>
+                </div>
+                <div class="product-list-action">
+                    <p:commandButton 
+                                     icon="pi pi-shopping-cart"
+                                	action="#{restaurantListView.goToDetailScreen(restaurant.id)}">
+                    </p:commandButton>
+                </div>
+            </div>
+        </p:dataList>
+    </div>
 
 
 
-		</h:form>
-	</ui:define>
+</h:form>
+</ui:define>
 </ui:composition>

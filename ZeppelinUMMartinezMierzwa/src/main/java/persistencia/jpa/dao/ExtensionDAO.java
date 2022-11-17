@@ -11,7 +11,7 @@ import org.eclipse.persistence.config.QueryHints;
 
 public abstract class ExtensionDAO<T> implements DAO<T> {
 	protected Class<T> persistedClass;
-	private String name;
+	protected String name;
 
 	public ExtensionDAO(Class<T> persistedClass) {
 		this.persistedClass = persistedClass;

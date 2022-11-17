@@ -1,0 +1,70 @@
+
+<ui:composition template="/WEB-INF/template/template_privada.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:param name="menuseleccionado" value="estilo7" />
+
+    <ui:define name="title">
+Restaurants
+</ui:define>
+ <ui:define name="content">
+<style>
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+</style>
+
+<div class="card">
+    <h5>Column Filtering</h5>
+    <h:form>
+        <p:dataTable var="restaurant" value="#{restaurantListView.restaurants}" widgetVar="restaurantTable"
+            emptyMessage="No restaurants found with given criteria"
+            filteredValue="#{dtFilterView.filteredCustomers1}"
+            globalFilterOnly="#{dtFilterView.globalFilterOnly}">
+
+            <f:facet name="header">
+                <div class="flex align-items-center justify-content-between">
+                    <span>List of Restaurants</span>
+                    <div>
+                    <p:inputText id="globalFilter" onkeyup="PF('restaurantTable').filter()" style="width:10rem"
+                                 placeholder="Enter keyword" />
+                    <p:commandButton value="Global Filter Only" update="@form" styleClass="ml-2"
+                                     action="#{dtFilterView.toggleGlobalFilter()}"/>
+                    </div>
+                </div>
+
+            </f:facet>
+
+            <p:column headerText="Name" sortBy="#{restaurant.nombre}" filterBy="#{restaurant.nombre}" filterMatchMode="contains">
+                <h:outputText value="#{restaurant.nombre}" />
+            </p:column>
+
+            <p:column headerText="City" sortBy="#{restaurant.ciudad}" filterBy="#{restaurant.ciudad}">
+                <span class="flag flag-#{restaurant.ciudad}" style="width: 30px; height: 20px" />
+                <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{restaurant.ciudad}" />
+            </p:column>
+
+            <p:column field="Rating" headerText="Rating" filterMatchMode="exact"
+                sortBy="#{restaurant.valoracionGlobal}">
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('customersTable').filter()" styleClass="ui-custom-filter">
+                        <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                        <f:selectItems value="#{restaurant.valoracionGlobal}" />
+                    </p:selectOneMenu>
+                </f:facet>
+
+              
+                <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{restaurant.valoracionGlobal}" />
+            </p:column>
+
+
+        </p:dataTable>
+    </h:form>
+</div>
+
+</ui:define>
+</ui:composition>
