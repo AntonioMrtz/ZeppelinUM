@@ -5,13 +5,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	<context:component-scan
-		base-package="aadd.spring" />
+		base-package="spring" />
 	<bean
 		class="org.springframework.beans.factory.config.CustomScopeConfigurer">
 		<property name="scopes">
 			<map>
 				<entry key="view">
-					<bean class="aadd.spring.scope.ViewScope" />
+					<bean class="spring.scope.ViewScope" />
 				</entry>
 			</map>
 		</property>

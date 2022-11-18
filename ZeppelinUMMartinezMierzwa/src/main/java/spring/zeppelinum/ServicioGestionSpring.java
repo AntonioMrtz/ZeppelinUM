@@ -1,4 +1,4 @@
-package aadd.spring.zeppelinum;
+package spring.zeppelinum;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -56,10 +56,7 @@ public class ServicioGestionSpring {
             fecha = LocalDate.now();
             fecha = fecha.minusWeeks(1);
         }
-        System.out.println("keyword");
-        System.out.println(keyword);
         int count = RestauranteDAO.getRestauranteDAO().countRestaurantesByFiltros(keyword, fecha, ceroIncidencias).intValue();
-        System.out.println("count "+count);
         return count;
     }
 }

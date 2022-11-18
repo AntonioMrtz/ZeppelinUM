@@ -1,4 +1,4 @@
-package aadd.spring.web.restaurante;
+package spring.web.restaurante;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import aadd.spring.zeppelinum.ServicioGestionSpring;
+import spring.zeppelinum.ServicioGestionSpring;
 import persistencia.dto.RestauranteDTO;
 
 @Component
@@ -103,13 +103,11 @@ public class LazyRestauranteListWeb extends LazyDataModel<RestauranteDTO> {
         if (total == null) {
             total = servicioGestion.countRestaurantes(keyword, verNovedades, sinPenalizacion);
         }
-        System.out.println(total);
         return total;
     }
 
     public void buscar() {
         total = servicioGestion.countRestaurantes(keyword, verNovedades, sinPenalizacion);
-        System.out.println(total);
     }
 
     public List<RestauranteDTO> buscarRestaurante(int inicio, int size) {
@@ -120,18 +118,13 @@ public class LazyRestauranteListWeb extends LazyDataModel<RestauranteDTO> {
 
     @Override
     public int count(Map<String, FilterMeta> filterBy) {
-    	System.out.println("calling count");
         return findTotalResults();
     }
 
     @Override
     public List<RestauranteDTO> load(int first, int pageSize, Map<String, SortMeta> sortBy,
             Map<String, FilterMeta> filterBy) {
-    	System.out.println("calling load");
-    	List<RestauranteDTO> list = buscarRestaurante(first, pageSize);
-    	for(RestauranteDTO r : list) {
-    		System.out.println(r.getNombre());
-    	}
+    	
         return buscarRestaurante(first, pageSize);
     }
 

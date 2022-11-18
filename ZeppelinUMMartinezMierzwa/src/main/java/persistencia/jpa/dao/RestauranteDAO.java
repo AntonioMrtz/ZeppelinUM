@@ -41,14 +41,13 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
 			rs.add(restaurant);
 
 		}
-		System.out.println("done");
 		return rs;
 	}
 
     public Number countRestaurantesByFiltros(String keyword, LocalDate fechaAlta, boolean sinPenalizacion) {
         try {
-            String queryString = " SELECT count(distinct r) FROM Restaurante r " 
-                    + " INNER JOIN Plato p WHERE p.restaurante = r AND p.disponibilidad = true"  ;// Ponemos una condición que siempre es cierta para poder enlazar las condiciones más fácilmente    
+        	String queryString = " SELECT count(distinct r) FROM Restaurante r "
+                    + " INNER JOIN r.platos p on p.disponibilidad = true " ;
                                                                                                         
             if (keyword != null) {
                 queryString += " AND r.nombre like :keyword ";
@@ -59,7 +58,6 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
             if(sinPenalizacion) {
                 queryString +=" AND r.numPenalizaciones = 0 ";
             }
-            System.out.println(queryString);
             Query query = EntityManagerHelper.getEntityManager().createQuery(queryString);
             if (keyword != null) {
                 query.setParameter("keyword", "%"+keyword+"%");
@@ -78,8 +76,8 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
 	public List<RestauranteDTO> findRestauranteByFiltrosLazy(String keyword, LocalDate fechaAlta, 
             boolean mejorValorados, boolean sinPenalizacion, int start, int max) {
         try {
-            String queryString = " SELECT r FROM Restaurante r " 
-                    + " NATURAL JOIN Plato p WHERE r.id IS NOT NULL";// Ponemos una condición que siempre es cierta para poder enlazar las condiciones más fácilmente    
+            
+        	String queryString = " SELECT r FROM Restaurante r "+ " INNER JOIN r.platos p on p.disponibilidad = true";
                                                                                                         
             if (keyword != null) {
                 queryString += " AND r.nombre like :keyword ";
@@ -90,7 +88,7 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
             if(sinPenalizacion) {
                 queryString +=" AND r.numPenalizaciones = 0 ";
             }
-            // queryString +=" GROUP BY r.id ";
+            queryString +=" GROUP BY r.id ";
             
             if(mejorValorados) {
                 queryString +=" ORDER BY r.valoracionGlobal desc ";

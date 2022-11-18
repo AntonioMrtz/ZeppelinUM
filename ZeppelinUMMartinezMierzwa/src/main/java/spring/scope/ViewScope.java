@@ -1,4 +1,4 @@
-package aadd.spring.scope;
+package spring.scope;
 
 import java.util.Map;
 import javax.faces.context.FacesContext;
