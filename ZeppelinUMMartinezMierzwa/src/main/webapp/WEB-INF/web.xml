@@ -36,14 +36,14 @@
 		<param-name>org.omnifaces.SOCKET_ENDPOINT_ENABLED</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/applicationContext*.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 </web-app>

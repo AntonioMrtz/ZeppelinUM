@@ -17,27 +17,17 @@ import persistencia.dto.RestauranteDTO;
 
 @Component
 @Scope("view")
-public class LazyRestauranteListWeb extends LazyDataModel<RestauranteDTO>{
+public class LazyRestauranteListWeb extends LazyDataModel<RestauranteDTO> {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
 	private Integer total;
-	@Inject
-	@Autowired
-	private ServicioGestionSpring servicioGestion;
-	private boolean verNovedades;
-	private boolean sinPenalizacion;
-	private String keyword;
-	private boolean mejorValorados;
-	private Double latitud;
-	private Double longitud;
-	
 
-	public LazyRestauranteListWeb() {
-		latitud = 38.02398012353915;
-		longitud = -1.1740098866576436;
-	}
+    @Inject
+    @Autowired
+    private ServicioGestionSpring servicioGestion;
 
-	public ServicioGestionSpring getServicioGestion() {
+    private boolean verNovedades;
+    public ServicioGestionSpring getServicioGestion() {
 		return servicioGestion;
 	}
 
@@ -59,14 +49,6 @@ public class LazyRestauranteListWeb extends LazyDataModel<RestauranteDTO>{
 
 	public void setSinPenalizacion(boolean sinPenalizacion) {
 		this.sinPenalizacion = sinPenalizacion;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
 	}
 
 	public boolean isMejorValorados() {
@@ -97,38 +79,63 @@ public class LazyRestauranteListWeb extends LazyDataModel<RestauranteDTO>{
 		this.total = total;
 	}
 
-	protected int findTotalResults() {
-		if (total == null) {
-			total = servicioGestion.countRestaurantes(keyword, verNovedades, sinPenalizacion);
-		}
-		return total;
+	private boolean sinPenalizacion;
+    private String keyword;
+    public String getKeyword() {
+		return keyword;
 	}
 
-	public void buscar() {
-		total = servicioGestion.countRestaurantes(keyword, verNovedades, sinPenalizacion);
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
-	public List<RestauranteDTO> buscarRestaurante(int inicio, int size) {
-		return servicioGestion.buscarRestaurantesLazy(keyword, verNovedades, mejorValorados, sinPenalizacion, latitud,
-				longitud, inicio, size);
-	}
+	private boolean mejorValorados;
 
-	@Override
-	public int count(Map<String, FilterMeta> filterBy) {
-		return findTotalResults();
-	}
+    private Double latitud;
+    private Double longitud;
+    
+    public LazyRestauranteListWeb() {
+        latitud = 38.02398012353915;
+        longitud = -1.1740098866576436;
+    }
 
-	@Override
-	public List<RestauranteDTO> load(int first, int pageSize, Map<String, SortMeta> sortBy,
-			Map<String, FilterMeta> filterBy) {
-		List<RestauranteDTO> rest = buscarRestaurante(first, pageSize);
-		for(RestauranteDTO r : rest) {
-			System.out.println(r.getNombre());
-		}
-		return buscarRestaurante(first, pageSize);
-	}
+    protected int findTotalResults() {
+        if (total == null) {
+            total = servicioGestion.countRestaurantes(keyword, verNovedades, sinPenalizacion);
+        }
+        System.out.println(total);
+        return total;
+    }
 
-	public Integer getTotal() {
-		return total;
-	}
+    public void buscar() {
+        total = servicioGestion.countRestaurantes(keyword, verNovedades, sinPenalizacion);
+        System.out.println(total);
+    }
+
+    public List<RestauranteDTO> buscarRestaurante(int inicio, int size) {
+
+        return servicioGestion.buscarRestaurantesLazy(keyword, verNovedades, mejorValorados, sinPenalizacion, latitud, longitud, inicio, size);
+
+    }
+
+    @Override
+    public int count(Map<String, FilterMeta> filterBy) {
+    	System.out.println("calling count");
+        return findTotalResults();
+    }
+
+    @Override
+    public List<RestauranteDTO> load(int first, int pageSize, Map<String, SortMeta> sortBy,
+            Map<String, FilterMeta> filterBy) {
+    	System.out.println("calling load");
+    	List<RestauranteDTO> list = buscarRestaurante(first, pageSize);
+    	for(RestauranteDTO r : list) {
+    		System.out.println(r.getNombre());
+    	}
+        return buscarRestaurante(first, pageSize);
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
 }
