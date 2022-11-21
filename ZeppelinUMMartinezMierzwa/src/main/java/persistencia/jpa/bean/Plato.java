@@ -74,6 +74,10 @@ public class Plato implements Serializable {
 	public void setDisponibilidad(boolean disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
+	
+	public void toggleDisponibilidad() {
+		disponibilidad = !disponibilidad;
+	}
 
 	public Restaurante getRestaurante() {
 		return restaurante;

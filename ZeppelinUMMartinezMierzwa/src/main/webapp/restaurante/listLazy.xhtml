@@ -62,6 +62,12 @@ Listado de restaurantes
                 <p:column>
                     <p:rating value="#{restaurante.valoracionGlobal.intValue()}" readonly="true"  stars="10"/>
                 </p:column>
+                <p:column>
+                <p:commandButton 
+                                     icon="pi pi-shopping-cart"
+                                	action="#{restaurantListView.goToDetailScreen(restaurante.id)}">
+                    </p:commandButton>
+                    </p:column>
             </p:dataTable>
         </h:form>
     </ui:define>

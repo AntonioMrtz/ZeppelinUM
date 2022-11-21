@@ -316,6 +316,31 @@ public class ServicioGestionPlataforma {
 		}
 
 	}
+	
+	public boolean cambiarDisponibilidadPlato(Integer plato) {
+
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		try {
+			em.getTransaction().begin();
+
+			Plato p = PlatoDAO.getPlatoDAO().findById(plato);
+			p.toggleDisponibilidad();
+			System.out.println("setting plate " + plato + " to " + p.isDisponibilidad());
+			PlatoDAO.getPlatoDAO().save(p, em);
+
+			em.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			em.close();
+		}
+
+	}
 
 	public Integer crearIncidencia(LocalDate fechaCreacion, String descripcion, LocalDate fechaCierre,
 			String comentarioCierre, Integer user_id, Integer restaurant_id) {
@@ -356,6 +381,10 @@ public class ServicioGestionPlataforma {
 
 	public List<PlatoDTO> getMenuByRestaurante(Integer restaurante) {
 		return PlatoDAO.getPlatoDAO().findPlatosDisponiblesByRestaurante(restaurante);
+	}
+	
+	public List<PlatoDTO> getMenuByRestauranteAll(Integer restaurante) {
+		return PlatoDAO.getPlatoDAO().findPlatosByRestaurante(restaurante);
 	}
 
 	public List<RestauranteDTO> getRestaurantesByFiltros(String keyword, boolean verNovedades,

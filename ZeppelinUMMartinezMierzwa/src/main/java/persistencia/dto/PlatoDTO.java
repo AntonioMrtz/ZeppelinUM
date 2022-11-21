@@ -12,17 +12,27 @@ public class PlatoDTO implements Serializable {
 	protected String descripcion;
 	protected String titulo;
 	protected Double precio;
+	protected boolean disponibilidad;
 
-	public PlatoDTO(Integer id, String descripcion, String titulo, Double precio) {
+	public PlatoDTO(Integer id, String descripcion, String titulo, Double precio, boolean disponibilidad) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
 		this.titulo = titulo;
 		this.precio = precio;
+		this.disponibilidad = disponibilidad;
 	}
 
 	public Integer getId() {
 		return id;
+	}
+
+	public boolean getDisponibilidad() {
+		return disponibilidad;
+	}
+
+	public void setAvailable(boolean disponibilidad) {
+		this.disponibilidad = disponibilidad;
 	}
 
 	public void setId(Integer id) {

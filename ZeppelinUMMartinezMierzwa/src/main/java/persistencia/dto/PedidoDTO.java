@@ -56,8 +56,8 @@ public class PedidoDTO implements Serializable{
 	public String getCliente() {
 		return cliente;
 	}
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
+	public void setCliente(String client) {
+		this.cliente = client;
 	}
 	public List<EstadoPedidoDTO> getEstados() {
 		return estados;
@@ -73,7 +73,10 @@ public class PedidoDTO implements Serializable{
 	}
 
 	
-	
+	public static class PedidoDTOBuilder {
+		private int restaurante;
+		private int cliente;
+	}
 	
 	
 	

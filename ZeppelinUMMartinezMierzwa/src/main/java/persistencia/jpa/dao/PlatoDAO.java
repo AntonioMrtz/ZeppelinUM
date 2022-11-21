@@ -32,11 +32,19 @@ public class PlatoDAO extends ExtensionDAO<Plato> {
 			throw re;
 		}
 	}
+	
+	public List<PlatoDTO> findPlatosByRestaurante(Integer restaurante) {
+		try {
+			return transformarToDTO(getAll());
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
 
 	public List<PlatoDTO> transformarToDTO(List<Plato> platos) {
 		List<PlatoDTO> menu = new ArrayList<PlatoDTO>();
 		for (Plato p : platos) {
-			menu.add(new PlatoDTO(p.getId(), p.getDescripcion(), p.getTitulo(), p.getPrecio()));
+			menu.add(new PlatoDTO(p.getId(), p.getDescripcion(), p.getTitulo(), p.getPrecio(),p.isDisponibilidad()));
 		}
 		return menu;
 	}
