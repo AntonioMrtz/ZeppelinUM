@@ -383,6 +383,8 @@ public class ServicioGestionPlataforma {
 		return PlatoDAO.getPlatoDAO().findPlatosDisponiblesByRestaurante(restaurante);
 	}
 	
+	
+	
 	public List<PlatoDTO> getMenuByRestauranteAll(Integer restaurante) {
 		return PlatoDAO.getPlatoDAO().findPlatosByRestaurante(restaurante);
 	}

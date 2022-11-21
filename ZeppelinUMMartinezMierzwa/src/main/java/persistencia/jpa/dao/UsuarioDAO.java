@@ -98,6 +98,8 @@ public class UsuarioDAO extends ExtensionDAO<Usuario> {
 			Query query = EntityManagerHelper.getEntityManager()
 					.createNamedQuery("Usuario.findNonValidatedRestauranteUsers");
 			query.setParameter("restaurante", TipoUsuario.RESTAURANTE);
+			System.out.println("IM HERE");
+			System.out.println("list: " + query.getResultList().size());
 			return transformarToDTO(query.getResultList());
 		} catch (RuntimeException re) {
 			throw re;
