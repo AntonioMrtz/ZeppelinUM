@@ -62,6 +62,32 @@ public class PedidoDAO extends ExtensionMongoDAO<Pedido> {
 		
 	}
 	
+	public List<Pedido> findAllPedidos(){
+		
+		FindIterable<Pedido> resultados = collection.find();
+		MongoCursor<Pedido> it = resultados.iterator();
+		List<Pedido> pedidos = new ArrayList<Pedido>();
+		while (it.hasNext()) {
+			pedidos.add(it.next());
+		}
+		return pedidos;	
+		
+	}
+	
+	public int numPedidosDifferentRestaurant(Integer us) {
+		
+		int count=0;
+		
+		Bson query_restaurant=Filters.eq("usuario",us);
+		MongoCursor<String> it=collection.distinct("restaurante", query_restaurant,String.class).iterator();
+		
+		while (it.hasNext()) {
+			count++;
+		}
+		return count;	
+		
+	}
+	
 	public void addRepartidor(Integer repartidor,ObjectId pedido) {
 		
 		
@@ -82,6 +108,37 @@ public class PedidoDAO extends ExtensionMongoDAO<Pedido> {
 		collection.updateOne(query, query_estado);
 		
 	}
+	
+	public int findPedidosRestaurants(List<Integer> l) {
+		
+		Bson query=Filters.in("restaurante",l);
+		int count=0;
+		
+		MongoCursor<Pedido> it=collection.find(query).iterator();
+		
+		while (it.hasNext()) {
+			count++;
+		}
+		return count;	
+		
+		
+	}
+	
+	public int findUsersRestaurants(List<Integer> l) {
+		
+		Bson query=Filters.in("restaurante",l);
+		int count=0;
+		
+		MongoCursor<String> it=collection.distinct("usuario", query,String.class).iterator();
+		
+		while (it.hasNext()) {
+			count++;
+		}
+		return count;	
+		
+		
+	}
+
 	
 	
 	public void deleteAllPedidos() {

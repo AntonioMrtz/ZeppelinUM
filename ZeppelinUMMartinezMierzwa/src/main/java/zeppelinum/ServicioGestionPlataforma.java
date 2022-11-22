@@ -460,6 +460,16 @@ public class ServicioGestionPlataforma {
         return new RestauranteDTO(idRestaurante, restaurante.getNombre(), restaurante.getValoracionGlobal());
 }
 	
+	public int getNumAllRestaurantes(){
+		
+		return RestauranteDAO.getRestauranteDAO().getAll().size();
+	}
+	
+	public List<Integer> findRestaurantIdByResponsable(Integer us){
+		
+		return RestauranteDAO.getRestauranteDAO().findRestaurantIdByResponsable(us);
+	}
+	
 	
 	
 	// THIS METHODS MAY NOT BE USEFUL , theyre made in order to test theyre working

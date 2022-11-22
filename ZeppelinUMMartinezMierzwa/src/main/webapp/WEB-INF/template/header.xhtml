@@ -12,8 +12,19 @@
 	<ul>
 		<li class="#{estilo1}"><a
 			href="#{request.contextPath}/index.xhtml">Inicio</a></li>
+			
+		
+			
 		<li class="#{estilo4}"><a
 			href="#{request.contextPath}/usuario/perfilusuario.xhtml">Perfil</a></li>
+			
+		<li class="#{estilo4}"><a
+			href="#{request.contextPath}/statistics/statistics.xhtml">Estadísticas</a></li>
+		
+		
+		
+		
+		
 		<c:if test="#{userSessionWeb.usuario.tipo.toString().equals('ADMIN')}">
 
 			<li class="#{estilo6}"><a href="#">Administración</a>

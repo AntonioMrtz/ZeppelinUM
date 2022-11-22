@@ -164,6 +164,25 @@ public class RestauranteDAO extends ExtensionDAO<Restaurante> {
 			throw re;
 		}
 	}
+	
+	public List<Integer> findRestaurantIdByResponsable(Integer responsable) {
+		try {
+			
+			Query query = EntityManagerHelper.getEntityManager().createNamedQuery("Restaurante.findByResponsable");
+			query.setParameter("responsable", responsable);
+			List<Restaurante> l=query.getResultList();
+			
+			List<Integer> rs = new ArrayList<Integer>();
+			for (Restaurante r : l) {
+				
+				rs.add(r.getId());
+
+			}
+			return rs;
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
 
 	public List<RestauranteDTO> getAllRestaurantes() {
 		try {

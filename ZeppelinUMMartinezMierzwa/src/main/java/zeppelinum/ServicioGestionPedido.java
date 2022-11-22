@@ -249,6 +249,72 @@ public class ServicioGestionPedido {
 
 	}
 	
+	
+	public List<PedidoDTO> getAllPedidos() {
+		
+		
+		List<Pedido> pedidos = PedidoDAO.getPedidoDAO().findAllPedidos();
+		List<PedidoDTO> pedidosDTO = new ArrayList<>();
+
+		for (Pedido p : pedidos) {
+			Usuario u = UsuarioDAO.getUsuarioDAO().findById(p.getCliente());
+			Usuario rep = UsuarioDAO.getUsuarioDAO().findById(p.getRepartidor());
+			Restaurante r = RestauranteDAO.getRestauranteDAO().findById(p.getRestaurante());
+
+			PedidoDTO pedidoDTO = new PedidoDTO();
+			pedidoDTO.setCliente(u.getNombre());
+			pedidoDTO.setImporte(p.getImporte());
+			pedidoDTO.setRestaurante(r.getNombre());
+			pedidoDTO.setRepartidor(rep.getNombre());
+			pedidoDTO.setComentarios(p.getComentarios());
+			pedidoDTO.setDireccion(p.getDireccion());
+			
+			ArrayList<EstadoPedidoDTO> l = new ArrayList<>();
+			ArrayList<ItemPedidoDTO> l2 = new ArrayList<>();
+
+			
+			if(p.getEstados()!=null) {
+				
+				for(EstadoPedido e : p.getEstados()) {
+					l.add(new EstadoPedidoDTO(e.getFechaEstado(),e.getEstado()));
+					
+				}
+				pedidoDTO.setEstados(l);
+			}
+			
+
+			if (p.getItems() != null) {
+
+				for (ItemPedido e : p.getItems()) {
+					l2.add(new ItemPedidoDTO(p.getRestaurante(), e.getPrecio()));
+
+				}
+				pedidoDTO.setItems(l2);
+			}
+			
+			
+			
+
+			pedidosDTO.add(pedidoDTO);
+		}
+		return pedidosDTO;
+
+	}
+	
+	public int findUsersRestaurants(List<Integer> l) {
+		
+		return PedidoDAO.getPedidoDAO().findUsersRestaurants(l);
+	}
+	
+	
+public int findPedidoByUserDifferentRestaurant(Integer usuario) {	
+		
+		
+		return PedidoDAO.getPedidoDAO().numPedidosDifferentRestaurant(usuario);
+		
+
+	}
+	
 	public void addRepartidorPedido(Integer repartidor,ObjectId pedido) {
 		
 		PedidoDAO.getPedidoDAO().addRepartidor(repartidor,pedido);
@@ -259,6 +325,11 @@ public class ServicioGestionPedido {
 		
 		PedidoDAO.getPedidoDAO().updatePedido(id,e);
 		
+	}
+	
+	public int findPedidosRestaurants(List<Integer> l) {
+		
+		return PedidoDAO.getPedidoDAO().findPedidosRestaurants(l);
 	}
 	
 	
@@ -280,4 +351,9 @@ public class ServicioGestionPedido {
 		
 		DireccionDAO.getDireccionDAO().deleteAllDirecciones();
 	}
+
+
+
+
+
 }
