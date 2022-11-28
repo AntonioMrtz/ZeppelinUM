@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="AADD2022">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="ZeppelinUMMartinezMierzwaEJB.jar" deploy-path="/" handle="module:/resource/ZeppelinUMMartinezMierzwaEJB/ZeppelinUMMartinezMierzwaEJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mysql-connector-java-8.0.19.jar" deploy-path="/lib" handle="module:/classpath/lib//Users/adammierzwa/Desktop/CAU KIEL/AADD/anexos práctica 8 EJB/libreriasEAR/mysql-connector-java-8.0.19.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mongodb-driver-sync-4.2.3.jar" deploy-path="/lib" handle="module:/classpath/lib//Users/adammierzwa/Desktop/CAU KIEL/AADD/anexos práctica 8 EJB/libreriasEAR/mongodb-driver-sync-4.2.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mongodb-driver-core-4.2.3.jar" deploy-path="/lib" handle="module:/classpath/lib//Users/adammierzwa/Desktop/CAU KIEL/AADD/anexos práctica 8 EJB/libreriasEAR/mongodb-driver-core-4.2.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="bson-4.2.3.jar" deploy-path="/lib" handle="module:/classpath/lib//Users/adammierzwa/Desktop/CAU KIEL/AADD/anexos práctica 8 EJB/libreriasEAR/bson-4.2.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
