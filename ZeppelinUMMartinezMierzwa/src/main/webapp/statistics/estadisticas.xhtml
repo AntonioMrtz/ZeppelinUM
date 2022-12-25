@@ -1,0 +1,32 @@
+<ui:composition template="/WEB-INF/template/template_privada.xhtml"
+xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+<ui:define name="title">
+Estadísticas
+</ui:define>
+    <ui:define name="content">
+        <section id="main">
+        <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="content">
+                    <h1>Estadísticas</h1>
+                    <h:form id="torneum">
+                    <div class="ui-g ui-fluid"> 
+                        <div class="ui-g-2">
+                            Número de visitas #{estadisticasWeb.numVisitas}
+                        </div>
+                        <div class="ui-g-4">
+                            <p:panel header="Valoraciones">
+    <p:lineChart model="#{estadisticasWeb.lineModel}" style="width: 100%; height: 300px;"/>
+                            </p:panel>
+                        </div>
+                     </div>         
+            </h:form> 
+            </div>  </div>  </div>  </div>
+        </section>
+    </ui:define>
+</ui:composition>

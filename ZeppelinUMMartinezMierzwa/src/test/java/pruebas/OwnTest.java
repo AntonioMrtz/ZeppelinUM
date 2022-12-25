@@ -49,6 +49,12 @@ class OwnTest {
 		assertNotNull(id);
 		CategoriaRestauranteDAO.getCategoriaRestauranteDAO().delete(cr);
 	}
+	
+	@org.junit.jupiter.api.Test
+    void hacerpedido() {
+    ServicioGestionPedido servicio = ServicioGestionPedido.getServicioGestionPedido();   
+    servicio.crearPedido();
+}
 
 	@org.junit.jupiter.api.Test
 	void checkAddCategory() {

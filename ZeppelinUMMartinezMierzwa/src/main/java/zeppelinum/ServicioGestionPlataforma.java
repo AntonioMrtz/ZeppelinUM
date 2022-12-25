@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
+
+import persistencia.dto.EstadisticaOpinionDTO;
 import persistencia.dto.OpinionDTO;
 import persistencia.dto.PlatoDTO;
 import persistencia.dto.RestauranteDTO;
@@ -31,17 +34,33 @@ import persistencia.mongo.bean.Direccion;
 import persistencia.mongo.bean.Opinion;
 import persistencia.mongo.dao.DireccionDAO;
 import persistencia.mongo.dao.OpinionDAO;
+import web.InitialContextUtil;
 
 public class ServicioGestionPlataforma {
 
 	private static ServicioGestionPlataforma servicio;
 
-	public static ServicioGestionPlataforma getServicioGestionPlataforma() {
-		if (servicio == null) {
-			servicio = new ServicioGestionPlataforma();
-		}
-		return servicio;
-	}
+    private static ZeppelinUMRemoto zeppelinumRemoto;
+
+    public static ServicioGestionPlataforma getServicioGestionPlataforma() {
+        if (servicio == null) {
+            try {
+                zeppelinumRemoto = (ZeppelinUMRemoto) InitialContextUtil.getInstance().lookup("ejb:AADD2022/ZeppelinUMMartinezMierzwaEJB/ZeppelinUMRemoto!aadd.zeppelinum.ZeppelinUMRemoto");
+            } catch (NamingException e) {
+                e.printStackTrace();
+            }
+            servicio = new ServicioGestionPlataforma();
+        }
+        return servicio;
+    }
+    
+    public List<EstadisticaOpinionDTO> getEstadisticasOpinion(Integer idUsuario) {
+        return zeppelinumRemoto.getEstadisticasOpinion(idUsuario);
+    }
+
+    public Integer getNumVisitas(Integer idUsuario) {
+        return zeppelinumRemoto.getNumVisitas(idUsuario);
+    }
 
 	public Integer registrarUsuario(String nombre, String apellidos, LocalDate fechaNacimiento, String email,
 			String clave, TipoUsuario tipo) {

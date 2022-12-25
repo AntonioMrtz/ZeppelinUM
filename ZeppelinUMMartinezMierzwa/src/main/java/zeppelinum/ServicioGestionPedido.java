@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 
 import org.bson.types.ObjectId;
@@ -24,19 +25,32 @@ import persistencia.mongo.bean.Pedido;
 import persistencia.mongo.dao.DireccionDAO;
 import persistencia.mongo.dao.OpinionDAO;
 import persistencia.mongo.dao.PedidoDAO;
+import web.InitialContextUtil;
 
 public class ServicioGestionPedido {
     
     private static ServicioGestionPedido servicio;
 
+    private static ZeppelinUMRemoto zeppelinumRemoto;
+
+
     public static ServicioGestionPedido getServicioGestionPedido() {
         if (servicio == null) {
+            try {
+                zeppelinumRemoto = (ZeppelinUMRemoto) InitialContextUtil.getInstance().lookup("ejb:AADD2022/ZeppelinUMMartinezMierzwaEJB/ZeppelinUMRemoto!zeppelinum.ZeppelinUMRemoto");
+            } catch (NamingException e) {
+                e.printStackTrace();
+            }
             servicio = new ServicioGestionPedido();
         }
         return servicio;
-    }   
+    }
     
-    
+    public void crearPedido() {
+        //se crea un pedido, este método deberá tener los atributos necesarios
+        //una vez creado, nos quedamos con el id que le ha generado mongodb y con eso activamos el tiemr
+        zeppelinumRemoto.pedidoIniciado("id del pedido creando en mongodb");
+    }
 	
 
 	public boolean opinar(Integer usuario, Integer restaurante, String comentario, Double valoracion) {
