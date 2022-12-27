@@ -50,11 +50,11 @@ class OwnTest {
 		CategoriaRestauranteDAO.getCategoriaRestauranteDAO().delete(cr);
 	}
 	
-	@org.junit.jupiter.api.Test
-    void hacerpedido() {
-    ServicioGestionPedido servicio = ServicioGestionPedido.getServicioGestionPedido();   
-    servicio.crearPedido();
-}
+//	@org.junit.jupiter.api.Test
+//    void hacerpedido() {
+//    ServicioGestionPedido servicio = ServicioGestionPedido.getServicioGestionPedido();   
+//    servicio.crearPedido("a");
+//}
 
 	@org.junit.jupiter.api.Test
 	void checkAddCategory() {
@@ -537,12 +537,40 @@ class OwnTest {
 		
 	}	
 	
+	
+//	@Test//QUITAR
+//	public void testEJBCancelar() {
+//		
+//		LocalDate fechaNacimiento = LocalDate.now();
+//		
+//		
+//		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+//				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+//		
+//		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+//				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+//		
+//		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+//
+//		ArrayList<EstadoPedido> l = new ArrayList<>();
+//		l.add(new EstadoPedido(LocalDateTime.now(),TipoEstado.INCIADO));
+//		
+//		ArrayList<ItemPedido> l2 = new ArrayList<>();
+//
+//		
+//		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,l2);
+//		
+//		servicio_pedido.crearPedido(id.toString());
+//		
+//	}
+	
 	@AfterEach
 	public void deleteDireccionesDB(){
 		
 		servicio_pedido.deleteAllDirecciones();
 		
 	}
+	
 	
 	
 	

@@ -46,10 +46,10 @@ public class ServicioGestionPedido {
         return servicio;
     }
     
-    public void crearPedido() {
+    public void crearPedido(String id) {
         //se crea un pedido, este método deberá tener los atributos necesarios
         //una vez creado, nos quedamos con el id que le ha generado mongodb y con eso activamos el tiemr
-        zeppelinumRemoto.pedidoIniciado("id del pedido creando en mongodb");
+        zeppelinumRemoto.pedidoIniciado(id);
     }
 	
 

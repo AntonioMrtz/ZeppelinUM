@@ -22,7 +22,11 @@ import zeppelinum.ServicioGestionPlataforma;
 @Named
 @ViewScoped
 public class EstadisticasWeb implements Serializable {
-    @Inject
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Inject
     protected UserSessionWeb usuarioSesion;
     protected ServicioGestionPlataforma servicioPlataforma;
     private LineChartModel lineModel;
@@ -79,6 +83,8 @@ public class EstadisticasWeb implements Serializable {
 
         lineModel.setOptions(options);
         lineModel.setData(data);
+        
+        
     }
     public Integer getNumVisitas() {
         return servicioPlataforma.getNumVisitas(usuarioSesion.getUsuario().getId());
