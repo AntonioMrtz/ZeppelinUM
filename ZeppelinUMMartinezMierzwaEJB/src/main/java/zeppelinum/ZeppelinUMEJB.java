@@ -67,4 +67,21 @@ public class ZeppelinUMEJB implements ZeppelinUMRemoto{
         }       
         return estadisticas;
     }
+
+	@Override
+	public int findNumPedidoByUser(int id) {
+		
+		return pedidoDAO.findNumPedidoByUser(id);
+	}
+
+	@Override
+	public int getNumAllPedidos() {
+		return pedidoDAO.getNumAllPedidos();		
+	}
+
+	@Override
+	public int findNumPedidoByUserDifferentRestaurant(Integer id) {
+		return pedidoDAO.findNumPedidoByUserDifferentRestaurant(id);
+
+	}
 }

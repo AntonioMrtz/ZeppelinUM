@@ -82,8 +82,8 @@ public class Estadisticas implements Serializable {
         barDataSet.setLabel("pedidos");
 
         List<Number> values = new ArrayList<>();
-        values.add(ServicioGestionPedido.getServicioGestionPedido().findPedidoByUser(id).size());
-        values.add(ServicioGestionPedido.getServicioGestionPedido().getAllPedidos().size());
+        values.add(ServicioGestionPedido.getServicioGestionPedido().findNumPedidoByUser(id));
+        values.add(ServicioGestionPedido.getServicioGestionPedido().getNumAllPedidos());
 
         barDataSet.setData(values);
 

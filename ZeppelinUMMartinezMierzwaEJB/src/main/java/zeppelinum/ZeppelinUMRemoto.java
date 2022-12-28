@@ -12,5 +12,9 @@ public interface ZeppelinUMRemoto {
     public void pedidoIniciado(String pedido);
     public List<EstadisticaOpinionDTO> getEstadisticasOpinion(Integer idUsuario);
 	List<EstadisticaPedidoDTO> getEstadisticasPedido(Integer idRestaurante);
+	public int findNumPedidoByUser(int id);
+	public int getNumAllPedidos();
+	public int findNumPedidoByUserDifferentRestaurant(Integer id);
+
 
 }

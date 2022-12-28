@@ -30,6 +30,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
 import persistencia.dto.EstadisticaOpinionDTO;
+import persistencia.jpa.bean.Restaurante;
+import persistencia.jpa.bean.Usuario;
 
 @Singleton(name="PedidoDAO")
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
@@ -101,35 +103,17 @@ public class PedidoDAO {
 		return false;
 		
 	}
+
     
-//    @Lock(LockType.WRITE)
-//    @Lock(LockType.READ)
 	public void actualizarEstadoCancelado(String id) {
 		
 		
 
         try {
-//            AggregateIterable<Document> resultado = coleccion.aggregate(Arrays.asList(match));
-//            List<Document> pedidos = new ArrayList<>();
-//            MongoCursor<Document> it = resultado.iterator();
-//            
-//            List<Document> estados = null;
-//            
-//            while (it.hasNext()) {
-//            	pedidos.add(it.next());
-//            }
-//            
-//            for(Document r:pedidos) {
-//            	
-//            	estados = (List<Document>) r.get("estados");
-//            }
-//           
+
             Document cancelado=new Document("estado","CANCELADO");
             cancelado.append("fechaEstado",LocalDate.now());
-//            estados.add(cancelado);
-//            
-//            coleccion.updateOne(match, cancelado);
-        	
+  	
         	
         	Bson filter = Filters.eq("_id",new ObjectId(id));
         	Bson update = Updates.push("estados",cancelado);
@@ -141,5 +125,49 @@ public class PedidoDAO {
             re.printStackTrace();
         }
 
+	}
+
+	@Lock(LockType.READ)
+	public int findNumPedidoByUser(int id) {
+
+		int count = 0;
+
+		Bson query_user = Filters.eq("cliente", id);
+		FindIterable<Document> resultados = coleccion.find(query_user);
+		MongoCursor<Document> it = resultados.iterator();
+		while (it.hasNext()) {
+
+			count++;
+		}
+		return count;
+	}
+
+	@Lock(LockType.READ)
+	public int getNumAllPedidos() {
+		
+		//return 0;
+
+		int count = 0;
+
+		FindIterable<Document> res = coleccion.find();
+		MongoCursor<Document> it = res.iterator();
+		while (it.hasNext()) {
+
+			count++;
+		}
+		return count;
+	}
+
+	@Lock(LockType.READ)
+	public int findNumPedidoByUserDifferentRestaurant(Integer id) {
+
+		int count=0;
+		Bson query_restaurant=Filters.eq("usuario",id);
+		MongoCursor<String> it=coleccion.distinct("restaurante", query_restaurant,String.class).iterator();
+		
+		while (it.hasNext()) {
+			count++;
+		}
+		return count;	
 	}
 }

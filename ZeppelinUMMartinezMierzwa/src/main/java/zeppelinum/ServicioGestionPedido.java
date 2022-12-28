@@ -321,7 +321,7 @@ public class ServicioGestionPedido {
 	}
 	
 	
-public int findPedidoByUserDifferentRestaurant(Integer usuario) {	
+	public int findPedidoByUserDifferentRestaurant(Integer usuario) {	
 		
 		
 		return PedidoDAO.getPedidoDAO().numPedidosDifferentRestaurant(usuario);
@@ -366,7 +366,21 @@ public int findPedidoByUserDifferentRestaurant(Integer usuario) {
 		DireccionDAO.getDireccionDAO().deleteAllDirecciones();
 	}
 
+	
+	
+	public int findNumPedidoByUser(int id) {
+		return zeppelinumRemoto.findNumPedidoByUser(id);
+	}
+	
+	public int getNumAllPedidos() {
 
+		return zeppelinumRemoto.getNumAllPedidos();
+	}
+
+	public int findNumPedidoByUserDifferentRestaurant(Integer id) {
+		
+		return zeppelinumRemoto.findNumPedidoByUserDifferentRestaurant(id);
+	}
 
 
 
