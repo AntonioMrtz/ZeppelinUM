@@ -56,17 +56,17 @@ public class ZeppelinUMEJB implements ZeppelinUMRemoto{
         return estadisticas;
     }
     
-    @Override
-    public List<EstadisticaPedidoDTO> getEstadisticasPedido(Integer idRestaurante) {
-        //contadorVisitas.nuevaVista(idRestaurante);
-        List<EstadisticaPedidoDTO> estadisticas = new ArrayList<>();
-        
-        List<Document> resultados = pedidoDAO.calcularEstadisticas(idRestaurante);
-        for(Document r:resultados) {
-            estadisticas.add(new EstadisticaPedidoDTO(r.getDouble("_id"), r.getInteger("total")));
-        }       
-        return estadisticas;
-    }
+//    @Override
+//    public List<EstadisticaPedidoDTO> getEstadisticasPedido(Integer idRestaurante) {
+//        //contadorVisitas.nuevaVista(idRestaurante);
+//        List<EstadisticaPedidoDTO> estadisticas = new ArrayList<>();
+//        
+//        List<Document> resultados = pedidoDAO.calcularEstadisticas(idRestaurante);
+//        for(Document r:resultados) {
+//            estadisticas.add(new EstadisticaPedidoDTO(r.getDouble("_id"), r.getInteger("total")));
+//        }       
+//        return estadisticas;
+//    }
 
 	@Override
 	public int findNumPedidoByUser(int id) {
@@ -83,5 +83,23 @@ public class ZeppelinUMEJB implements ZeppelinUMRemoto{
 	public int findNumPedidoByUserDifferentRestaurant(Integer id) {
 		return pedidoDAO.findNumPedidoByUserDifferentRestaurant(id);
 
+	}
+
+	@Override
+	public int findPedidosRestaurants(List<Integer> l) {
+
+		return pedidoDAO.findPedidosRestaurants(l);
+	}
+
+	@Override
+	public int findNumUsersRestaurants(List<Integer> list) {
+		
+		
+		return pedidoDAO.findNumUsersRestaurants(list);
+	}
+
+	@Override
+	public int findPedidoByUserDifferentRestaurant(Integer usuario) {
+		return pedidoDAO.findPedidoByUserDifferentRestaurant(usuario);
 	}
 }

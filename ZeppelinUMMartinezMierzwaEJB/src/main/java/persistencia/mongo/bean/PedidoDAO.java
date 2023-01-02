@@ -2,7 +2,7 @@ package persistencia.mongo.bean;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,21 +17,15 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
-import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-
-import persistencia.dto.EstadisticaOpinionDTO;
-import persistencia.jpa.bean.Restaurante;
-import persistencia.jpa.bean.Usuario;
 
 @Singleton(name="PedidoDAO")
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
@@ -52,24 +46,24 @@ public class PedidoDAO {
     public void destroy() {
         mongoClient.close();
     }
-    @Lock(LockType.READ)
-    public List<Document> calcularEstadisticas(Integer id) {
-        Bson match = Aggregates.match(Filters.eq("restaurante",id));
-        Bson group = Aggregates.group("$valor", Accumulators.sum("total", 1));
-
-        try {
-            AggregateIterable<Document> resultado = coleccion.aggregate(Arrays.asList(match, group));
-            List<Document> estadisticas = new ArrayList<>();
-            MongoCursor<Document> it = resultado.iterator();
-            while (it.hasNext()) {
-                estadisticas.add(it.next());
-            }
-            return estadisticas;
-        } catch (RuntimeException re) {
-            re.printStackTrace();
-        }
-        return null;
-    }
+//    @Lock(LockType.READ)
+//    public List<Document> calcularEstadisticas(Integer id) {
+//        Bson match = Aggregates.match(Filters.eq("restaurante",id));
+//        Bson group = Aggregates.group("$valor", Accumulators.sum("total", 1));
+//
+//        try {
+//            AggregateIterable<Document> resultado = coleccion.aggregate(Arrays.asList(match, group));
+//            List<Document> estadisticas = new ArrayList<>();
+//            MongoCursor<Document> it = resultado.iterator();
+//            while (it.hasNext()) {
+//                estadisticas.add(it.next());
+//            }
+//            return estadisticas;
+//        } catch (RuntimeException re) {
+//            re.printStackTrace();
+//        }
+//        return null;
+//    }
 
     @Lock(LockType.READ)
 	public boolean checkEstadoInicio(String id) {
@@ -129,45 +123,113 @@ public class PedidoDAO {
 
 	@Lock(LockType.READ)
 	public int findNumPedidoByUser(int id) {
-
-		int count = 0;
-
+		
 		Bson query_user = Filters.eq("cliente", id);
-		FindIterable<Document> resultados = coleccion.find(query_user);
-		MongoCursor<Document> it = resultados.iterator();
-		while (it.hasNext()) {
+		return (int) coleccion.countDocuments(query_user);
 
-			count++;
-		}
-		return count;
+
+//		int count = 0;
+//
+//		Bson query_user = Filters.eq("cliente", id);
+//		FindIterable<Document> resultados = coleccion.find(query_user);
+//		MongoCursor<Document> it = resultados.iterator();
+//		while (it.hasNext()) {
+//
+//			count++;
+//		}
+//		return count;
 	}
 
 	@Lock(LockType.READ)
 	public int getNumAllPedidos() {
 		
-		//return 0;
+		return (int) coleccion.countDocuments();
+		
 
-		int count = 0;
-
-		FindIterable<Document> res = coleccion.find();
-		MongoCursor<Document> it = res.iterator();
-		while (it.hasNext()) {
-
-			count++;
-		}
-		return count;
+//		int count = 0;
+//
+//		FindIterable<Document> res = coleccion.find();
+//		MongoCursor<Document> it = res.iterator();
+//		while (it.hasNext()) {
+//
+//			count++;
+//		}
+//		return count;
 	}
 
 	@Lock(LockType.READ)
 	public int findNumPedidoByUserDifferentRestaurant(Integer id) {
-
-		int count=0;
-		Bson query_restaurant=Filters.eq("usuario",id);
-		MongoCursor<String> it=coleccion.distinct("restaurante", query_restaurant,String.class).iterator();
 		
-		while (it.hasNext()) {
-			count++;
-		}
-		return count;	
+		Bson query_restaurant=Filters.eq("usuario",id);
+
+		return (int) coleccion.countDocuments(query_restaurant);
+		
+//		int count=0;
+//		Bson query_restaurant=Filters.eq("usuario",id);
+//		MongoCursor<String> it=coleccion.distinct("restaurante", query_restaurant,String.class).iterator();
+//		
+//		while (it.hasNext()) {
+//			count++;
+//		}
+//		return count;	
 	}
+
+	@Lock(LockType.READ)
+	public int findPedidosRestaurants(List<Integer> l) {
+		
+			
+			Bson query=Filters.in("restaurante",l);
+			
+			return (int) coleccion.countDocuments(query);
+			
+	}
+
+	public int findNumUsersRestaurants(List<Integer> l) {
+		
+		Bson query=Filters.in("restaurante",l);
+		
+		if (coleccion.distinct("usuario",String.class).filter(query) instanceof Collection) {
+		    return ((Collection<?>) coleccion.distinct("usuario",String.class).filter(query)).size();
+		}
+		
+		return 0;
+
+//		
+//		Bson query=Filters.in("restaurante",l);
+//		int count=0;
+//		
+//		MongoCursor<String> it=collection.distinct("usuario", query,String.class).iterator();
+//		
+//		while (it.hasNext()) {
+//			count++;
+//		}
+//		return count;	
+	}
+
+	public int findPedidoByUserDifferentRestaurant(Integer usuario) {
+
+		
+		Bson query_restaurant=Filters.eq("usuario",usuario);
+		
+		if (coleccion.distinct("usuario",String.class).filter(query_restaurant) instanceof Collection) {
+		    return ((Collection<?>) coleccion.distinct("restaurante",String.class).filter(query_restaurant)).size();
+		}
+		
+		return 0;
+		
+		
+//		int count=0;
+//		
+//		Bson query_restaurant=Filters.eq("usuario",us);
+//		MongoCursor<String> it=collection.distinct("restaurante", query_restaurant,String.class).iterator();
+//		
+//		while (it.hasNext()) {
+//			count++;
+//		}
+//		return count;
+//		return 0;
+	}
+	
+	
+	
 }

@@ -323,8 +323,8 @@ public class ServicioGestionPedido {
 	
 	public int findPedidoByUserDifferentRestaurant(Integer usuario) {	
 		
-		
-		return PedidoDAO.getPedidoDAO().numPedidosDifferentRestaurant(usuario);
+		return zeppelinumRemoto.findPedidoByUserDifferentRestaurant(usuario);
+		//return PedidoDAO.getPedidoDAO().numPedidosDifferentRestaurant(usuario);
 		
 
 	}
@@ -343,7 +343,9 @@ public class ServicioGestionPedido {
 	
 	public int findPedidosRestaurants(List<Integer> l) {
 		
-		return PedidoDAO.getPedidoDAO().findPedidosRestaurants(l);
+		//return PedidoDAO.getPedidoDAO().findPedidosRestaurants(l);
+		return zeppelinumRemoto.findPedidosRestaurants(l);
+		
 	}
 	
 	
@@ -380,6 +382,10 @@ public class ServicioGestionPedido {
 	public int findNumPedidoByUserDifferentRestaurant(Integer id) {
 		
 		return zeppelinumRemoto.findNumPedidoByUserDifferentRestaurant(id);
+	}
+
+	public int findNumUsersRestaurants(List<Integer> findRestaurantIdByResponsable) {
+		return zeppelinumRemoto.findNumUsersRestaurants(findRestaurantIdByResponsable);
 	}
 
 

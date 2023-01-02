@@ -82,8 +82,8 @@ public class EstadisticasRestaurante implements Serializable {
         barDataSet.setLabel("pedidos");
 
         List<Number> values = new ArrayList<>();
-        		values.add(ServicioGestionPedido.getServicioGestionPedido().findPedidosRestaurants(ServicioGestionPlataforma.getServicioGestionPlataforma().findRestaurantIdByResponsable(userSessionWeb.getUsuario().getId())));
-        values.add(ServicioGestionPedido.getServicioGestionPedido().getAllPedidos().size());
+        values.add(ServicioGestionPedido.getServicioGestionPedido().findPedidosRestaurants(ServicioGestionPlataforma.getServicioGestionPlataforma().findRestaurantIdByResponsable(userSessionWeb.getUsuario().getId())));
+        values.add(ServicioGestionPedido.getServicioGestionPedido().getNumAllPedidos());
 
         barDataSet.setData(values);
 
@@ -141,7 +141,10 @@ public class EstadisticasRestaurante implements Serializable {
         //barDataSet.setLabel("a");
 
         List<Number> values = new ArrayList<>();
-        values.add(ServicioGestionPedido.getServicioGestionPedido().findUsersRestaurants(ServicioGestionPlataforma.getServicioGestionPlataforma().findRestaurantIdByResponsable(userSessionWeb.getUsuario().getId())));
+        //values.add(ServicioGestionPedido.getServicioGestionPedido().findUsersRestaurants(ServicioGestionPlataforma.getServicioGestionPlataforma().findRestaurantIdByResponsable(userSessionWeb.getUsuario().getId())));
+        values.add(ServicioGestionPedido.getServicioGestionPedido().findNumUsersRestaurants(ServicioGestionPlataforma.getServicioGestionPlataforma().findRestaurantIdByResponsable(userSessionWeb.getUsuario().getId())));
+
+        
         values.add(ServicioGestionPlataforma.getServicioGestionPlataforma().getAllUsers().size());
 
         barDataSet.setData(values);

@@ -141,6 +141,7 @@ public class Estadisticas implements Serializable {
 
         List<Number> values = new ArrayList<>();
         values.add(ServicioGestionPedido.getServicioGestionPedido().findPedidoByUserDifferentRestaurant(userSessionWeb.getUsuario().getId()));
+        //values.add(ServicioGestionPedido.getServicioGestionPedido().findPedidoByUserDifferentRestaurant(userSessionWeb.getUsuario().getId()));
         values.add(ServicioGestionPlataforma.getServicioGestionPlataforma().getNumAllRestaurantes());
 
         barDataSet.setData(values);

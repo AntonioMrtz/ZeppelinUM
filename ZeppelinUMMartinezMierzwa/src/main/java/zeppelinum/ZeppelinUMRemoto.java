@@ -13,5 +13,8 @@ public interface ZeppelinUMRemoto {
 	public int findNumPedidoByUser(int id);
 	public int getNumAllPedidos();
 	public int findNumPedidoByUserDifferentRestaurant(Integer id);
+	public int findPedidosRestaurants(List<Integer> l);
+	public int findNumUsersRestaurants(List<Integer> findRestaurantIdByResponsable);
+	public int findPedidoByUserDifferentRestaurant(Integer usuario);
 
 }

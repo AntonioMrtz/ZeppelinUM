@@ -564,6 +564,31 @@ class OwnTest {
 //		
 //	}
 	
+	
+//	@Test
+//	public void testInsertarPedido() {
+//		
+//		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
+//		
+//		
+//		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+//				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+//		
+//		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+//				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+//		
+//		Integer restaurante_id = 1;
+//
+//		ArrayList<EstadoPedido> l = new ArrayList<>();
+//		l.add(new EstadoPedido(LocalDateTime.now(),TipoEstado.INCIADO));
+//		
+//		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,null);
+//		
+//		servicio_pedido.updateEstadosPedido(id,new EstadoPedido(LocalDateTime.now(),TipoEstado.ACEPTADO));
+//				
+//		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByRestaurante(restaurante_id);
+//	}
+	
 	@AfterEach
 	public void deleteDireccionesDB(){
 		
