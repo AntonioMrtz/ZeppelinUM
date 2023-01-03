@@ -54,8 +54,11 @@ public class Pedido implements Serializable {
 	}
 
 	public EstadoPedido getNewestState(){
-		EstadoPedido ep = estados.get(estados.size() - 1);
+		EstadoPedido ep = null;
+		if(estados.size() > 0) {
+		ep = estados.get(estados.size() - 1);
 		System.out.println(ep.getEstado());
+		}
 		return ep;
 	}
 	

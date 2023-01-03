@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,7 +54,7 @@ class OwnTest {
 	@org.junit.jupiter.api.Test
     void hacerpedido() {
     ServicioGestionPedido servicio = ServicioGestionPedido.getServicioGestionPedido();   
-    servicio.crearPedido();
+    servicio.crearPedido("a");
 }
 
 	@org.junit.jupiter.api.Test
@@ -332,7 +333,7 @@ class OwnTest {
 		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
 
 		
-		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,null,cliente_id,null,null);
+		ObjectId id = servicio_pedido.crearPedido(LocalTime.now(),"a" , 10.0,"calle 1",restaurante_id,null,cliente_id,new ArrayList<EstadoPedido>(),new ArrayList<ItemPedido>());
 
 		
 		servicio_pedido.addRepartidorPedido(repartidor_id, id);
@@ -377,8 +378,8 @@ class OwnTest {
 		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
 
 		
-		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,null,null);
-		ObjectId id2= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,null,null);
+		ObjectId id= servicio_pedido.crearPedido(LocalTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,new ArrayList<EstadoPedido>(),new ArrayList<ItemPedido>());
+		ObjectId id2= servicio_pedido.crearPedido(LocalTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,new ArrayList<EstadoPedido>(),new ArrayList<ItemPedido>());
 
 				
 		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByUser(cliente_id);
@@ -420,9 +421,8 @@ class OwnTest {
 		
 		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
 
-		
-		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,null,null);
-		ObjectId id2= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,null,null);
+		ObjectId id= servicio_pedido.crearPedido(LocalTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,new ArrayList<EstadoPedido>(),new ArrayList<ItemPedido>());
+		ObjectId id2= servicio_pedido.crearPedido(LocalTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,new ArrayList<EstadoPedido>(),new ArrayList<ItemPedido>());
 
 				
 		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByRestaurante(restaurante_id);
@@ -464,7 +464,7 @@ class OwnTest {
 		ArrayList<EstadoPedido> l = new ArrayList<>();
 		l.add(new EstadoPedido(LocalDateTime.now(),TipoEstado.INCIADO));
 		
-		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,null);
+		ObjectId id= servicio_pedido.crearPedido(LocalTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,new ArrayList<ItemPedido>());
 		
 		servicio_pedido.updateEstadosPedido(id,new EstadoPedido(LocalDateTime.now(),TipoEstado.ACEPTADO));
 				
@@ -509,10 +509,10 @@ class OwnTest {
 		l.add(new EstadoPedido(LocalDateTime.now(),TipoEstado.INCIADO));
 		
 		ArrayList<ItemPedido> l2 = new ArrayList<>();
-		l2.add(new ItemPedido(2, 2.0, plato_id));
-		l2.add(new ItemPedido(1, 2.0, plato_id));
+		l2.add(new ItemPedido("pizza", 2, 2.0, plato_id, restaurante_id));
+		l2.add(new ItemPedido("mango", 1, 2.0, plato_id, restaurante_id));
 		
-		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,l2);
+		ObjectId id= servicio_pedido.crearPedido(LocalTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,l2);
 		
 				
 		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByRestaurante(restaurante_id);
@@ -537,12 +537,65 @@ class OwnTest {
 		
 	}	
 	
+	
+//	@Test//QUITAR
+//	public void testEJBCancelar() {
+//		
+//		LocalDate fechaNacimiento = LocalDate.now();
+//		
+//		
+//		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+//				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+//		
+//		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+//				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+//		
+//		Integer restaurante_id = servicio.registrarRestaurante("RE", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+//
+//		ArrayList<EstadoPedido> l = new ArrayList<>();
+//		l.add(new EstadoPedido(LocalDateTime.now(),TipoEstado.INCIADO));
+//		
+//		ArrayList<ItemPedido> l2 = new ArrayList<>();
+//
+//		
+//		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,l2);
+//		
+//		servicio_pedido.crearPedido(id.toString());
+//		
+//	}
+	
+	
+//	@Test
+//	public void testInsertarPedido() {
+//		
+//		LocalDate fechaNacimiento = LocalDate.of(1990, 1, 8);
+//		
+//		
+//		Integer repartidor_id = servicio.registrarUsuario("repartidor", "repartidor", fechaNacimiento,
+//				"veratti@palotes.es", "12345", TipoUsuario.RIDER);
+//		
+//		Integer cliente_id = servicio.registrarUsuario("cliente", "cliente", fechaNacimiento,
+//				"veratti@palotes.es", "12345", TipoUsuario.CLIENTE);
+//		
+//		Integer restaurante_id = 1;
+//
+//		ArrayList<EstadoPedido> l = new ArrayList<>();
+//		l.add(new EstadoPedido(LocalDateTime.now(),TipoEstado.INCIADO));
+//		
+//		ObjectId id= servicio_pedido.crearPedido(LocalDateTime.now(),"a" , 10.0,"calle 1",restaurante_id,repartidor_id,cliente_id,l,null);
+//		
+//		servicio_pedido.updateEstadosPedido(id,new EstadoPedido(LocalDateTime.now(),TipoEstado.ACEPTADO));
+//				
+//		List<PedidoDTO> pedidos =servicio_pedido.findPedidoByRestaurante(restaurante_id);
+//	}
+	
 	@AfterEach
 	public void deleteDireccionesDB(){
 		
 		servicio_pedido.deleteAllDirecciones();
 		
 	}
+	
 	
 	
 	

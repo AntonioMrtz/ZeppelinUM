@@ -73,6 +73,7 @@ class TestJpa2 {
 	public void buscarRestaurantes() {
 		ServicioGestionPlataforma servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
 		Integer restaurante_id = servicio.registrarRestaurante("La periquita", 1,"calle a", "30001",1 , "Murcia", 1.0,1.0, new LinkedList<>());
+		Integer plato_id = servicio.nuevoPlato("Mango", "this is a mango", 10.0, restaurante_id);
 		assertTrue(servicio.getRestaurantesByFiltros("La periquita", true, true, true).size() == 1);
 		assertTrue(servicio.getRestaurantesByFiltros("venta", true, true, true).size() == 0);
 		Restaurante u = RestauranteDAO.getRestauranteDAO().findById(restaurante_id);

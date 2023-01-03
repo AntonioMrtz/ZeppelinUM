@@ -35,7 +35,7 @@ public class OpinionDAO {
     @PostConstruct
     public void init() {
         mongoClient = MongoClients.create("mongodb://localhost:27017");
-        db = mongoClient.getDatabase("zeppelinumlegazgarcia");      
+        db = mongoClient.getDatabase("Zeppelinummartinezmierzwa");      
         coleccion = db.getCollection("opinion");        
     }
     

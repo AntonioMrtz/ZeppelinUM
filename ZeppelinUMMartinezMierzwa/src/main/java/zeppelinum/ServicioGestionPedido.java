@@ -47,10 +47,10 @@ public class ServicioGestionPedido {
         return servicio;
     }
     
-    public void crearPedido() {
+    public void crearPedido(String id) {
         //se crea un pedido, este método deberá tener los atributos necesarios
         //una vez creado, nos quedamos con el id que le ha generado mongodb y con eso activamos el tiemr
-        zeppelinumRemoto.pedidoIniciado("id del pedido creando en mongodb");
+        zeppelinumRemoto.pedidoIniciado(id);
     }
 	
 
@@ -340,10 +340,10 @@ public class ServicioGestionPedido {
 	}
 	
 	
-public int findPedidoByUserDifferentRestaurant(Integer usuario) {	
+	public int findPedidoByUserDifferentRestaurant(Integer usuario) {	
 		
-		
-		return PedidoDAO.getPedidoDAO().numPedidosDifferentRestaurant(usuario);
+		return zeppelinumRemoto.findPedidoByUserDifferentRestaurant(usuario);
+		//return PedidoDAO.getPedidoDAO().numPedidosDifferentRestaurant(usuario);
 		
 
 	}
@@ -362,7 +362,9 @@ public int findPedidoByUserDifferentRestaurant(Integer usuario) {
 	
 	public int findPedidosRestaurants(List<Integer> l) {
 		
-		return PedidoDAO.getPedidoDAO().findPedidosRestaurants(l);
+		//return PedidoDAO.getPedidoDAO().findPedidosRestaurants(l);
+		return zeppelinumRemoto.findPedidosRestaurants(l);
+		
 	}
 	
 	
@@ -385,7 +387,25 @@ public int findPedidoByUserDifferentRestaurant(Integer usuario) {
 		DireccionDAO.getDireccionDAO().deleteAllDirecciones();
 	}
 
+	
+	
+	public int findNumPedidoByUser(int id) {
+		return zeppelinumRemoto.findNumPedidoByUser(id);
+	}
+	
+	public int getNumAllPedidos() {
 
+		return zeppelinumRemoto.getNumAllPedidos();
+	}
+
+	public int findNumPedidoByUserDifferentRestaurant(Integer id) {
+		
+		return zeppelinumRemoto.findNumPedidoByUserDifferentRestaurant(id);
+	}
+
+	public int findNumUsersRestaurants(List<Integer> findRestaurantIdByResponsable) {
+		return zeppelinumRemoto.findNumUsersRestaurants(findRestaurantIdByResponsable);
+	}
 
 
 
