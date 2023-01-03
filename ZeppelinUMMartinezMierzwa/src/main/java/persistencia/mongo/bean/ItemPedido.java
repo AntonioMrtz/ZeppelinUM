@@ -15,9 +15,11 @@ public class ItemPedido implements Serializable{
 	
 //	@BsonId
 //	private ObjectId id;
+	private String titulo;
 	private Integer cantidad;
 	private Double precio;
 	private Integer plato;
+	private Integer idRestaurante;
 	
 	
 	public ItemPedido() {
@@ -25,11 +27,13 @@ public class ItemPedido implements Serializable{
 		
 	}
 	
-	public ItemPedido(Integer cantidad,Double precio,Integer plato) {
+	public ItemPedido(String titulo, Integer cantidad,Double precio,Integer plato, Integer idRestaurante) {
 		
+		this.titulo = titulo;
 		this.cantidad=cantidad;
 		this.precio=precio;
 		this.plato=plato;
+		this.idRestaurante = idRestaurante;
 	}
 	
 	
@@ -58,7 +62,20 @@ public class ItemPedido implements Serializable{
 	public void setPlato(Integer plato) {
 		this.plato = plato;
 	}
-	
+	public Integer getIdRestaurante() {
+		return idRestaurante;
+	}
+	public void setIdRestaurante(Integer idRestaurante) {
+		this.idRestaurante = idRestaurante;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 	
 	
 	

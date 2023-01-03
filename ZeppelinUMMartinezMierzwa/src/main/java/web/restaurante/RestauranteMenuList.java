@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,6 +17,9 @@ import javax.servlet.http.HttpSession;
 
 import persistencia.dto.PlatoDTO;
 import persistencia.dto.RestauranteDTO;
+import persistencia.jpa.bean.Plato;
+import persistencia.mongo.bean.ItemPedido;
+import persistencia.mongo.bean.Pedido;
 import web.usuario.UserSessionWeb;
 import zeppelinum.ServicioGestionPlataforma;
 
@@ -30,7 +35,8 @@ public class RestauranteMenuList implements Serializable {
 	private Integer idRestaurante;
 	private List<PlatoDTO> menu;
 	
-
+	private PlatoDTO selectedPlato;
+	private Integer cantidad;
 	private String titulo;
 	private String descripcion;
 	private Double precio;
@@ -50,6 +56,11 @@ public class RestauranteMenuList implements Serializable {
 	
 	@PostConstruct
 	public void load() {
+		
+		Map<String, String> params = FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap();
+		idRestaurante = Integer.parseInt(params.get("id"));
+		System.out.println("thats the restaurant id: " + idRestaurante);
 		menu = userSessionWeb.isRestaurante() ? servicio.getMenuByRestauranteAll(idRestaurante) : servicio.getMenuByRestaurante(idRestaurante);
 		boolArray = new Boolean[menu.size()];
 		for(int i = 0; i < menu.size(); i++) {
@@ -57,7 +68,17 @@ public class RestauranteMenuList implements Serializable {
 		}
 	}
 	
+	public void selectPlato(PlatoDTO plato) {
+		 selectedPlato = plato;
+		 System.out.println(plato.toString());
+	}
 	
+	public void addToCart() {
+		ItemPedido item = new ItemPedido(selectedPlato.getTitulo(), cantidad, selectedPlato.getPrecio(), selectedPlato.getId(), idRestaurante);
+		Pedido.OrderBuilder p = userSessionWeb.getPedido();
+		p.addItems(item);
+		userSessionWeb.setPedido(p);
+	}
 
 	public RestauranteMenuList() {
 		servicio = ServicioGestionPlataforma.getServicioGestionPlataforma();
@@ -162,5 +183,18 @@ public class RestauranteMenuList implements Serializable {
 	public void setMenu(List<PlatoDTO> menu) {
 		this.menu = menu;
 	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public PlatoDTO getSelectedPlato() {
+		return selectedPlato;
+	}
+
 
 }

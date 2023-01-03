@@ -1,6 +1,7 @@
 package zeppelinum;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,12 +98,30 @@ public class ServicioGestionPedido {
 	
 	
 	
-	public ObjectId crearPedido(LocalDateTime fechaHora,String comentarios , double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente,List<EstadoPedido> est,List<ItemPedido> items) {
+	public ObjectId crearPedido(LocalTime fechaHora, String comentarios, double importe,String direccion,Integer restaurante,Integer repartidor,Integer cliente,List<EstadoPedido> est,List<ItemPedido> items) {
 
 		PedidoDAO pedidoDAO = PedidoDAO.getPedidoDAO();
 		
-		Pedido p = new Pedido(fechaHora,comentarios,importe,direccion,restaurante,repartidor,cliente,est,items);
+		
+		Pedido.OrderBuilder ob = new Pedido.OrderBuilder()
+			    .setFechaHora(fechaHora)
+			    .setCliente(cliente)
+			    .setImporte(importe)
+			    .setComentarios(comentarios)
+			    .setDireccion(direccion)
+			    .setRepartidor(repartidor)
+			    .setRestaurante(restaurante);
+			    
 
+			    for(ItemPedido i : items) {
+			    	ob.addItems(i);
+			    }
+		
+				for(EstadoPedido e : est) {
+					ob.addEstado(e);
+				}
+				
+				Pedido p = ob.build();
 		
 	    ObjectId id = pedidoDAO.save(p);
 	    

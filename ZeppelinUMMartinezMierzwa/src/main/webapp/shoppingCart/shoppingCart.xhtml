@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template_privada.xhtml">
+	<ui:define name="title">
+Shopping Cart
+</ui:define>
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="form1">
+			<p:panelGrid columns="2">
+
+				<h:outputLabel for="deliveryTime" value="Requested Delivery Time: " />
+				<p:calendar id="time" value="#{shoppingCart.deliveryTime}"
+					pattern="HH:mm" timeOnly="true" />
+			</p:panelGrid>
+
+			<p:dataTable id="data" value="#{shoppingCart.pedido.getItems()}"
+				var="item">
+				<p:column headerText="Titulo">
+					<h:outputText value="#{item.titulo}" />
+				</p:column>
+				<p:column headerText="Quantity">
+					<!-- Add a "minus" button to decrease the quantity -->
+					<p:commandButton value="-" immediate="true"
+						action="#{shoppingCart.decreaseQuantity(item)}" update="data form1:money"/>
+						<!-- Use the p:ajax component to update the "data" and "money" components when the button is clicked -->
+			
+				
+					<!-- Display the quantity -->
+					<h:outputText value="#{item.cantidad}" />
+					<!-- Add a "plus" button to increase the quantity -->
+					<p:commandButton value="+" immediate="true"
+						action="#{shoppingCart.increaseQuantity(item)}" update="data form1:money">
+						<!-- Use the p:ajax component to update the "data" and "money" components when the button is clicked -->
+		
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Price">
+					<h:outputText value="#{item.precio}" />
+				</p:column>
+				<p:column headerText="Price">
+					<h:outputText value="#{item.precio}" />
+				</p:column>
+			</p:dataTable>
+			<p:panelGrid id="panel" columns="2" styleClass="ui-panelgrid-right">
+				<h:outputText value="Total Price: " />
+				<h:outputText id="money" value="#{shoppingCart.calculateTotal()}" />
+			</p:panelGrid>
+			<!-- Add a field for a comment -->
+			<h:outputLabel for="comment" value="Comment: " />
+			<h:inputTextarea id="comment" value="#{shoppingCart.comentario}"
+				rows="4" cols="50" />
+
+			<!-- Add a field for an address -->
+			<h:outputLabel for="address" value="Address: " />
+			<h:inputText id="address" value="#{shoppingCart.datosDireccion}"
+				size="50" required="true" />
+
+			<p:remoteCommand name="placeOrder"
+				action="#{shoppingCart.placeOrder}"
+				update="submit-button added data time money" />
+
+			<p:commandButton id="submit-button" value="Place Order"
+				onclick="placeOrder()" styleClass="ui-button-right" />
+			<h:messages id="added" />
+		</h:form>
+	</ui:define>
+</ui:composition>

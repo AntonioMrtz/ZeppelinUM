@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/template/template_privada.xhtml">
+	<ui:define name="title">
+Listado de Pedidos
+</ui:define>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="id" value="#{pedidoList.pedidoId}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="pedidoss">
+			<p:dataTable var="entry" value="#{pedidoList.pedidos}">
+				<p:column headerText="Restaurant ID">
+					<h:outputText value="#{entry.key}" />
+				</p:column>
+				<p:column headerText="Orders">
+					<p:dataTable var="order" value="#{entry.value}">
+						<p:column headerText="Order ID">
+							<h:outputText value="#{order.getId()}" />
+						</p:column>
+						<p:column headerText="Order State">
+							<h:outputText value="#{order.getNewestState().getEstado()}" />
+						</p:column>
+						<p:column id="columna" headerText="Actions">
+							<h:panelGroup id="group1"
+								rendered="#{order.getNewestState().getEstado() == 'INCIADO'}">
+								<p:commandButton value="Accept" action="#{order.accept()}"
+									update="pedidoss" />
+								<p:commandButton value="Cancel" action="#{order.cancel()}"
+									update="pedidoss" />
+							</h:panelGroup>
+							<h:panelGroup id="group2"
+								rendered="#{order.getNewestState().getEstado() == 'ACEPTADO'}">
+								<p:commandButton value="Set as Prepared"
+									action="#{order.prepare()}" update="pedidoss" />
+							</h:panelGroup>
+							<h:panelGroup id="group3"
+								rendered="#{order.getNewestState().getEstado() == 'PREPARADO'}">
+								<p:commandButton value="Set as Collected"
+									action="#{order.receive()}" update="pedidoss" />
+							</h:panelGroup>
+						</p:column>
+					</p:dataTable>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+
+
+

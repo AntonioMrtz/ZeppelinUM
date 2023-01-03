@@ -57,6 +57,7 @@ public class ServicioGestionSpring {
             fecha = fecha.minusWeeks(1);
         }
         int count = RestauranteDAO.getRestauranteDAO().countRestaurantesByFiltros(keyword, fecha, ceroIncidencias).intValue();
+        System.out.println("count: " + count);
         return count;
     }
 }

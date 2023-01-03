@@ -58,6 +58,7 @@ public class RestauranteWeb implements Serializable{
     	simpleModel = new DefaultMapModel<Integer>();
     	System.out.println("loaded mapModel");
     	List<RestauranteDTO> restaurantList = servicio.searchRestaurantByResponsable(responsableId);
+    	System.out.println("here i did it");
     	if(restaurantList == null) {
     		restaurantList = new ArrayList<RestauranteDTO>();
     	}

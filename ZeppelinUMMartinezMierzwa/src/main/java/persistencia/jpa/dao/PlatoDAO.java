@@ -24,6 +24,7 @@ public class PlatoDAO extends ExtensionDAO<Plato> {
     
 	public List<PlatoDTO> findPlatosDisponiblesByRestaurante(Integer restaurante) {
 		try {
+			System.out.println("id: " + restaurante);
 			Query query = EntityManagerHelper.getEntityManager()
 					.createNamedQuery("Plato.findPlatosDisponiblesByRestaurante");
 			query.setParameter("restaurante", restaurante);
@@ -35,7 +36,11 @@ public class PlatoDAO extends ExtensionDAO<Plato> {
 	
 	public List<PlatoDTO> findPlatosByRestaurante(Integer restaurante) {
 		try {
-			return transformarToDTO(getAll());
+			System.out.println("id: " + restaurante);
+			Query query = EntityManagerHelper.getEntityManager()
+					.createNamedQuery("Plato.findPlatosByRestaurante");
+			query.setParameter("restaurante", restaurante);
+			return transformarToDTO(query.getResultList());
 		} catch (RuntimeException re) {
 			throw re;
 		}

@@ -53,9 +53,13 @@ public class PedidoDAO extends ExtensionMongoDAO<Pedido> {
 		Bson query_restaurant=Filters.eq("restaurante",restaurant);
 		FindIterable<Pedido> resultados = collection.find(query_restaurant);
 		MongoCursor<Pedido> it = resultados.iterator();
+		
 		List<Pedido> pedidos = new ArrayList<Pedido>();
+		
 		while (it.hasNext()) {
-			pedidos.add(it.next());
+			Pedido pedido = it.next();
+			pedidos.add(pedido);
+			
 		}
 		return pedidos;	
 		

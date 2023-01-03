@@ -11,7 +11,7 @@ public class PedidoDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+// add id?
 	private String comentarios;
 	private double importe;
 	private String direccion;

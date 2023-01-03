@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
 <body>
 	<section id="header">
 	<h1>
@@ -12,19 +14,19 @@
 	<ul>
 		<li class="#{estilo1}"><a
 			href="#{request.contextPath}/index.xhtml">Inicio</a></li>
-			
-		
-			
+
+
+
 		<li class="#{estilo4}"><a
 			href="#{request.contextPath}/usuario/perfilusuario.xhtml">Perfil</a></li>
-			
+
 		<li class="#{estilo4}"><a
-			href="#{request.contextPath}/statistics/statistics.xhtml">Estadísticas</a></li>
-		
-		
-		
-		
-		
+			href="#{request.contextPath}/statistics/estadisticas.xhtml">Estadísticas</a></li>
+
+
+
+
+
 		<c:if test="#{userSessionWeb.usuario.tipo.toString().equals('ADMIN')}">
 
 			<li class="#{estilo6}"><a href="#">Administración</a>
@@ -32,7 +34,7 @@
 					<li class="#{estilo5}"><a
 						href="#{request.contextPath}/admin/registroRider.xhtml">Create
 							Rider</a></li>
-							<li class="#{estilo5}"><a
+					<li class="#{estilo5}"><a
 						href="#{request.contextPath}/admin/validarRestaurantes.xhtml">Validar
 							Restaurantes</a></li>
 				</ul></li>
@@ -54,10 +56,20 @@
 			<ul>
 				<li><a href="#{request.contextPath}/restaurante/form.xhtml">Crear
 						restaurante</a></li>
+				<c:if
+					test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE')}">
+					<li><a
+						href="#{request.contextPath}/restaurante/pedidosList.xhtml">Pedidos
+					</a></li>
+				</c:if>
 			</ul></li>
 		<li class="#{estilo3}"><a
 			href="#{request.contextPath}/usuario/registro.xhtml">Registro</a></li>
 		<li><a href="#{request.contextPath}/logout">Cerrar sesión</a></li>
+		
+			<li>	<h:form><p:commandButton icon="fa fa-shopping-cart" title="Shopping Cart"
+			action="#{shoppingCart.showShoppingCart()}" /></h:form></li>
+		
 	</ul>
 	</nav> <!-- Banner --> </section>
 	<!-- Nav -->

@@ -16,17 +16,18 @@
 		<h:form id="menu">
 			<h3>#{restauranteMenuList.restauranteSeleccionado.nombre}</h3>
 			<br />
-			<p:button value="Volver" onclick="history.go(-1); return false" style="margin-right:5px"
-				icon="fa fa-arrow-left"></p:button>
-			
-			<c:if test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE')}">
-			<p:commandButton value="Dar plato de alta" icon="fa fa-utensils"
-				oncomplete="PF('nuevoPlato').show();" update="nuevo"></p:commandButton>
+			<p:button value="Volver" onclick="history.go(-1); return false"
+				style="margin-right:5px" icon="fa fa-arrow-left"></p:button>
+
+			<c:if
+				test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE')}">
+				<p:commandButton value="Dar plato de alta" icon="fa fa-utensils"
+					oncomplete="PF('nuevoPlato').show();" update="nuevo"></p:commandButton>
 			</c:if>
 			<br />
 			<p:messages showDetail="true" id="info" />
-			<p:dataTable rowIndexVar="row" var="plato" style="prueba"
-				value="#{restauranteMenuList.menu}" rows="50" id="tabla_header"
+			<p:dataTable id="table" rowIndexVar="row" var="plato" style="prueba"
+				class="table_class" value="#{restauranteMenuList.menu}" rows="50"
 				paginator="true" rowsPerPageTemplate="5,10,{ShowAll|'All'}"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 				<p:column headerText="Título">
@@ -37,16 +38,32 @@
 				</p:column>
 				<p:column style="width: 200px;" headerText="Opciones">
 				</p:column>
-				<p:column style="width: 200px;" headerText="Disponibilidad">
-				<p:selectBooleanCheckbox value="#{restauranteMenuList.boolArray[row]}">
-				<p:ajax update="tabla_header" checked="true"/>
-				</p:selectBooleanCheckbox>
-				</p:column>
+				<c:if
+					test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE')}">
+					<p:column style="width: 200px;" headerText="Disponibilidad">
+						<p:selectBooleanCheckbox
+							value="#{restauranteMenuList.boolArray[row]}">
+							<p:ajax update="table" checked="true" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+				</c:if>
+				<c:if
+				test="#{userSessionWeb.usuario.tipo.toString().equals('CLIENTE')}">
+				<p:column style="width: 200px;" headerText="add">
+				<p:commandButton value="Apply" onclick="#{restauranteMenuList.selectPlato(plato)} PF('addPlato').show();"> 
+					 </p:commandButton>
+					</p:column>
+			</c:if>
 			</p:dataTable>
-			<p:commandButton value="Apply" actionListener="#{restauranteMenuList.changeDisponibilidad()}" />
-			<p:growl showDetail="true" id="info2" />
 			
-				<p:dialog header="Dar de alta plato" modal="true"
+			<c:if
+				test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE')}">
+				<p:commandButton value="Apply"
+					actionListener="#{restauranteMenuList.changeDisponibilidad()}" />
+			</c:if>
+			<p:growl showDetail="true" id="info2" />
+
+			<p:dialog header="Dar de alta plato" modal="true"
 				widgetVar="nuevoPlato" width="650">
 				<p:outputPanel id="nuevo" style="margin: 10px;">
 					<h:panelGrid columns="2">
@@ -61,7 +78,7 @@
 						<p:commandButton value="Cerrar" onclick="PF('nuevoPlato').hide();" />
 						<p:commandButton value="Crear plato" icon="fa fa-bowl-food"
 							actionListener="#{restauranteMenuList.crearPlato()}"
-							oncomplete="PF('nuevoPlato').hide();" update="tabla_header info2" />
+							oncomplete="PF('nuevoPlato').hide();" update="table info2" />
 					</h:panelGrid>
 					<p:ajaxStatus>
 						<f:facet name="start">
@@ -70,8 +87,37 @@
 					</p:ajaxStatus>
 				</p:outputPanel>
 			</p:dialog>
-			
-			
+			<p:dialog header="añada un plato a su pedido" modal="true"
+				widgetVar="addPlato" width="650">
+				<p:outputPanel id="add" style="margin: 10px;">
+					<h:panelGrid columns="2">
+						<h:outputText value="cantidad" />
+						<p:spinner id="spinner" value="#{restauranteMenuList.cantidad}" min="0" max="100" step="1" />
+						<h:outputText value="Descripción" />
+						<h:outputText value="#{restauranteMenuList.selectedPlato.getDescripcion()}"/>
+						<h:outputText value="Precio" />
+						<h:outputText value="#{restauranteMenuList.selectedPlato.precio}"
+							decimalPlaces="2" />
+						<p:commandButton value="Cerrar" onclick="PF('addPlato').hide();" />
+						<p:commandButton value="Crear plato" icon="fa fa-bowl-food"
+							actionListener="#{restauranteMenuList.addToCart()}"
+							oncomplete="PF('addPlato').hide();" update="table info2" />
+					</h:panelGrid>
+					<p:ajaxStatus>
+						<f:facet name="start">
+							<i class="pi pi-spin pi-spinner loading-icon" aria-hidden="true"></i>
+						</f:facet>
+					</p:ajaxStatus>
+				</p:outputPanel>
+			</p:dialog>
+
+
 		</h:form>
+
 	</ui:define>
+	<!-- JavaScript code to handle the rowSelect and rowUnselect events and open the dialog -->
+
 </ui:composition>
+<!-- DataTable element -->
+
+

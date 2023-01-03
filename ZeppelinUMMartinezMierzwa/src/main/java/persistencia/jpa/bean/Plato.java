@@ -4,7 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @NamedQueries({
-@NamedQuery(name = "Plato.findPlatosDisponiblesByRestaurante", query = "SELECT p FROM Plato p WHERE p.disponibilidad = true and p.restaurante.id =:restaurante ")
+@NamedQuery(name = "Plato.findPlatosDisponiblesByRestaurante", query = "SELECT p FROM Plato p WHERE p.disponibilidad = true and p.restaurante.id =:restaurante "),
+@NamedQuery(name = "Plato.findPlatosByRestaurante", query = "SELECT p FROM Plato p WHERE p.restaurante.id =:restaurante ")
 })
 
 @Entity

@@ -27,10 +27,8 @@ public class EstadoPedido implements Serializable{
 //	
 	
 	public EstadoPedido(LocalDateTime fechaEstado,TipoEstado estado) {
-		
 		this.estado=estado;
 		this.fechaEstado=fechaEstado;
-		
 	}
 	
 	

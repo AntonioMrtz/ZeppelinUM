@@ -45,7 +45,7 @@ public class ServicioGestionPlataforma {
     public static ServicioGestionPlataforma getServicioGestionPlataforma() {
         if (servicio == null) {
             try {
-                zeppelinumRemoto = (ZeppelinUMRemoto) InitialContextUtil.getInstance().lookup("ejb:AADD2022/ZeppelinUMMartinezMierzwaEJB/ZeppelinUMRemoto!aadd.zeppelinum.ZeppelinUMRemoto");
+                zeppelinumRemoto = (ZeppelinUMRemoto) InitialContextUtil.getInstance().lookup("ejb:AADD2022/ZeppelinUMMartinezMierzwaEJB/ZeppelinUMRemoto!zeppelinum.ZeppelinUMRemoto");
             } catch (NamingException e) {
                 e.printStackTrace();
             }
