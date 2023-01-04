@@ -66,6 +66,7 @@ public class ShoppingCart implements Serializable {
 	    } else {
 	        // If the quantity is zero or less, delete the item
 	        pedido.getItems().remove(index);
+	       
 	    }
 	}
 
@@ -116,9 +117,9 @@ public class ShoppingCart implements Serializable {
 
 	public void placeOrder() {
 		System.out.println(datosDireccion);
-		if (datosDireccion == null || datosDireccion.isEmpty()) {
+		if (datosDireccion == null || datosDireccion.isEmpty() || deliveryTime == null) {
 			facesContext.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter a valid address", null));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter a valid address and/or time", null));
 		} else {
 			Pedido finalPedido = pedido.setDireccion(datosDireccion).setComentarios(comentario)
 					.setImporte(calculateTotal()).setFechaHora(deliveryTime).build();

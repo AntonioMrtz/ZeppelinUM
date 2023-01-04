@@ -1,16 +1,26 @@
 <ui:composition template="/WEB-INF/template/template_privada.xhtml"
-xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:param name="menuseleccionado" value="estilo2" />
     <ui:define name="title">
-Perfil de usuario
-</ui:define>
+        Perfil de usuario
+    </ui:define>
     <ui:define name="content">
-        <h1>Username: #{userSessionWeb.usuario.nombre}</h1><br></br>
-        <p>ID: #{userSessionWeb.usuario.id}</p>
-        <p>Apellidos: #{userSessionWeb.usuario.apellidos}</p>
-        <p>Your User Type: #{userSessionWeb.usuario.tipo}</p>
-        <p>Date of Birth: #{userSessionWeb.usuario.fechaNacimiento}</p>
+        <h1>Username: #{userSessionWeb.usuario.nombre}</h1>
+        <hr />
+        <p>
+            <b>ID:</b> #{userSessionWeb.usuario.id}
+        </p>
+        <p>
+            <b>Apellidos:</b> #{userSessionWeb.usuario.apellidos}
+        </p>
+        <p>
+            <b>Your User Type:</b> #{userSessionWeb.usuario.tipo}
+        </p>
+        <p>
+            <b>Date of Birth:</b> #{userSessionWeb.usuario.fechaNacimiento}
+        </p>
     </ui:define>
 </ui:composition>

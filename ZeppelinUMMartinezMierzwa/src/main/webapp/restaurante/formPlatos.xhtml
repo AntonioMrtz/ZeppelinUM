@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	template="/WEB-INF/template/template_privada.xhtml">
-	<ui:param name="menuseleccionado" value="estilo2" />
+	<ui:param name="menuseleccionado" value="estilovr" />
 	<ui:define name="title">Menú de un restaurante</ui:define>
 	<ui:define name="metadata">
 		<f:metadata>
@@ -50,7 +50,7 @@
 				<c:if
 				test="#{userSessionWeb.usuario.tipo.toString().equals('CLIENTE')}">
 				<p:column style="width: 200px;" headerText="add">
-				<p:commandButton value="Apply" onclick="#{restauranteMenuList.selectPlato(plato)} PF('addPlato').show();"> 
+				<p:commandButton update=":menu:platoPF" value="Add" action="#{restauranteMenuList.selectPlato(plato)}" oncomplete="#{restauranteMenuList.selectPlato(plato)} PF('addPlato').show();" > 
 					 </p:commandButton>
 					</p:column>
 			</c:if>
@@ -87,7 +87,7 @@
 					</p:ajaxStatus>
 				</p:outputPanel>
 			</p:dialog>
-			<p:dialog header="añada un plato a su pedido" modal="true"
+			<p:dialog id="platoPF" header="añada un plato a su pedido" modal="true"
 				widgetVar="addPlato" width="650">
 				<p:outputPanel id="add" style="margin: 10px;">
 					<h:panelGrid columns="2">

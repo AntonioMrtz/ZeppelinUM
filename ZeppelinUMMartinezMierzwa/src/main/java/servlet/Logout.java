@@ -22,8 +22,7 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         session.invalidate();
-        String referer = request.getHeader("referer");
-        response.setHeader("refresh", "1; URL=" + referer);
+        response.setHeader("refresh", "1; URL=" + "http://localhost:8080/ZeppelinUMMartinezMierzwa/index.xhtml");
         PrintWriter out = response.getWriter();
         try {
             out.println("<html>");

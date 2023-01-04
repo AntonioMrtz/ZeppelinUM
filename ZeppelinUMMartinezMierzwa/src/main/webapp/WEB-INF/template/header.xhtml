@@ -17,38 +17,39 @@
 
 
 
-		<li class="#{estilo4}"><a
+		<li class="#{estilo2}"><a
 			href="#{request.contextPath}/usuario/perfilusuario.xhtml">Perfil</a></li>
 
-		<li class="#{estilo4}"><a
+		<li class="#{estilo3}"><a
 			href="#{request.contextPath}/statistics/estadisticas.xhtml">Estadísticas</a></li>
 
 		<c:if test="#{userSessionWeb.usuario.tipo.toString().equals('ADMIN')}">
 
-			<li class="#{estilo6}"><a href="#">Administración</a>
+			<li class="#{estilo4}"><a href="#">Administración</a>
 				<ul>
-					<li class="#{estilo5}"><a
+					<li class="#{estilo4}"><a
 						href="#{request.contextPath}/admin/registroRider.xhtml">Create
 							Rider</a></li>
-					<li class="#{estilo5}"><a
+					<li class="#{estilo4}"><a
 						href="#{request.contextPath}/admin/validarRestaurantes.xhtml">Validar
 							Restaurantes</a></li>
 				</ul></li>
 
 		</c:if>
-		<li class="#{estilo8}"><a
+		<li class="#{estilocn}"><a
 			href="#{request.contextPath}/noticias/infousuarios.xhtml">Comunicar
 				novedades</a></li>
 		<c:if
 			test="#{userSessionWeb.usuario.tipo.toString().equals('CLIENTE')}">
 
-			<li class="#{estilo7}"><a
+			<li class="#{estilovr}"><a
 				href="#{request.contextPath}/restaurante/listLazy.xhtml">Restaurantes</a></li>
 
 		</c:if>
 
-
-		<li class="#{estilo2}"><a href="#">Gestión de restaurantes</a>
+<c:if
+					test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE') and userSessionWeb.usuario.isValidated()}">
+		<li class="#{estilo5}"><a href="#">Gestión de restaurantes</a>
 			<ul>
 				<li><a href="#{request.contextPath}/restaurante/form.xhtml">Crear
 						restaurante</a></li>
@@ -59,13 +60,14 @@
 					</a></li>
 				</c:if>
 			</ul></li>
-		<li class="#{estilo3}"><a
+			</c:if>
+		<li class="#{estilo6}"><a
 			href="#{request.contextPath}/usuario/registro.xhtml">Registro</a></li>
 		<li><a href="#{request.contextPath}/logout">Cerrar sesión</a></li>
-		
+		<c:if test="#{userSessionWeb.usuario.tipo.toString().equals('CLIENTE')}">
 			<li>	<h:form><p:commandButton icon="fa fa-shopping-cart" title="Shopping Cart"
 			action="#{shoppingCart.showShoppingCart()}" /></h:form></li>
-		
+		</c:if>
 	</ul>
 	</nav> <!-- Banner --> </section>
 	<!-- Nav -->

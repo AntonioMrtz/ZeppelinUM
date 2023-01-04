@@ -69,6 +69,7 @@ public class RestauranteMenuList implements Serializable {
 	}
 	
 	public void selectPlato(PlatoDTO plato) {
+		System.out.println(plato.getTitulo());
 		 selectedPlato = plato;
 		 System.out.println(plato.toString());
 	}

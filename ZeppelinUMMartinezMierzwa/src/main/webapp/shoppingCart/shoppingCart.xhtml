@@ -2,6 +2,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/template/template_privada.xhtml">
 	<ui:define name="title">
@@ -26,24 +27,27 @@ Shopping Cart
 				<p:column headerText="Quantity">
 					<!-- Add a "minus" button to decrease the quantity -->
 					<p:commandButton value="-" immediate="true"
-						action="#{shoppingCart.decreaseQuantity(item)}" update="data form1:money"/>
-						<!-- Use the p:ajax component to update the "data" and "money" components when the button is clicked -->
-			
-				
+						action="#{shoppingCart.decreaseQuantity(item)}"
+						update="data form1:money form1:submit-button"/>
+					
+					<!-- Use the p:ajax component to update the "data" and "money" components when the button is clicked -->
+
+
 					<!-- Display the quantity -->
 					<h:outputText value="#{item.cantidad}" />
 					<!-- Add a "plus" button to increase the quantity -->
 					<p:commandButton value="+" immediate="true"
-						action="#{shoppingCart.increaseQuantity(item)}" update="data form1:money">
+						action="#{shoppingCart.increaseQuantity(item)}"
+						update="data form1:money">
 						<!-- Use the p:ajax component to update the "data" and "money" components when the button is clicked -->
-		
+
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="Price">
 					<h:outputText value="#{item.precio}" />
 				</p:column>
-				<p:column headerText="Price">
-					<h:outputText value="#{item.precio}" />
+				<p:column headerText="Price Total">
+					<h:outputText value="#{item.precio * item.cantidad}" />
 				</p:column>
 			</p:dataTable>
 			<p:panelGrid id="panel" columns="2" styleClass="ui-panelgrid-right">
@@ -64,9 +68,11 @@ Shopping Cart
 				action="#{shoppingCart.placeOrder}"
 				update="submit-button added data time money" />
 
-			<p:commandButton id="submit-button" value="Place Order"
-				onclick="placeOrder()" styleClass="ui-button-right" />
+			<p:commandButton disabled="#{shoppingCart.pedido.items.size() == 0}"
+				immediate="true" id="submit-button" value="Place Order"
+				onclick="placeOrder()" styleClass="ui-button-right" update="submit-button"/>
 			<h:messages id="added" />
+
 		</h:form>
 	</ui:define>
 </ui:composition>
