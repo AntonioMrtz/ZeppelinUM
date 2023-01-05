@@ -160,7 +160,7 @@ public class PedidoDAO {
 	@Lock(LockType.READ)
 	public int findNumPedidoByUserDifferentRestaurant(Integer id) {
 		
-		Bson query_restaurant=Filters.eq("usuario",id);
+		Bson query_restaurant=Filters.eq("cliente",id);
 
 		return (int) coleccion.countDocuments(query_restaurant);
 		
@@ -209,9 +209,9 @@ public class PedidoDAO {
 	public int findPedidoByUserDifferentRestaurant(Integer usuario) {
 
 		
-		Bson query_restaurant=Filters.eq("usuario",usuario);
+		Bson query_restaurant=Filters.eq("cliente",usuario);
 		
-		if (coleccion.distinct("usuario",String.class).filter(query_restaurant) instanceof Collection) {
+		if (coleccion.distinct("cliente",String.class).filter(query_restaurant) instanceof Collection) {
 		    return ((Collection<?>) coleccion.distinct("restaurante",String.class).filter(query_restaurant)).size();
 		}
 		
