@@ -36,10 +36,12 @@
 				<p:column headerText="Precio">
 					<h:outputText value="#{plato.precio}" />
 				</p:column>
-				<p:column style="width: 200px;" headerText="Opciones">
-				</p:column>
+				
 				<c:if
+				
 					test="#{userSessionWeb.usuario.tipo.toString().equals('RESTAURANTE')}">
+					<p:column style="width: 200px;" headerText="Opciones">
+				</p:column>
 					<p:column style="width: 200px;" headerText="Disponibilidad">
 						<p:selectBooleanCheckbox
 							value="#{restauranteMenuList.boolArray[row]}">
@@ -99,7 +101,7 @@
 						<h:outputText value="#{restauranteMenuList.selectedPlato.precio}"
 							decimalPlaces="2" />
 						<p:commandButton value="Cerrar" onclick="PF('addPlato').hide();" />
-						<p:commandButton value="Crear plato" icon="fa fa-bowl-food"
+						<p:commandButton value="add" icon="fa fa-bowl-food"
 							actionListener="#{restauranteMenuList.addToCart()}"
 							oncomplete="PF('addPlato').hide();" update="table info2" />
 					</h:panelGrid>
