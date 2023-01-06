@@ -2,6 +2,7 @@ package persistencia.mongo.bean;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,8 +24,10 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
 @Singleton(name="PedidoDAO")
@@ -123,7 +126,7 @@ public class PedidoDAO {
 
 	@Lock(LockType.READ)
 	public int findNumPedidoByUser(int id) {
-		
+		System.out.println("executing findNum,PedidoByUser with id: ");
 		Bson query_user = Filters.eq("cliente", id);
 		return (int) coleccion.countDocuments(query_user);
 
@@ -209,13 +212,18 @@ public class PedidoDAO {
 	public int findPedidoByUserDifferentRestaurant(Integer usuario) {
 
 		
-		Bson query_restaurant=Filters.eq("cliente",usuario);
-		
-		if (coleccion.distinct("cliente",String.class).filter(query_restaurant) instanceof Collection) {
-		    return ((Collection<?>) coleccion.distinct("restaurante",String.class).filter(query_restaurant)).size();
-		}
-		
-		return 0;
+	
+		Bson filter = Filters.eq("cliente", usuario);
+		 List<Document> clients = coleccion.find(filter).into(new ArrayList<>());
+
+	        // Count the number of distinct restaurant ids
+	        int count = (int) clients.stream()
+	                .map(client -> client.get("restaurantId"))
+	                .distinct()
+	                .count();
+
+	        System.out.println(count);
+		return count;
 		
 		
 //		int count=0;
@@ -228,6 +236,20 @@ public class PedidoDAO {
 //		}
 //		return count;
 //		return 0;
+	}
+	public int countDistinctClientsByRestaurante(List<Integer> restaurants) {
+		List<Integer> idList = restaurants;
+		Bson filter = Filters.in("restaurante", idList);
+		 List<Document> clients = coleccion.find(filter).into(new ArrayList<>());
+
+	        // Count the number of distinct restaurant ids
+	        int count = (int) clients.stream()
+	                .map(client -> client.get("cliente"))
+	                .distinct()
+	                .count();
+
+	        System.out.println(count);
+		return count;
 	}
 	
 	

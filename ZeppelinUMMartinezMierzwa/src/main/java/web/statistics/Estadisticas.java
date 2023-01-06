@@ -69,9 +69,10 @@ public class Estadisticas implements Serializable {
 		
 		barModel = new BarChartModel();
 		barModel2= new BarChartModel();
+		
+		id=userSessionWeb.getUsuario().getId();
 		createBarModel();
 		createBarModel2();
-		id=userSessionWeb.getUsuario().getId();
 	}
 	
 
@@ -140,7 +141,7 @@ public class Estadisticas implements Serializable {
         barDataSet.setLabel("restaurantes");
 
         List<Number> values = new ArrayList<>();
-        values.add(ServicioGestionPedido.getServicioGestionPedido().findPedidoByUserDifferentRestaurant(userSessionWeb.getUsuario().getId()));
+        values.add(ServicioGestionPedido.getServicioGestionPedido().findPedidoByUserDifferentRestaurant(id));
         //values.add(ServicioGestionPedido.getServicioGestionPedido().findPedidoByUserDifferentRestaurant(userSessionWeb.getUsuario().getId()));
         values.add(ServicioGestionPlataforma.getServicioGestionPlataforma().getNumAllRestaurantes());
 

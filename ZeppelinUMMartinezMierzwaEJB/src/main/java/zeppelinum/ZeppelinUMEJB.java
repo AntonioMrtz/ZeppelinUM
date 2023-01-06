@@ -102,4 +102,9 @@ public class ZeppelinUMEJB implements ZeppelinUMRemoto{
 	public int findPedidoByUserDifferentRestaurant(Integer usuario) {
 		return pedidoDAO.findPedidoByUserDifferentRestaurant(usuario);
 	}
+	
+	@Override
+	public int countDistinctClientsByRestaurante(List<Integer> restaurantes) {
+		return pedidoDAO.countDistinctClientsByRestaurante(restaurantes);
+	}
 }

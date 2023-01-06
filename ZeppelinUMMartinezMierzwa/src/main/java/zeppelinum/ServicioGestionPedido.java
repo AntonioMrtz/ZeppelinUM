@@ -348,6 +348,14 @@ public class ServicioGestionPedido {
 
 	}
 	
+	public int countDistinctClientsByRestaurante(List<Integer> usuario) {	
+		
+		return zeppelinumRemoto.countDistinctClientsByRestaurante(usuario);
+		//return PedidoDAO.getPedidoDAO().numPedidosDifferentRestaurant(usuario);
+		
+
+	}
+	
 	public void addRepartidorPedido(Integer repartidor,ObjectId pedido) {
 		
 		PedidoDAO.getPedidoDAO().addRepartidor(repartidor,pedido);

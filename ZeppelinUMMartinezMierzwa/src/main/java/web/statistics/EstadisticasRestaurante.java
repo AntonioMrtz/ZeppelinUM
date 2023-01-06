@@ -21,6 +21,7 @@ import org.primefaces.model.charts.optionconfig.legend.Legend;
 import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
 import org.primefaces.model.charts.optionconfig.title.Title;
 
+import persistencia.jpa.bean.Restaurante;
 import persistencia.jpa.dao.RestauranteDAO;
 import web.usuario.UserSessionWeb;
 import zeppelinum.ServicioGestionPedido;
@@ -69,9 +70,10 @@ public class EstadisticasRestaurante implements Serializable {
 		
 		barModel = new BarChartModel();
 		barModel2= new BarChartModel();
+		
+		id=userSessionWeb.getUsuario().getId();
 		createBarModel();
 		createBarModel2();
-		id=userSessionWeb.getUsuario().getId();
 	}
 	
 
@@ -142,7 +144,12 @@ public class EstadisticasRestaurante implements Serializable {
 
         List<Number> values = new ArrayList<>();
         //values.add(ServicioGestionPedido.getServicioGestionPedido().findUsersRestaurants(ServicioGestionPlataforma.getServicioGestionPlataforma().findRestaurantIdByResponsable(userSessionWeb.getUsuario().getId())));
-        values.add(ServicioGestionPedido.getServicioGestionPedido().findNumUsersRestaurants(ServicioGestionPlataforma.getServicioGestionPlataforma().findRestaurantIdByResponsable(userSessionWeb.getUsuario().getId())));
+       
+        //Grab all the restaurants a restaurant manager has
+        List<Integer> restList = ServicioGestionPlataforma.getServicioGestionPlataforma().findRestaurantIdByResponsable(id);
+        
+        
+        values.add(ServicioGestionPedido.getServicioGestionPedido().countDistinctClientsByRestaurante(restList));
 
         
         values.add(ServicioGestionPlataforma.getServicioGestionPlataforma().getAllUsers().size());
