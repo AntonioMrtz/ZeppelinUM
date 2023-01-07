@@ -7,14 +7,13 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>persistencia.jpa.bean.Restaurante</class>
         <class>persistencia.jpa.bean.Usuario</class>
-        <class>persistencia.jpa.bean.Plato</class>
         
         <properties>
             <property name="javax.persistence.jdbc.driver"
                 value="com.mysql.cj.jdbc.Driver" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password"
-                value="lappen123" />
+                value="antonioOMG1." />
             <property name="javax.persistence.jdbc.url"
                 value="jdbc:mysql://localhost:3306/zeppelinUMMartinezMierzwa?serverTimezone=CET" />
             <property name="eclipselink.ddl-generation"

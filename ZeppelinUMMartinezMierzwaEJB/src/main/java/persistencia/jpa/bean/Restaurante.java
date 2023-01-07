@@ -37,16 +37,16 @@ public class Restaurante implements Serializable {
     @ManyToOne
     private Usuario responsable;
     
-    @ManyToMany(mappedBy = "restaurantes")
-    private List<CategoriaRestaurante> categorias;
-    
-    @JoinColumn(name="incidencia")
-    @OneToMany(mappedBy="restaurante",cascade = CascadeType.ALL)
-    private List<Incidencia> incidencias;
-    
-    
-    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
-    private List<Plato> platos;
+//    @ManyToMany(mappedBy = "restaurantes")
+//    private List<CategoriaRestaurante> categorias;
+//    
+//    @JoinColumn(name="incidencia")
+//    @OneToMany(mappedBy="restaurante",cascade = CascadeType.ALL)
+//    private List<Incidencia> incidencias;
+//    
+//    
+//    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
+//    private List<Plato> platos;
     
 
     private static final long serialVersionUID = 1L;
@@ -116,40 +116,40 @@ public class Restaurante implements Serializable {
 		return responsable;
 	}
 
-	public List<CategoriaRestaurante> getCategorias() {
-		return new LinkedList<>(categorias);
-	}
-
-	public List<Incidencia> getIncidencias() {
-		return incidencias;
-	}
-
-	public void setIncidencias(List<Incidencia> incidencias) {
-		this.incidencias = incidencias;
-	}
-	
-	public void addIncidencias(List<Incidencia> incidencias) {
-		this.incidencias.addAll(incidencias);
-	}
-
-	public void setCategorias(List<CategoriaRestaurante> categoria) {
-		this.categorias = categoria;
-	}
-  
-	public void addCategorias(List<CategoriaRestaurante> categorias) {
-		this.categorias.addAll(categorias);
-	}
-
-	public List<Plato> getPlatos() {
-		return platos;
-	}
-
-	public void setPlatos(List<Plato> platos) {
-		this.platos = platos;
-	}
-    
-	public void addPlato(List<Plato> platos) {
-		this.platos.addAll(platos);
-	}
+//	public List<CategoriaRestaurante> getCategorias() {
+//		return new LinkedList<>(categorias);
+//	}
+//
+//	public List<Incidencia> getIncidencias() {
+//		return incidencias;
+//	}
+//
+//	public void setIncidencias(List<Incidencia> incidencias) {
+//		this.incidencias = incidencias;
+//	}
+//	
+//	public void addIncidencias(List<Incidencia> incidencias) {
+//		this.incidencias.addAll(incidencias);
+//	}
+//
+//	public void setCategorias(List<CategoriaRestaurante> categoria) {
+//		this.categorias = categoria;
+//	}
+//  
+//	public void addCategorias(List<CategoriaRestaurante> categorias) {
+//		this.categorias.addAll(categorias);
+//	}
+//
+//	public List<Plato> getPlatos() {
+//		return platos;
+//	}
+//
+//	public void setPlatos(List<Plato> platos) {
+//		this.platos = platos;
+//	}
+//    
+//	public void addPlato(List<Plato> platos) {
+//		this.platos.addAll(platos);
+//	}
     
 }
