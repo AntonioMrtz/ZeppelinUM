@@ -1,0 +1,2 @@
+{"_id":{"$oid":"63b5acfc2238b23ddb8cc24e"},"calle":"calle","ciudad":"Murcia","codigoPostal":"30008","coordenadas":{"type":"Point","coordinates":[-1.1292743682861328,37.99396437784153]},"numero":1,"restaurante":1}
+{"_id":{"$oid":"63b5b4a66c225b626488edac"},"calle":"Calle","ciudad":"Murcia","codigoPostal":"30009","coordenadas":{"type":"Point","coordinates":[-1.1227950171526269,37.98812291903034]},"numero":3,"restaurante":2}
